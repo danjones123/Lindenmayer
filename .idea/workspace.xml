@@ -41,7 +41,14 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="UsingTurtle" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in UsingTurtle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="UsingTurtle" />
       <option name="PACKAGE_NAME" value="" />
@@ -52,6 +59,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in UsingTurtle" />
       </list>
     </recent_temporary>
