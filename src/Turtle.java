@@ -8,11 +8,12 @@
 //Rules are the rules for the given attempt eg F = F+F
 //Display displays the sequence using Swing.
 
-public class Turtle {
+public class Turtle extends Main {
   String word;
   int length;
   double angle;
   int x, y;
+
 
   /**
    * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
