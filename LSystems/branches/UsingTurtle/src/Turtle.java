@@ -52,18 +52,10 @@ public class Turtle extends Main {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch(current) {
-        case 'F':
-          draw(length);
-          break;
-        case 'G':
-          move(length);
-          break;
-        case '+':
-          rotate(angle);
-          break;
-        case '-':
-          rotate(-angle);
-          break;
+        case 'F' -> draw(length);
+        case 'G' -> move(length);
+        case '+' -> rotate(angle);
+        case '-' -> rotate(-angle);
       }
     }
   }
