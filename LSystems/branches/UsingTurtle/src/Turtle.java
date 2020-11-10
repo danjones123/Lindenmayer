@@ -4,10 +4,6 @@
  * @author Daniel Jones
  */
 
-//Turtle holds rules eg F = move forward etc
-//Rules are the rules for the given attempt eg F = F+F
-//Display displays the sequence using Swing.
-
 public class Turtle extends Main {
   String word;
   int length;
@@ -42,12 +38,11 @@ public class Turtle extends Main {
   public Turtle(String word, int length, double angle) {
     this.word = word;
     this.length =length;
-    this.angle =angle;
+    this.angle = angle;
     x = 0;
     y = 0;
   }
 
-  //Ignore TDD for this
   public void rules() {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
@@ -56,6 +51,8 @@ public class Turtle extends Main {
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
+        //case '[' -> pushLetter();
+        //case ']' -> popLetter();
       }
     }
   }
@@ -63,8 +60,8 @@ public class Turtle extends Main {
   public void draw(int length) {
     int oldx = x;
     int oldy = y;
-    x += length;
-    y += length;
+    x += (length * Math.cos(angle));
+    y += (length * Math.sin(angle));
     Display.setCoords(oldx, oldy, x, y);
   }
 
@@ -73,7 +70,8 @@ public class Turtle extends Main {
     y += length;
   }
 
-  public void rotate(double angle) {
-    angle += angle;
+  public void rotate(double newAngle) {
+    double radAngle = Math.toRadians(newAngle);
+    angle += radAngle;
   }
 }
