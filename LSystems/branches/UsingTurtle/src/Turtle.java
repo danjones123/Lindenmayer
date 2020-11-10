@@ -74,13 +74,11 @@ public class Turtle extends Main {
     x += length;
     y += length;
     Display.setCoords(oldx, oldy, x, y);
-    System.out.println("draw");
   }
 
   public void move(int length) {
     x += length;
     y += length;
-    System.out.println("move");
   }
 
   public void rotate(double angle) {
