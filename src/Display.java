@@ -24,7 +24,6 @@ public class Display {
     endX1 = endX;
     endY1 = endY;
     StdDraw.line(startX1, startY1, endX1, endY1);
-    System.out.println("setcords");
   }
 
   public void screen(){
