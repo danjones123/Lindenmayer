@@ -1,3 +1,8 @@
+import java.awt.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
 /**
  * Class for attempting to use the turtle interpretation to display an LSystem.
  *
@@ -9,7 +14,7 @@ public class Turtle extends Main {
   int length;
   double angle;
   int x, y;
-
+  Deque<Point> stack = new ArrayDeque<>();
 
   /**
    * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
@@ -51,8 +56,8 @@ public class Turtle extends Main {
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
-        //case '[' -> pushLetter();
-        //case ']' -> popLetter();
+        case '[' -> pushCharacter();
+        case ']' -> popCharacter();
       }
     }
   }
@@ -73,5 +78,15 @@ public class Turtle extends Main {
   public void rotate(double newAngle) {
     double radAngle = Math.toRadians(newAngle);
     angle += radAngle;
+  }
+
+  public void pushCharacter() {
+    stack.push(new Point(x, y));
+  }
+
+  public void popCharacter() {
+    Point p = stack.pop();
+    x = (int)p.getX();
+    y = (int)p.getY();
   }
 }
