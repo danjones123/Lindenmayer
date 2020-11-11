@@ -1,7 +1,6 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 /**
  * Class for attempting to use the turtle interpretation to display an LSystem.
@@ -13,7 +12,8 @@ public class Turtle extends Main {
   String word;
   int length;
   double angle;
-  int x, y;
+  int coordX;
+  int coordY;
   Deque<Point> stack = new ArrayDeque<>();
 
   /**
@@ -29,8 +29,8 @@ public class Turtle extends Main {
     this.word = word;
     this.length = length;
     this.angle = angle;
-    x = x0;
-    y = y0;
+    coordX = x0;
+    coordY = y0;
   }
 
   /**
@@ -42,51 +42,77 @@ public class Turtle extends Main {
    */
   public Turtle(String word, int length, double angle) {
     this.word = word;
-    this.length =length;
+    this.length = length;
     this.angle = angle;
-    x = 0;
-    y = 0;
+    coordX = 0;
+    coordY = 0;
   }
 
+  /**
+   * Rules class to iterate through the String and tell the program what to do at each character.
+   */
   public void rules() {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
-      switch(current) {
+      switch (current) {
         case 'F' -> draw(length);
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
         case '[' -> pushCharacter();
         case ']' -> popCharacter();
+        default -> System.out.println("Invalid character");
       }
     }
   }
 
+  /**
+   * Draws the length of the line in the given direction.
+   *
+   * @param length is the length of the line drawn.
+   */
   public void draw(int length) {
-    int oldx = x;
-    int oldy = y;
-    x += (length * Math.cos(angle));
-    y += (length * Math.sin(angle));
-    Display.setCoords(oldx, oldy, x, y);
+    int oldx = coordX;
+    int oldy = coordY;
+    coordX += (length * Math.cos(angle));
+    coordY += (length * Math.sin(angle));
+    Display.setCoords(oldx, oldy, coordX, coordY);
   }
 
+  /**
+   * Moves the turtle position without drawing.
+   *
+   * @param length is the length to move.
+   */
   public void move(int length) {
-    x += length;
-    y += length;
+    coordX += length * Math.cos(angle);
+    coordY += length * Math.sin(angle);
   }
 
+  /**
+   * Changes the direction of the turtle by taking the given angle, converting
+   * it to radians and setting the global angle to that value.
+   *
+   * @param newAngle is the angle to rotate the position by.
+   */
   public void rotate(double newAngle) {
     double radAngle = Math.toRadians(newAngle);
     angle += radAngle;
   }
 
+  /**
+   * Adds the points x and y to a Point and then pushes them to the stack to save their position.
+   */
   public void pushCharacter() {
-    stack.push(new Point(x, y));
+    stack.push(new Point(coordX, coordY));
   }
 
+  /**
+   * Pops the Point and sets x and y to the int value stored at X and Y in the Point.
+   */
   public void popCharacter() {
     Point p = stack.pop();
-    x = (int)p.getX();
-    y = (int)p.getY();
+    coordX = (int) p.getX();
+    coordY = (int) p.getY();
   }
 }
