@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06c4a6bc-280a-49f3-be8a-9f14df7464e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UsingTurtle/Display.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UsingTurtle/Display.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UsingTurtle/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UsingTurtle/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UsingTurtle/Turtle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UsingTurtle/Turtle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/UsingTurtle/TurtleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/UsingTurtle/TurtleTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Display.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605189259523</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed rounding issue caused by the co-ordinates being ints and not doubles.">
+      <created>1605192009928</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1605192009928</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -173,7 +174,8 @@
     <MESSAGE value="Added ability to save the current position, which can then be used for travelling back and forth down an LSystem." />
     <MESSAGE value="Added JavaDoc that I had not yet added and realised checkstyle was disabled, enabled it and fixed the checkstyle errors." />
     <MESSAGE value="Added a generate method to allow me to generate word strings from the initial string, it does not yet work perfectly." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a generate method to allow me to generate word strings from the initial string, it does not yet work perfectly." />
+    <MESSAGE value="Fixed rounding issue caused by the co-ordinates being ints and not doubles." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed rounding issue caused by the co-ordinates being ints and not doubles." />
   </component>
   <component name="WindowStateProjectService">
     <state x="790" y="213" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1604935138206">
