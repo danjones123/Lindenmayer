@@ -10,10 +10,10 @@ import java.util.Deque;
 
 public class Turtle extends Main {
   String word;
-  int length;
+  double length;
   double angle;
-  int coordX;
-  int coordY;
+  double coordX;
+  double coordY;
   int generationCount = 0;
   Deque<Point> stack = new ArrayDeque<>();
 
@@ -27,7 +27,7 @@ public class Turtle extends Main {
    * @param x0     is the starting x coordinate of Turtle
    * @param y0     is starting y coordinate of Turtle
    */
-  public Turtle(String word, int length, double angle, int x0, int y0) {
+  public Turtle(String word, double length, double angle, double x0, double y0) {
     this.word = word;
     this.length = length;
     this.angle = angle;
@@ -42,7 +42,7 @@ public class Turtle extends Main {
    * @param length is the length of the lines to be drawn by the turtle.
    * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
    */
-  public Turtle(String word, int length, double angle) {
+  public Turtle(String word, double length, double angle) {
     this.word = word;
     this.length = length;
     this.angle = angle;
@@ -73,9 +73,9 @@ public class Turtle extends Main {
    *
    * @param length is the length of the line drawn.
    */
-  public void draw(int length) {
-    int oldx = coordX;
-    int oldy = coordY;
+  public void draw(double length) {
+    double oldx = coordX;
+    double oldy = coordY;
     coordX += (length * Math.cos(angle));
     coordY += (length * Math.sin(angle));
     Display.setCoords(oldx, oldy, coordX, coordY);
@@ -86,7 +86,7 @@ public class Turtle extends Main {
    *
    * @param length is the length to move.
    */
-  public void move(int length) {
+  public void move(double length) {
     coordX += length * Math.cos(angle);
     coordY += length * Math.sin(angle);
   }
@@ -106,7 +106,9 @@ public class Turtle extends Main {
    * Adds the points x and y to a Point and then pushes them to the stack to save their position.
    */
   public void pushCharacter() {
-    stack.push(new Point(coordX, coordY));
+    Point p = new Point();
+    p.setLocation(coordX, coordY);
+    stack.push(p);
   }
 
   /**
@@ -114,8 +116,8 @@ public class Turtle extends Main {
    */
   public void popCharacter() {
     Point p = stack.pop();
-    coordX = (int) p.getX();
-    coordY = (int) p.getY();
+    coordX =  p.getX();
+    coordY =  p.getY();
   }
 
   /**

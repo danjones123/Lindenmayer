@@ -5,10 +5,10 @@ import java.awt.Color;
  */
 public class Display {
 
-  static int startX1 = 0;
-  static int startY1 = 0;
-  static int endX1 = 0;
-  static int endY1 = 0;
+  static double startX1 = 0;
+  static double startY1 = 0;
+  static double endX1 = 0;
+  static double endY1 = 0;
 
   /**
    * Sets up the canvas to be drawn onto.
@@ -31,7 +31,7 @@ public class Display {
    * @param endX is the end x position.
    * @param endY is the end y position.
    */
-  public static void setCoords(int startX, int startY, int endX, int endY) {
+  public static void setCoords(double startX, double startY, double endX, double endY) {
     startX1 = startX;
     startY1 = startY;
     endX1 = endX;
