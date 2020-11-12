@@ -14,7 +14,9 @@ public class Turtle extends Main {
   double angle;
   int coordX;
   int coordY;
+  int generationCount = 0;
   Deque<Point> stack = new ArrayDeque<>();
+
 
   /**
    * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
@@ -114,5 +116,39 @@ public class Turtle extends Main {
     Point p = stack.pop();
     coordX = (int) p.getX();
     coordY = (int) p.getY();
+  }
+
+  /**
+   * Generate method to perform the LSystem process on the string.
+   *
+   * @param iterations is the number of times the rule is iterated through.
+   */
+  public void generate(int iterations) {
+    StringBuilder next = new StringBuilder();
+    for (int j = 0; j < iterations; j++) {
+      for (int i = 0; i < word.length(); i++) {
+        char c = word.charAt(i);
+        if (c == 'F') {
+          next.append("F-F+F+FF-F-F+F");
+        } else if (c == 'G') {
+          next.append("FFFFF");
+        } else if (c == '+') {
+          next.append('+');
+        } else if (c == '-') {
+          next.append('-');
+        } else if (c == '[') {
+          next.append('[');
+        } else if (c == ']') {
+          next.append(']');
+        }
+
+      }
+      word = next.toString();
+      generationCount++;
+      System.out.println("At Generation: " + generationCount + ", String is " + word);
+    }
+
+    System.out.println("Generation: " + generationCount);
+    System.out.println("Final String = " + word);
   }
 }
