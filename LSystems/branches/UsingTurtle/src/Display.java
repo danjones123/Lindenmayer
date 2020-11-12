@@ -17,9 +17,9 @@ public class Display {
     StdDraw.show();
     StdDraw.setPenColor(Color.BLACK);
     StdDraw.setPenRadius(1);
-    StdDraw.setCanvasSize(400, 400);
-    StdDraw.setXscale(0, 400);
-    StdDraw.setYscale(0, 400);
+    StdDraw.setCanvasSize(500, 500);
+    StdDraw.setXscale(0, 500);
+    StdDraw.setYscale(0, 500);
     StdDraw.enableDoubleBuffering();
   }
 
