@@ -106,18 +106,18 @@ public class Turtle extends Main {
    * Adds the points x and y to a Point and then pushes them to the stack to save their position.
    */
   public void pushCharacter() {
-    Point p = new Point();
-    p.setLocation(coordX, coordY);
-    stack.push(p);
+    Point pushP = new Point();
+    pushP.setLocation(coordX, coordY);
+    stack.push(pushP);
   }
 
   /**
    * Pops the Point and sets x and y to the int value stored at X and Y in the Point.
    */
   public void popCharacter() {
-    Point p = stack.pop();
-    coordX =  p.getX();
-    coordY =  p.getY();
+    Point popP = stack.pop();
+    coordX =  popP.getX();
+    coordY =  popP.getY();
   }
 
   /**
