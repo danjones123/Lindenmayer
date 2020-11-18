@@ -131,9 +131,9 @@ public class Turtle extends Main {
       for (int i = 0; i < word.length(); i++) {
         char c = word.charAt(i);
         if (c == 'F') {
-          next.append("F-F+F+FF-F-F+F");
+          next.append("FF+[+F-F-F]-[-F+F+F]");
         } else if (c == 'G') {
-          next.append("FFFFF");
+          next.append("GG");
         } else if (c == '+') {
           next.append('+');
         } else if (c == '-') {
