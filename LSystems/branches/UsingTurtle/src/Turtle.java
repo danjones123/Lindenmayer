@@ -12,8 +12,11 @@ public class Turtle extends Main {
   String word;
   double length;
   double angle;
+  double currAngle = 0;
   double coordX;
   double coordY;
+  double oldX;
+  double oldY;
   int generationCount = 0;
   Deque<Point> stack = new ArrayDeque<>();
 
@@ -68,89 +71,124 @@ public class Turtle extends Main {
     }
   }
 
-  /**
-   * Draws the length of the line in the given direction.
-   *
-   * @param length is the length of the line drawn.
-   */
   public void draw(double length) {
-    double oldx = coordX;
-    double oldy = coordY;
-    coordX += (length * Math.cos(angle));
-    coordY += (length * Math.sin(angle));
-    Display.setCoords(oldx, oldy, coordX, coordY);
+    oldX = coordX;
+    oldY = coordY;
+    coordX += (length * Math.cos(currAngle));
+    coordY += (length * Math.sin(currAngle));
+
   }
 
-  /**
-   * Moves the turtle position without drawing.
-   *
-   * @param length is the length to move.
-   */
   public void move(double length) {
-    coordX += length * Math.cos(angle);
-    coordY += length * Math.sin(angle);
+    coordX += (length * Math.cos(currAngle));
+    coordY += (length * Math.sin(currAngle));
   }
 
-  /**
-   * Changes the direction of the turtle by taking the given angle, converting
-   * it to radians and setting the global angle to that value.
-   *
-   * @param newAngle is the angle to rotate the position by.
-   */
-  public void rotate(double newAngle) {
-    double radAngle = Math.toRadians(newAngle);
-    angle += radAngle;
+  public void rotate(double angle) {
+    currAngle += Math.toRadians(angle);
   }
 
-  /**
-   * Adds the points x and y to a Point and then pushes them to the stack to save their position.
-   */
   public void pushCharacter() {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
     stack.push(pushP);
   }
 
-  /**
-   * Pops the Point and sets x and y to the int value stored at X and Y in the Point.
-   */
   public void popCharacter() {
     Point popP = stack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
   }
 
-  /**
-   * Generate method to perform the LSystem process on the string.
-   *
-   * @param iterations is the number of times the rule is iterated through.
-   */
-  public void generate(int iterations) {
-    StringBuilder next = new StringBuilder();
-    for (int j = 0; j < iterations; j++) {
-      for (int i = 0; i < word.length(); i++) {
-        char c = word.charAt(i);
-        if (c == 'F') {
-          next.append("FF+[+F-F-F]-[-F+F+F]");
-        } else if (c == 'G') {
-          next.append("GG");
-        } else if (c == '+') {
-          next.append('+');
-        } else if (c == '-') {
-          next.append('-');
-        } else if (c == '[') {
-          next.append('[');
-        } else if (c == ']') {
-          next.append(']');
-        }
+  // /**
+  //  * Draws the length of the line in the given direction.
+  //  *
+  //  * @param length is the length of the line drawn.
+  //  */
+  // public void draw(double length) {
+  //   double oldx = coordX;
+  //   double oldy = coordY;
+  //   coordX += (length * Math.cos(angle));
+  //   coordY += (length * Math.sin(angle));
+  //   Display.setCoords(oldx, oldy, coordX, coordY);
+  // }
 
-      }
-      word = next.toString();
-      generationCount++;
-      System.out.println("At Generation: " + generationCount + ", String is " + word);
-    }
 
-    System.out.println("Generation: " + generationCount);
-    System.out.println("Final String = " + word);
-  }
+  ///**
+  // * Moves the turtle position without drawing.
+  // *
+  // * @param length is the length to move.
+  //*/
+  //public void move(double length) {
+  //  coordX += length * Math.cos(angle);
+  //  coordY += length * Math.sin(angle);
+  //}
+
+
+  ///**
+  // * Changes the direction of the turtle by taking the given angle, converting
+  // * it to radians and setting the global angle to that value.
+  // *
+  // * @param newAngle is the angle to rotate the position by.
+  // */
+  //public void rotate(double newAngle) {
+  //  double radAngle = Math.toRadians(newAngle);
+  //  angle += radAngle;
+  //}
+
+
+  ///**
+  // * Adds the points x and y to a Point and then pushes them to the stack to save their position.
+  // */
+  //public void pushCharacter() {
+  //  Point pushP = new Point();
+  //  pushP.setLocation(coordX, coordY);
+  //  stack.push(pushP);
+  //}
+
+
+  ///**
+  // * Pops the Point and sets x and y to the int value stored at X and Y in the Point.
+  // */
+  //public void popCharacter() {
+  //  Point popP = stack.pop();
+  //  coordX =  popP.getX();
+  //  coordY =  popP.getY();
+  // }
+
+
+  ///**
+  //* Generate method to perform the LSystem process on the string.
+  //*
+  //* @param iterations is the number of times the rule is iterated through.
+  //*/
+  //public void generate(int iterations) {
+  //  StringBuilder next = new StringBuilder();
+  //  for (int j = 0; j < iterations; j++) {
+  //    for (int i = 0; i < word.length(); i++) {
+  //     char c = word.charAt(i);
+  //     if (c == 'F') {
+  //next.append("FF+[+F-F-F]-[-F+F+F]");
+  //     } else if (c == 'G') {
+  //       next.append("GG");
+  //     } else if (c == '+') {
+  //       next.append('+');
+  //     } else if (c == '-') {
+  //       next.append('-');
+  //     } else if (c == '[') {
+  //       next.append('[');
+  //     } else if (c == ']') {
+  //       next.append(']');
+  //     }
+
+  //   }
+  //   word = next.toString();
+  //   generationCount++;
+  //   System.out.println("At Generation: " + generationCount + ", String is " + word);
+  // }
+
+  //System.out.println("Generation: " + generationCount);
+  //System.out.println("Final String = " + word);
+  //}
+
 }
