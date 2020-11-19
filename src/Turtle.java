@@ -17,10 +17,7 @@ public class Turtle extends Main {
   double coordY;
   double oldX;
   double oldY;
-  int generationCount = 0;
   Deque<Point> stack = new ArrayDeque<>();
-  //String[] genRules;
-
 
   /**
    * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
@@ -72,6 +69,13 @@ public class Turtle extends Main {
     }
   }
 
+  /**
+   * Stores the original x and y coordinates and then transforms the new ones by adding them to
+   * length multiplied with the sin/cos of currAngle so as to give it a distance to move and a
+   * direction for it to move to.
+   *
+   * @param length is the length for the coordinates to move.
+   */
   public void draw(double length) {
     oldX = coordX;
     oldY = coordY;
@@ -80,27 +84,52 @@ public class Turtle extends Main {
     Display.setCoords(oldX, oldY, coordX, coordY);
   }
 
+  /**
+   * Moves the coordinates by the given length multiplied by the given angle but does not draw
+   * anything.
+   *
+   * @param length is the distance to move.
+   */
   public void move(double length) {
     coordX += (length * Math.cos(currAngle));
     coordY += (length * Math.sin(currAngle));
   }
 
+  /**
+   * Changes the current angle of the line by adding the radian version of the given angle.
+   *
+   * @param angle is the angle to rotate the coordinates.
+   */
   public void rotate(double angle) {
     currAngle += Math.toRadians(angle);
   }
 
+  /**
+   * Creates a Point object with the coordinates taken at the time the [ is used and then pushes
+   * them into a stack.
+   */
   public void pushCharacter() {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
     stack.push(pushP);
   }
 
+  /**
+   * Pops the point from the stack and then sets the coordinates back to those that were pushed
+   * into the stack.
+   */
   public void popCharacter() {
     Point popP = stack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
   }
 
+  /**
+   * Iterates through the string and creates a new string by applying the given rules.
+   *
+   * @param iterations is the number of times to iterate through the string.
+   * @param genRules is an array of rules to be applied to the given characters.
+   */
   public void generate(int iterations, String[] genRules) {
     String nextWord = word;
     StringBuilder next = new StringBuilder();
@@ -126,96 +155,4 @@ public class Turtle extends Main {
     }
     word = nextWord;
   }
-
-  // /**
-  //  * Draws the length of the line in the given direction.
-  //  *
-  //  * @param length is the length of the line drawn.
-  //  */
-  // public void draw(double length) {
-  //   double oldx = coordX;
-  //   double oldy = coordY;
-  //   coordX += (length * Math.cos(angle));
-  //   coordY += (length * Math.sin(angle));
-  //   Display.setCoords(oldx, oldy, coordX, coordY);
-  // }
-
-
-  ///**
-  // * Moves the turtle position without drawing.
-  // *
-  // * @param length is the length to move.
-  //*/
-  //public void move(double length) {
-  //  coordX += length * Math.cos(angle);
-  //  coordY += length * Math.sin(angle);
-  //}
-
-
-  ///**
-  // * Changes the direction of the turtle by taking the given angle, converting
-  // * it to radians and setting the global angle to that value.
-  // *
-  // * @param newAngle is the angle to rotate the position by.
-  // */
-  //public void rotate(double newAngle) {
-  //  double radAngle = Math.toRadians(newAngle);
-  //  angle += radAngle;
-  //}
-
-
-  ///**
-  // * Adds the points x and y to a Point and then pushes them to the stack to save their position.
-  // */
-  //public void pushCharacter() {
-  //  Point pushP = new Point();
-  //  pushP.setLocation(coordX, coordY);
-  //  stack.push(pushP);
-  //}
-
-
-  ///**
-  // * Pops the Point and sets x and y to the int value stored at X and Y in the Point.
-  // */
-  //public void popCharacter() {
-  //  Point popP = stack.pop();
-  //  coordX =  popP.getX();
-  //  coordY =  popP.getY();
-  // }
-
-
-  ///**
-  //* Generate method to perform the LSystem process on the string.
-  //*
-  //* @param iterations is the number of times the rule is iterated through.
-  //*/
-  //public void generate(int iterations) {
-  //  StringBuilder next = new StringBuilder();
-  //  for (int j = 0; j < iterations; j++) {
-  //    for (int i = 0; i < word.length(); i++) {
-  //     char c = word.charAt(i);
-  //     if (c == 'F') {
-  //next.append("FF+[+F-F-F]-[-F+F+F]");
-  //     } else if (c == 'G') {
-  //       next.append("GG");
-  //     } else if (c == '+') {
-  //       next.append('+');
-  //     } else if (c == '-') {
-  //       next.append('-');
-  //     } else if (c == '[') {
-  //       next.append('[');
-  //     } else if (c == ']') {
-  //       next.append(']');
-  //     }
-
-  //   }
-  //   word = next.toString();
-  //   generationCount++;
-  //   System.out.println("At Generation: " + generationCount + ", String is " + word);
-  // }
-
-  //System.out.println("Generation: " + generationCount);
-  //System.out.println("Final String = " + word);
-  //}
-
 }
