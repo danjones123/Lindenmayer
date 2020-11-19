@@ -235,6 +235,61 @@ public class TurtleTest {
     assertEquals(pushDrawPop2.coordY, 100, 1e-10);
   }
 
+  @Test
+  public void testSimpleDrawGenerate() {
+    Turtle testSimpleDrawGenerate = new Turtle("F", 0, 0);
+    String[] genRules = {"FFF"};
+    testSimpleDrawGenerate.generate(1, genRules);
+    assertEquals("FFF", testSimpleDrawGenerate.word);
+  }
+
+  @Test
+  public void testMoreComplexDrawGenerate() {
+    Turtle testMoreComplexDrawGenerate = new Turtle("F", 0, 0);
+    String[] genRules = {"F[F+F+F]F"};
+    testMoreComplexDrawGenerate.generate(1, genRules);
+    assertEquals("F[F+F+F]F", testMoreComplexDrawGenerate.word);
+  }
+
+  @Test
+  public void testTwoRulesInGenRules() {
+    Turtle testMoreComplexDrawGenerate = new Turtle("FGF", 0, 0);
+    String[] genRules = {"FF", "GG"};
+    testMoreComplexDrawGenerate.generate(1, genRules);
+    assertEquals("FFGGFF", testMoreComplexDrawGenerate.word);
+  }
+
+  @Test
+  public void testComplexMultipleRules() {
+    Turtle testMoreComplexDrawGenerate = new Turtle("FF+[F+F+FGGF]", 0, 0);
+    String[] genRules = {"F+G+F", "GGGGGGGG"};
+    testMoreComplexDrawGenerate.generate(1, genRules);
+    assertEquals("F+G+FF+G+F+[F+G+F+F+G+F+F+G+FGGGGGGGGGGGGGGGGF+G+F]", testMoreComplexDrawGenerate.word);
+  }
+
+  @Test
+  public void testMoreGenerations() {
+    Turtle testMoreGenerations = new Turtle("F", 0, 0);
+    String[] genRules = {"FF", "GG"};
+    testMoreGenerations.generate(2, genRules);
+    assertEquals("FFFF", testMoreGenerations.word);
+  }
+
+  @Test
+  public void testMoreComplextGenerations() {
+    Turtle testMoreComplexGenerations = new Turtle("FGF", 0, 0);
+    String[] genRules = {"FF", "GG"};
+    testMoreComplexGenerations.generate(2, genRules);
+    assertEquals("FFFFGGGGFFFF", testMoreComplexGenerations.word);
+  }
+
+  @Test
+  public void testSierpinskiTriangle() {
+    Turtle testSierpinskiTriangle = new Turtle("F--F--F", 5, 60);
+    String[] genRules = {"F--F--F--G", "GG"};
+    testSierpinskiTriangle.generate(3, genRules);
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG", testSierpinskiTriangle.word);
+  }
 
   /**
    * Tests to make sure the switch statement in rules for F goes to the draw method.

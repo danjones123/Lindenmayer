@@ -19,6 +19,7 @@ public class Turtle extends Main {
   double oldY;
   int generationCount = 0;
   Deque<Point> stack = new ArrayDeque<>();
+  //String[] genRules;
 
 
   /**
@@ -76,7 +77,7 @@ public class Turtle extends Main {
     oldY = coordY;
     coordX += (length * Math.cos(currAngle));
     coordY += (length * Math.sin(currAngle));
-
+    Display.setCoords(oldX, oldY, coordX, coordY);
   }
 
   public void move(double length) {
@@ -98,6 +99,32 @@ public class Turtle extends Main {
     Point popP = stack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
+  }
+
+  public void generate(int iterations, String[] genRules) {
+    String nextWord = word;
+    StringBuilder next = new StringBuilder();
+    for (int j = 0; j < iterations; j++) {
+      for (int i = 0; i < nextWord.length(); i++) {
+        char c = nextWord.charAt(i);
+        if (c == 'F') {
+          next.append(genRules[0]);
+        } else if (c == 'G') {
+          next.append(genRules[1]);
+        } else if (c == '+') {
+          next.append('+');
+        } else if (c == '-') {
+          next.append('-');
+        } else if (c == '[') {
+          next.append('[');
+        } else if (c == ']') {
+          next.append(']');
+        }
+      }
+      nextWord = next.toString();
+      next.setLength(0);
+    }
+    word = nextWord;
   }
 
   // /**
