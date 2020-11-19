@@ -13,8 +13,8 @@ public class Main {
   public static void main(String[] args) {
     Display display = new Display();
     display.setup();
-    Turtle turtle = new Turtle("F+F+F+F", 50, 90, 300, 600);
-    turtle.generate(2);
+    Turtle turtle = new Turtle("F", 50, 0, 300, 600);
+    //turtle.generate(2);
     turtle.rules();
 
     display.screen();
