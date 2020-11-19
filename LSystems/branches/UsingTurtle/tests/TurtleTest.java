@@ -2,17 +2,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * Testing class for the Turtle class.
+ *
+ * @author Daniel Jones.
+ */
 
 public class TurtleTest {
 
-  //private Turtle globTurtle = new Turtle("FG+-[]", 5, 90, 150, 150);
-  @Before
-  public void setUp() throws Exception {
-  }
 
   /**
    * Tests to make sure the values of a Turtle with three parameters is constructed properly.
@@ -42,6 +41,9 @@ public class TurtleTest {
     assertEquals(0, turtle5.currAngle, 1e-10);
   }
 
+  /**
+   * Tests that the coordinates of the turtle are changed when a 'F' is given and draw is called.
+   */
   @Test
   public void testDrawLength() {
     Turtle turtleDraw = new Turtle("F", 10, 90);
@@ -50,6 +52,10 @@ public class TurtleTest {
     assertEquals(0, turtleDraw.coordY, 1e-10);
   }
 
+  /**
+   * Tests that the coordiantes of the turtle are changed multiple times when multiple F's are
+   * given.
+   */
   @Test
   public void testMultipleDraw() {
     Turtle multipleDraw = new Turtle("FFF", 10, 90);
@@ -58,11 +64,11 @@ public class TurtleTest {
     multipleDraw.rules();
     assertEquals(30, multipleDraw.coordX, 1e-10);
     assertEquals(0, multipleDraw.coordY, 1e-10);
-
   }
 
-
-
+  /**
+   * Tests that the move method words when a 'G' is given.
+   */
   @Test
   public void testMove() {
     Turtle turtleMove = new Turtle("G", 10, 90);
@@ -71,6 +77,9 @@ public class TurtleTest {
     assertEquals(0, turtleMove.coordY, 1e-10);
   }
 
+  /**
+   * Tests that the move method works with multiple G's given.
+   */
   @Test
   public void testMultipleMove() {
     Turtle multipleMove = new Turtle("GGG", 10, 90);
@@ -81,6 +90,9 @@ public class TurtleTest {
     assertEquals(0, multipleMove.coordY, 1e-10);
   }
 
+  /**
+   * Tests that the turtle coordinates are what they shoudl be when draw and move are both called.
+   */
   @Test
   public void testDrawMoveDraw() {
     Turtle multipleDrawMoveDraw = new Turtle("FGF", 10, 90);
@@ -91,6 +103,9 @@ public class TurtleTest {
     assertEquals(0, multipleDrawMoveDraw.coordY, 1e-10);
   }
 
+  /**
+   * Tests that rotate changes the currAngle in turtle and does not change the global angle.
+   */
   @Test
   public void testPositiveRotate() {
     Turtle posRotate = new Turtle("+", 10, 90);
@@ -101,6 +116,9 @@ public class TurtleTest {
     assertEquals(Math.toRadians(90), posRotate.currAngle, 1e-10);
   }
 
+  /**
+   * Tests that rotate also works with negative values.
+   */
   @Test
   public void testNegativeRotate() {
     Turtle negRotate = new Turtle("-", 10, 90);
@@ -111,6 +129,9 @@ public class TurtleTest {
     assertEquals(Math.toRadians(-90), negRotate.currAngle, 1e-10);
   }
 
+  /**
+   * Tests that a negative and positive rotation cancel each other out, as they should.
+   */
   @Test
   public void cancelRotations() {
     Turtle cancelRotate = new Turtle("+-", 10, 90);
@@ -121,6 +142,9 @@ public class TurtleTest {
     assertEquals(0, cancelRotate.currAngle, 1e-10);
   }
 
+  /**
+   * Tests that the currAngle is being used to allow a draw/rotate/draw to work.
+   */
   @Test
   public void drawingWithAngle() {
     Turtle drawingWithAngle = new Turtle("F+F", 10, 90);
@@ -133,6 +157,9 @@ public class TurtleTest {
     assertEquals(10, drawingWithAngle.coordX, 1e-10);
   }
 
+  /**
+   * Tests that draw can work with multiple angles being called.
+   */
   @Test
   public void drawingWithTwoAngle() {
     Turtle drawingWithTwoAngle = new Turtle("F+F+F", 10, 90);
@@ -144,7 +171,10 @@ public class TurtleTest {
     assertEquals(0, drawingWithTwoAngle.coordX, 1e-10);
     assertEquals(10, drawingWithTwoAngle.coordY, 1e-10);
   }
-  
+
+  /**
+   * Tests that if a square is given that the starting and ending co-ordinates are the same.
+   */
   @Test
   public void sqaureCoords() {
     Turtle squareCoords = new Turtle("F+F+F+F", 10, 90);
@@ -157,6 +187,9 @@ public class TurtleTest {
     assertEquals(0, squareCoords.coordY, 1e-10);
   }
 
+  /**
+   * Tests that the square also works with negative values.
+   */
   @Test
   public void negativeSquare() {
     Turtle negativeSquare = new Turtle("F-F-F-F", 10, 90);
@@ -169,6 +202,9 @@ public class TurtleTest {
     assertEquals(0, negativeSquare.coordY, 1e-10);
   }
 
+  /**
+   * Tests that draw records both old and new coordinates as it needs both to draw a line.
+   */
   @Test
   public void drawHasLineCoords() {
     Turtle drawHasLineCoords = new Turtle("F", 10, 90);
@@ -181,6 +217,9 @@ public class TurtleTest {
     assertEquals(0, drawHasLineCoords.coordY, 1e-10);
   }
 
+  /**
+   * Tests that when draw holds old and new coordinates it still works with angles.
+   */
   @Test
   public void drawWithAngleHasLineCoords() {
     Turtle drawWithAngleHasLineCoords = new Turtle("F+F", 10, 90);
@@ -193,7 +232,9 @@ public class TurtleTest {
     assertEquals(10, drawWithAngleHasLineCoords.coordY, 1e-10);
   }
 
-
+  /**
+   * Tests that the push method works and that the stack is not empty when it is called.
+   */
   @Test
   public void simplePush() {
     Turtle simplePush = new Turtle("[", 10, 90, 100, 100);
@@ -202,6 +243,9 @@ public class TurtleTest {
     assertFalse(simplePush.stack.isEmpty());
   }
 
+  /**
+   * Tests that the pop method works and pops what it is given when called.
+   */
   @Test
   public void simplePushPop() {
     Turtle simplePushPop = new Turtle("[]", 10, 90, 100, 100);
@@ -214,6 +258,10 @@ public class TurtleTest {
     assertEquals(simplePushPop.coordY, 100, 1e-10);
   }
 
+  /**
+   * Tests that push and draw can work and that push/draw/pop work and given the correct
+   * coordinates.
+   */
   @Test
   public void pushDrawPop() {
     Turtle pushDrawPop = new Turtle("[F", 10, 90, 100, 100);
@@ -235,6 +283,9 @@ public class TurtleTest {
     assertEquals(pushDrawPop2.coordY, 100, 1e-10);
   }
 
+  /**
+   * Tests that the generate method works for turning a character into a given string.
+   */
   @Test
   public void testSimpleDrawGenerate() {
     Turtle testSimpleDrawGenerate = new Turtle("F", 0, 0);
@@ -243,6 +294,9 @@ public class TurtleTest {
     assertEquals("FFF", testSimpleDrawGenerate.word);
   }
 
+  /**
+   * Tests that generate works with more complicated rules.
+   */
   @Test
   public void testMoreComplexDrawGenerate() {
     Turtle testMoreComplexDrawGenerate = new Turtle("F", 0, 0);
@@ -251,6 +305,9 @@ public class TurtleTest {
     assertEquals("F[F+F+F]F", testMoreComplexDrawGenerate.word);
   }
 
+  /**
+   * Tests that generate works when there are multiple rules in the rule-set.
+   */
   @Test
   public void testTwoRulesInGenRules() {
     Turtle testMoreComplexDrawGenerate = new Turtle("FGF", 0, 0);
@@ -259,123 +316,54 @@ public class TurtleTest {
     assertEquals("FFGGFF", testMoreComplexDrawGenerate.word);
   }
 
+  /**
+   * Tests that generate can use complex strings and rules to give the correct output.
+   */
   @Test
   public void testComplexMultipleRules() {
     Turtle testMoreComplexDrawGenerate = new Turtle("FF+[F+F+FGGF]", 0, 0);
     String[] genRules = {"F+G+F", "GGGGGGGG"};
     testMoreComplexDrawGenerate.generate(1, genRules);
-    assertEquals("F+G+FF+G+F+[F+G+F+F+G+F+F+G+FGGGGGGGGGGGGGGGGF+G+F]", testMoreComplexDrawGenerate.word);
+    assertEquals("F+G+FF+G+F+[F+G+F+F+G+F+F+G+FGGGGGGGGGGGGGGGGF+G+F]",
+        testMoreComplexDrawGenerate.word);
   }
 
+  /**
+   * Tests that generate works with multiple iterations.
+   */
   @Test
-  public void testMoreGenerations() {
-    Turtle testMoreGenerations = new Turtle("F", 0, 0);
+  public void testMoreIterations() {
+    Turtle testMoreIterations = new Turtle("F", 0, 0);
     String[] genRules = {"FF", "GG"};
-    testMoreGenerations.generate(2, genRules);
-    assertEquals("FFFF", testMoreGenerations.word);
+    testMoreIterations.generate(2, genRules);
+    assertEquals("FFFF", testMoreIterations.word);
   }
 
+  /**
+   * Tests that generate works with multiple iterations and more complex strings/rules.
+   */
   @Test
-  public void testMoreComplextGenerations() {
-    Turtle testMoreComplexGenerations = new Turtle("FGF", 0, 0);
+  public void testMoreComplextIterations() {
+    Turtle testMoreComplexIterations = new Turtle("FGF", 0, 0);
     String[] genRules = {"FF", "GG"};
-    testMoreComplexGenerations.generate(2, genRules);
-    assertEquals("FFFFGGGGFFFF", testMoreComplexGenerations.word);
+    testMoreComplexIterations.generate(2, genRules);
+    assertEquals("FFFFGGGGFFFF", testMoreComplexIterations.word);
   }
 
+  /**
+   * Tests that given the rules for a Sierpinski triangle the generate method returns what it
+   * should.
+   */
   @Test
   public void testSierpinskiTriangle() {
     Turtle testSierpinskiTriangle = new Turtle("F--F--F", 5, 60);
     String[] genRules = {"F--F--F--G", "GG"};
     testSierpinskiTriangle.generate(3, genRules);
-    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG", testSierpinskiTriangle.word);
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F"
+           + "--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F"
+           + "--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F"
+           + "--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F"
+           + "--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG",
+        testSierpinskiTriangle.word);
   }
-
-  /**
-   * Tests to make sure the switch statement in rules for F goes to the draw method.
-   */
-  //  @Test
- // public void testRulesCallsDraw() {
-  //  Turtle drawTurtle = new Turtle("F", 5, 90, 150, 150);
-    //assertEquals(drawTurtle.coordX, 150, 1e-15);
-    //assertEquals(drawTurtle.coordY, 150, 1e-15);
-    //drawTurtle.rules();
-    //assertEquals(drawTurtle.coordX, 150 + (5 * Math.cos(90)), 1e-15);
-    //assertEquals(drawTurtle.coordY, 150 + (5 * Math.sin(90)), 1e-15);
-  //}
-
-  /**
-   * Tests to make sure the switch statement in rules calls draw twice if there are two 'F's.
-   */
-  //@Test
-  //public void testRulesCallsDrawTwice() {
-  //  Turtle drawTwoTurtle = new Turtle("FF", 5, 90, 150, 150);
-  //  assertEquals(drawTwoTurtle.coordX, 150, 1e-15);
-   // assertEquals(drawTwoTurtle.coordY, 150, 1e-15);
-   // drawTwoTurtle.rules();
-   // assertEquals(drawTwoTurtle.coordX, 150 + (5 * Math.cos(90) + (5 * Math.cos(90))), 1e-15);
-   // assertEquals(drawTwoTurtle.coordY, 150 + (5 * Math.sin(90) + (5 * Math.sin(90))), 1e-15);
-  //}
-
-  /**
-   * Tests to make sure that rules calls move when given a G.
-   */
-  //@Test
-  //public void testRulesCallsMove() {
-  //  Turtle moveTurtle = new Turtle("G", 5, 90, 150, 150);
-  //  assertEquals(moveTurtle.coordX, 150, 1e-15);
-   // assertEquals(moveTurtle.coordY, 150, 1e-15);
-   // moveTurtle.rules();
-   // assertEquals(moveTurtle.coordX, 150 + (5 * Math.cos(90)), 1e-15);
-   // assertEquals(moveTurtle.coordY, 150 + (5 * Math.sin(90)), 1e-15);
- // }
-
-  /**
-   * Test to make sure that rules calls draw twice if there are two 'G's.
-   */
- // @Test
- // public void testRulesCallsMoveTwice() {
- //   Turtle moveTwoTurtle = new Turtle("GG", 5, 90, 150, 150);
-  //  assertEquals(moveTwoTurtle.coordX, 150, 1e-15);
-  //  assertEquals(moveTwoTurtle.coordY, 150, 1e-15);
-  //  moveTwoTurtle.rules();
-  //  assertEquals(moveTwoTurtle.coordX, 150 + (5 * Math.cos(90) + (5 * Math.cos(90))), 1e-15);
-  //  assertEquals(moveTwoTurtle.coordY, 150 + (5 * Math.sin(90) + (5 * Math.sin(90))), 1e-15);
- // }
-
-  /**
-   * Tests that the rotation is applied when a '+' is given.
-   */
- // @Test
- // public void testRulesCallsRotate() {
- //   Turtle rotateTurtle = new Turtle("+", 5, 90, 150, 150);
- //   assertEquals(rotateTurtle.angle, 90, 1e-15);
- //   rotateTurtle.rules();
- //   assertEquals(rotateTurtle.angle, 90 + Math.toRadians(90), 1e-15);
- // }
-
-  /**
-   * Tests that a negative rotation happens when '-' is given.
-   */
- // @Test
- // public void testRulesCallsNegativeRotate() {
- //   Turtle negativeRotateTurtle = new Turtle("-", 5, 90, 150, 150);
- //   assertEquals(negativeRotateTurtle.angle, 90, 1e-15);
- //   negativeRotateTurtle.rules();
- //   assertEquals(negativeRotateTurtle.angle, Math.toRadians(90) + Math.toRadians(-90), 1e-15);
- // }
-
-  /**
-   * Test to make sure that when a square is given, the starting point is equal to the
-   * finishing point.
-   */
-  //@Test
-  //public void testSquare() {
-  //  Turtle square = new Turtle("F+F+F+F", 20, 90, 100, 100);
-  //  assertEquals(square.coordX, 100, 1e-15);
-  //  assertEquals(square.coordY, 100, 1e-15);
-  //  square.rules();
-  //  assertEquals(square.coordX, 100, 1e-15);
-  //  assertEquals(square.coordY, 100, 1e-15);
-  //}
 }

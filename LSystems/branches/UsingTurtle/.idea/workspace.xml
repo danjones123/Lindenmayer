@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06c4a6bc-280a-49f3-be8a-9f14df7464e2" name="Default Changelist" comment="Added TDD and code for a generate method and have been able to make a sierpinski trai">
+    <list default="true" id="06c4a6bc-280a-49f3-be8a-9f14df7464e2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UsingTurtle/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UsingTurtle/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UsingTurtle/Turtle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UsingTurtle/Turtle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/UsingTurtle/TurtleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/UsingTurtle/TurtleTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/TurtleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TurtleTest.java" afterDir="false" />
     </list>
@@ -209,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605801668044</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added TDD and code for a generate method and have been able to make a sierpinski triangle to make sure it is working as it should.">
+      <created>1605806743958</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1605806743958</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -225,7 +228,8 @@
     <MESSAGE value="Changed variable names of points to make them unique" />
     <MESSAGE value="Added some more TDD to make sure that my methods are working as they should." />
     <MESSAGE value="Forgot to add comment on previous commit. Recreated almost all of my code from the ground up using TDD so as to ensure it all works exactly as intended" />
-    <option name="LAST_COMMIT_MESSAGE" value="Forgot to add comment on previous commit. Recreated almost all of my code from the ground up using TDD so as to ensure it all works exactly as intended" />
+    <MESSAGE value="Added TDD and code for a generate method and have been able to make a sierpinski triangle to make sure it is working as it should." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added TDD and code for a generate method and have been able to make a sierpinski triangle to make sure it is working as it should." />
   </component>
   <component name="WindowStateProjectService">
     <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1605797545316">
@@ -244,30 +248,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1604935140173" />
-    <state x="305" y="107" key="CommitChangelistDialog2" timestamp="1605806505641">
+    <state x="305" y="107" key="CommitChangelistDialog2" timestamp="1605806741929">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="305" y="107" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806505641" />
+    <state x="305" y="107" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806741929" />
     <state x="666" y="261" key="FileChooserDialogImpl" timestamp="1604935136119">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="666" y="261" key="FileChooserDialogImpl/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1604935136119" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1605806681297">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1605806923417">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806681297" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1605806681297">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806923417" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1605806923417">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806681297" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1605806681297">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806923417" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1605806923417">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806681297" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1605806681297">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806923417" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1605806923417">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806681297" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605806923417" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1605798539943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
