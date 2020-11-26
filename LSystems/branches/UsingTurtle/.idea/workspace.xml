@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06c4a6bc-280a-49f3-be8a-9f14df7464e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/TurtleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TurtleTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="06c4a6bc-280a-49f3-be8a-9f14df7464e2" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +46,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TurtleTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="UsingTurtle" />
@@ -77,8 +73,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TurtleTest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TurtleTest" />
         <item itemvalue="JUnit.All in UsingTurtle" />
       </list>
     </recent_temporary>
@@ -92,16 +88,16 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\cehck\LSystems\branches\UsingTurtle" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\cehck\LSystems\branches\UsingTurtle" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\Checkout\LSystems\branches\UsingTurtle" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\Checkout\LSystems\branches\UsingTurtle" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\cehck\LSystems\branches\UsingTurtle" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\cehck\LSystems\branches\UsingTurtle" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\Checkout\LSystems\branches\UsingTurtle" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\Checkout\LSystems\branches\UsingTurtle" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -288,10 +284,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605798539943" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1605708667814">
+    <state x="440" y="94" key="SettingsEditor" timestamp="1606425879364">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1605708667814" />
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1606425879364" />
     <state x="665" y="411" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1603900776558">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
