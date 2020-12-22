@@ -9,9 +9,7 @@ import org.junit.Test;
  *
  * @author Daniel Jones.
  */
-
 public class TurtleTest {
-
 
   /**
    * Tests to make sure the values of a Turtle with three parameters is constructed properly.
@@ -365,5 +363,44 @@ public class TurtleTest {
             + "--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F"
             + "--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG",
         testSierpinskiTriangle.word);
+  }
+
+  /**
+   * Tests that the reset method sets the parameters in a turtle back to the initially given turtle with 3 parameters.
+   */
+  @Test
+  public void testResetThreeParam() {
+    Turtle turtle = new Turtle("F--F--F", 5, 60);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.generate(1, genRules);
+
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.word);
+
+    turtle.reset();
+
+    assertEquals("F--F--F", turtle.word);
+    assertEquals(5, turtle.length, 1e-10);
+    assertEquals(60, turtle.angle, 1e-10);
+  }
+
+  /**
+   * Tests that the reset method sets the parameters in a turtle back to the initially given turtle with 3 parameters.
+   */
+  @Test
+  public void testResetFiveParam() {
+    Turtle turtle = new Turtle("F--F--F", 5, 60, 250, 300);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.generate(1, genRules);
+
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.word);
+
+    turtle.reset();
+
+    assertEquals("F--F--F", turtle.word);
+    assertEquals(5, turtle.length, 1e-10);
+    assertEquals(60, turtle.angle, 1e-10);
+    assertEquals(250, turtle.coordX, 1e-10);
+    assertEquals(300, turtle.coordY, 1e-10);
+
   }
 }
