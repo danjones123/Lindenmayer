@@ -7,8 +7,12 @@ import java.util.Deque;
  *
  * @author Daniel Jones
  */
-
-public class Turtle extends Main {
+public class Turtle {
+  String initialWord;
+  double initialLength;
+  double initialAngle;
+  double initialCoordX;
+  double initialCoordY;
   String word;
   double length;
   double angle;
@@ -20,24 +24,33 @@ public class Turtle extends Main {
   Deque<Point> stack = new ArrayDeque<>();
 
   /**
-   * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
+   * Constructs a turtle that takes parameters word, length, angle, coordX and coordY.
+   * Also creates the variables for the initial turtle.
    *
    * @param word   is the string given to the turtle for it to translate into an LSystem.
    * @param length is the length of the lines to be drawn by the turtle.
    * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
-   * @param x0     is the starting x coordinate of Turtle
-   * @param y0     is starting y coordinate of Turtle
+   * @param coordX     is the starting x coordinate of Turtle
+   * @param coordY     is starting y coordinate of Turtle
    */
-  public Turtle(String word, double length, double angle, double x0, double y0) {
+  public Turtle(String word, double length, double angle, double coordX, double coordY) {
     this.word = word;
     this.length = length;
     this.angle = angle;
-    coordX = x0;
-    coordY = y0;
+    this.coordX = coordX;
+    this.coordY = coordY;
+
+    initialWord = word;
+    initialLength = length;
+    initialAngle = angle;
+    initialCoordX = coordX;
+    initialCoordY = coordY;
   }
 
   /**
-   * Constructs a turtle that takes parameters word, length and angle. x0 and y0 are set to 0.
+   * Constructs a turtle that takes parameters word, length and angle. coordX and coordY are set
+   * to 0.
+   * Also creates the variables for the initial turtle.
    *
    * @param word   is the string given to the turtle for it to translate into an LSystem.
    * @param length is the length of the lines to be drawn by the turtle.
@@ -49,6 +62,12 @@ public class Turtle extends Main {
     this.angle = angle;
     coordX = 0;
     coordY = 0;
+
+    initialWord = word;
+    initialLength = length;
+    initialAngle = angle;
+    initialCoordX = 0;
+    initialCoordY = 0;
   }
 
   /**
@@ -81,7 +100,8 @@ public class Turtle extends Main {
     oldY = coordY;
     coordX += (length * Math.cos(currAngle));
     coordY += (length * Math.sin(currAngle));
-    Display.setCoords(oldX, oldY, coordX, coordY);
+    Line l = new Line(oldX, oldY, coordX, coordY);
+    l.createLine();
   }
 
   /**
@@ -136,23 +156,26 @@ public class Turtle extends Main {
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
-        if (c == 'F') {
-          next.append(genRules[0]);
-        } else if (c == 'G') {
-          next.append(genRules[1]);
-        } else if (c == '+') {
-          next.append('+');
-        } else if (c == '-') {
-          next.append('-');
-        } else if (c == '[') {
-          next.append('[');
-        } else if (c == ']') {
-          next.append(']');
+        switch (c) {
+          case('F') -> next.append(genRules[0]);
+          case('G') -> next.append(genRules[1]);
+          default -> next.append(c);
         }
       }
       nextWord = next.toString();
       next.setLength(0);
     }
     word = nextWord;
+  }
+
+  /**
+   * Resets the turtle back to the original inputs.
+   */
+  public void reset() {
+    this.word = initialWord;
+    this.length = initialLength;
+    this.angle = initialAngle;
+    this.coordX = initialCoordX;
+    this.coordY = initialCoordY;
   }
 }
