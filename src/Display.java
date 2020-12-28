@@ -28,7 +28,6 @@ public class Display extends JPanel {
    */
   @Override
   protected void paintComponent(Graphics g) {
-    System.out.println("Inside PaintComponent");
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
