@@ -2,7 +2,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -309,9 +308,9 @@ public class TurtleTest {
     turtle.setLength(10);
     turtle.setAngle(90);
     turtle.setCoords(100, 100);
-    assertTrue(turtle.stack.isEmpty());
+    assertTrue(turtle.pointStack.isEmpty());
     turtle.rules();
-    assertFalse(turtle.stack.isEmpty());
+    assertFalse(turtle.pointStack.isEmpty());
   }
 
   /**
@@ -323,11 +322,11 @@ public class TurtleTest {
     turtle.setLength(10);
     turtle.setAngle(90);
     turtle.setCoords(100, 100);
-    assertTrue(turtle.stack.isEmpty());
+    assertTrue(turtle.pointStack.isEmpty());
     assertEquals(turtle.getCoordX(), 100, 1e-10);
     assertEquals(turtle.getCoordY(), 100, 1e-10);
     turtle.rules();
-    assertTrue(turtle.stack.isEmpty());
+    assertTrue(turtle.pointStack.isEmpty());
     assertEquals(turtle.getCoordX(), 100, 1e-10);
     assertEquals(turtle.getCoordY(), 100, 1e-10);
   }
@@ -342,11 +341,11 @@ public class TurtleTest {
     turtle.setLength(10);
     turtle.setAngle(90);
     turtle.setCoords(100, 100);
-    assertTrue(turtle.stack.isEmpty());
+    assertTrue(turtle.pointStack.isEmpty());
     assertEquals(turtle.getCoordX(), 100, 1e-10);
     assertEquals(turtle.getCoordY(), 100, 1e-10);
     turtle.rules();
-    assertFalse(turtle.stack.isEmpty());
+    assertFalse(turtle.pointStack.isEmpty());
     assertEquals(turtle.getCoordX(), 110, 1e-10);
     assertEquals(turtle.getCoordY(), 100, 1e-10);
 
@@ -355,11 +354,11 @@ public class TurtleTest {
     turtle2.setLength(10);
     turtle2.setAngle(90);
     turtle2.setCoords(100, 100);
-    assertTrue(turtle2.stack.isEmpty());
+    assertTrue(turtle2.pointStack.isEmpty());
     assertEquals(turtle2.getCoordX(), 100, 1e-10);
     assertEquals(turtle2.getCoordY(), 100, 1e-10);
     turtle2.rules();
-    assertTrue(turtle2.stack.isEmpty());
+    assertTrue(turtle2.pointStack.isEmpty());
     assertEquals(turtle2.getCoordX(), 100, 1e-10);
     assertEquals(turtle2.getCoordY(), 100, 1e-10);
   }

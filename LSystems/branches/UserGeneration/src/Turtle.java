@@ -22,7 +22,7 @@ public class Turtle {
   private String[] genRules;
   double oldX;
   double oldY;
-  Deque<Point> stack = new ArrayDeque<>();
+  Deque<Point> pointStack = new ArrayDeque<>();
 
   /**
    * Sets the word of the turtle.
@@ -147,8 +147,8 @@ public class Turtle {
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
-        case '[' -> pushCharacter();
-        case ']' -> popCharacter();
+        case '[' -> pushCoords();
+        case ']' -> popCoords();
         default -> System.out.println("Invalid character");
       }
     }
@@ -194,18 +194,18 @@ public class Turtle {
    * Creates a Point object with the coordinates taken at the time the [ is used and then pushes
    * them into a stack.
    */
-  public void pushCharacter() {
+  public void pushCoords() {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
-    stack.push(pushP);
+    pointStack.push(pushP);
   }
 
   /**
    * Pops the point from the stack and then sets the coordinates back to those that were pushed
    * into the stack.
    */
-  public void popCharacter() {
-    Point popP = stack.pop();
+  public void popCoords() {
+    Point popP = pointStack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
   }
