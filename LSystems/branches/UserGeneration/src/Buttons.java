@@ -11,10 +11,22 @@ import javax.swing.JPanel;
  * @author Daniel Jones
  */
 public class Buttons extends JPanel implements ActionListener {
-  Turtle turtle = new Turtle("F-F-F-F", 10, 90, 400, 400);
-  String[] genRules = {"FF-F-F-F-FF", "GGGGGG"};
-  private Display display;
+  Turtle turtle = new Turtle();
+  String[] genRules;
+  private final Display display;
   private int iterations = 1;
+
+  /**
+   * Initialises the local turtle as the turtle from main and the generation rules as those from
+   * main aswell.
+   *
+   * @param turtle is the turlte that is initialised in main.
+   */
+  public void turtleInit(Turtle turtle) {
+    this.turtle = turtle;
+    genRules = turtle.getGenRules();
+  }
+
 
   /**
    * Constructor for Button which takes the display as a parameter.
@@ -55,7 +67,6 @@ public class Buttons extends JPanel implements ActionListener {
       iterations++;
       turtle.reset();
       turtle.generate(iterations, genRules);
-      System.out.println("Generate called" + iterations);
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
       iterations = 1;
       turtle.reset();

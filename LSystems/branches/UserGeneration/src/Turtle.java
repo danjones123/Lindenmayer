@@ -3,71 +3,137 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Class for attempting to use the turtle interpretation to display an LSystem.
+ * Class using turtle interpretation to display an LSystem.
  *
  * @author Daniel Jones
  */
 public class Turtle {
-  String initialWord;
-  double initialLength;
-  double initialAngle;
-  double initialCoordX;
-  double initialCoordY;
-  String word;
-  double length;
-  double angle;
+  private String initialWord;
+  private double initialLength;
+  private double initialAngle;
+  private double initialCoordX;
+  private double initialCoordY;
+  private String word = "";
+  private double length = 0;
+  private double angle = 0;
   double currAngle = 0;
-  double coordX;
-  double coordY;
+  private double coordX = 0;
+  private double coordY = 0;
+  private String[] genRules;
   double oldX;
   double oldY;
   Deque<Point> stack = new ArrayDeque<>();
 
   /**
-   * Constructs a turtle that takes parameters word, length, angle, coordX and coordY.
-   * Also creates the variables for the initial turtle.
+   * Sets the word of the turtle.
    *
-   * @param word   is the string given to the turtle for it to translate into an LSystem.
-   * @param length is the length of the lines to be drawn by the turtle.
-   * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
-   * @param coordX     is the starting x coordinate of Turtle
-   * @param coordY     is starting y coordinate of Turtle
+   * @param word is the word to be set to.
    */
-  public Turtle(String word, double length, double angle, double coordX, double coordY) {
+  public void setWord(String word) {
     this.word = word;
-    this.length = length;
-    this.angle = angle;
-    this.coordX = coordX;
-    this.coordY = coordY;
-
-    initialWord = word;
-    initialLength = length;
-    initialAngle = angle;
-    initialCoordX = coordX;
-    initialCoordY = coordY;
+    this.initialWord = word;
   }
 
   /**
-   * Constructs a turtle that takes parameters word, length and angle. coordX and coordY are set
-   * to 0.
-   * Also creates the variables for the initial turtle.
+   * Sets the length of the turtle.
    *
-   * @param word   is the string given to the turtle for it to translate into an LSystem.
-   * @param length is the length of the lines to be drawn by the turtle.
-   * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
+   * @param length is the length to be set to.
    */
-  public Turtle(String word, double length, double angle) {
-    this.word = word;
+  public void setLength(double length) {
     this.length = length;
-    this.angle = angle;
-    coordX = 0;
-    coordY = 0;
+    this.initialLength = length;
+  }
 
-    initialWord = word;
-    initialLength = length;
-    initialAngle = angle;
-    initialCoordX = 0;
-    initialCoordY = 0;
+  /**
+   * Sets the angle of the turtle.
+   *
+   * @param angle is the angle to be set to.
+   */
+  public void setAngle(double angle) {
+    this.angle = angle;
+    this.initialAngle = angle;
+  }
+
+  /**
+   * Sets the starting co-ordinates of the turtle.
+   *
+   * @param x is the starting x co-ordinate.
+   * @param y is the startng y co-ordinate.
+   */
+  public void setCoords(double x, double y) {
+    this.coordX = x;
+    this.coordY = y;
+    this.initialCoordX = x;
+    this.initialCoordY = y;
+  }
+
+  /**
+   * Sets the rules for the generation of new L-Systems.
+   *
+   * @param genRules is the String array of rules for how the L-System should develop.
+   */
+  public void setGenRules(String[] genRules) {
+    this.genRules = genRules;
+  }
+
+  /**
+   * Getter for word.
+   *
+   * @return returns the word, the string of the turtle.
+   */
+  public String getWord() {
+    return word;
+  }
+
+  /**
+   * Getter for length.
+   *
+   * @return returns the length, the length of the turtle lines.
+   */
+  public double getLength() {
+    return length;
+  }
+
+  /**
+   * Getter for angle.
+   *
+   * @return returns the angle.
+   */
+  public double getAngle() {
+    return angle;
+  }
+
+  /**
+   * Getter for x co-ordinate.
+   *
+   * @return returns the x co-ordinate.
+   */
+  public double getCoordX() {
+    return coordX;
+  }
+
+  /**
+   * Getter for y co-ordinate.
+   *
+   * @return returns the y co-ordinate.
+   */
+  public double getCoordY() {
+    return coordY;
+  }
+
+  /**
+   * Getter for the array of generation rules.
+   *
+   * @return returns the String array of generation rules.
+   */
+  public String[] getGenRules() {
+    return genRules;
+  }
+
+  /**
+   * Empty constructor allowing a new Turtle to be called from other classes.
+   */
+  public Turtle() {
   }
 
   /**
