@@ -28,8 +28,18 @@ public class Main {
    * Method to initialise the Display and Buttons and create the frame.
    */
   private static void createAndShowGraphics() {
+    Turtle turtle = new Turtle();
+    turtle.setWord("F--F--F");
+    turtle.setLength(10);
+    turtle.setAngle(60);
+    turtle.setCoords(400, 400);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.setGenRules(genRules);
+
     Display display = new Display();
     Buttons buttonPanel = new Buttons(display);
+    buttonPanel.turtleInit(turtle);
+
 
     JFrame.setDefaultLookAndFeelDecorated(true);
     JFrame frame = new JFrame("LSystem");
