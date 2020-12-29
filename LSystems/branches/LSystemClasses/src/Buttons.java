@@ -13,11 +13,11 @@ import javax.swing.JPanel;
  * @author Daniel Jones
  */
 public class Buttons extends JPanel implements ActionListener {
-  Turtle turtle = new Turtle();
+  Turtle turtle = new DeterministicTurtle();
   String[] genRules;
   private final Display display;
   private int iterations = 1;
-  Deque<Turtle> turtleStack = new ArrayDeque<>();
+  Deque<DeterministicTurtle> turtleStack = new ArrayDeque<>();
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
@@ -78,37 +78,41 @@ public class Buttons extends JPanel implements ActionListener {
       turtle.reset();
       turtle.generate(iterations, genRules);
     } else if ("Undo".equals(e.getActionCommand())) {
-      popTurtle();
-      iterations--;
-      display.callPaint();
+        if (iterations > 1) {
+          popTurtle();
+          iterations--;
+          display.callPaint();
+        } else {
+          display.clear();
+        }
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
       iterations = 1;
       turtle.reset();
       display.clear();
-    }
+    } //Take out draw button and just make undo and generate call it automatically.
   }
 
   /**
    * Creates a new Turtle with the current parameters and adds it to the stack.
    */
   public void pushTurtle() {
-    Turtle pushTurtle = new Turtle();
-    pushTurtle.setWord(turtle.getWord());
-    pushTurtle.setLength(turtle.getLength());
-    pushTurtle.setAngle(turtle.getAngle());
-    pushTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
+    DeterministicTurtle pushDeterministicTurtle = new DeterministicTurtle();
+    pushDeterministicTurtle.setWord(turtle.getWord());
+    pushDeterministicTurtle.setLength(turtle.getLength());
+    pushDeterministicTurtle.setAngle(turtle.getAngle());
+    pushDeterministicTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
 
-    turtleStack.push(pushTurtle);
+    turtleStack.push(pushDeterministicTurtle);
   }
 
   /**
    * Pops the top turtle off the stack and sets the main turtle to its parameters.
    */
   public void popTurtle() {
-    Turtle popTurtle = turtleStack.pop();
-    turtle.setWord(popTurtle.getWord());
-    turtle.setLength(popTurtle.getLength());
-    turtle.setAngle(popTurtle.getAngle());
-    turtle.setCoords(popTurtle.getCoordX(), popTurtle.getCoordY());
+    DeterministicTurtle popDeterministicTurtle = turtleStack.pop();
+    turtle.setWord(popDeterministicTurtle.getWord());
+    turtle.setLength(popDeterministicTurtle.getLength());
+    turtle.setAngle(popDeterministicTurtle.getAngle());
+    turtle.setCoords(popDeterministicTurtle.getCoordX(), popDeterministicTurtle.getCoordY());
   }
 }
