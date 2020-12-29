@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -505,5 +506,22 @@ public class TurtleTest {
     assertEquals(60, turtle.getAngle(), 1e-10);
     assertEquals(250, turtle.getCoordX(), 1e-10);
     assertEquals(300, turtle.getCoordY(), 1e-10);
+  }
+
+  /**
+   * Tests that the resetBearing method resets the current angle of the turtle back to 0.
+   */
+  @Test
+  public void testResetBearing() {
+    turtle.setWord("F--F--F");
+    turtle.setLength(5);
+    turtle.setAngle(60);
+    assertEquals(0, turtle.currAngle, 1e-10);
+
+    turtle.rules();
+    assertNotEquals(0, turtle.currAngle, 1e-10);
+
+    turtle.resetBearing();
+    assertEquals(0, turtle.currAngle, 1e-10);
   }
 }

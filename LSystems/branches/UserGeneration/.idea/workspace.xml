@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="532e258d-d5e5-430c-bf33-de4543c343b5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UserGeneration/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UserGeneration/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UserGeneration/Turtle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UserGeneration/Turtle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/UserGeneration/TurtleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/UserGeneration/TurtleTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TurtleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/TurtleTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +47,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.TurtleTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="UserGeneration" />
@@ -69,8 +66,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TurtleTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -119,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609164061930</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixed a bug where the starting position of the drawing slightly changed each time &quot;Draw&quot; was pressed.">
+      <created>1609248822815</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609248822815</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -127,41 +131,42 @@
     <MESSAGE value="Changed StdDraw to Swing, recreated the GUI and added buttons for drawing, generating and deleting L-Systems." />
     <MESSAGE value="Refactored code to have setters and getters in Turtle so that the hierarchy of the classes is better defined." />
     <MESSAGE value="Added the ability to undo the generation from the GUI." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the ability to undo the generation from the GUI." />
+    <MESSAGE value="Fixed a bug where the starting position of the drawing slightly changed each time &quot;Draw&quot; was pressed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug where the starting position of the drawing slightly changed each time &quot;Draw&quot; was pressed." />
   </component>
   <component name="WindowStateProjectService">
     <state x="440" y="94" key="#Project_Structure" timestamp="1606602891410">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1606602891410" />
-    <state x="368" y="107" key="CommitChangelistDialog2" timestamp="1609164060128">
+    <state x="368" y="107" key="CommitChangelistDialog2" timestamp="1609248820983">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="368" y="107" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609164060128" />
+    <state x="368" y="107" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609248820983" />
     <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1609196178252">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609196178252" />
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom" timestamp="1609248615831">
+    <state width="1877" height="321" key="GridCell.Tab.0.bottom" timestamp="1609249031436">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1609162992030" />
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609248615831" />
-    <state width="1877" height="321" key="GridCell.Tab.0.center" timestamp="1609248615831">
+    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609249031436" />
+    <state width="1877" height="321" key="GridCell.Tab.0.center" timestamp="1609249031435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1609162992030" />
-    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609248615831" />
-    <state width="1877" height="321" key="GridCell.Tab.0.left" timestamp="1609248615831">
+    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609249031435" />
+    <state width="1877" height="321" key="GridCell.Tab.0.left" timestamp="1609249031435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1609162992030" />
-    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609248615831" />
-    <state width="1877" height="321" key="GridCell.Tab.0.right" timestamp="1609248615831">
+    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609249031435" />
+    <state width="1877" height="321" key="GridCell.Tab.0.right" timestamp="1609249031435">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1609162992030" />
-    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609248615831" />
+    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1609249031435" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1606603020012">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
