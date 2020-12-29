@@ -59,11 +59,16 @@ public class Buttons extends JPanel implements ActionListener {
 
   /**
    * Checks which button was pressed and calls the correct methods for that button.
+   * "Draw" draws the turtle intepretation.
+   * "Generate" generates through the L-System.
+   * "Undo" undoes the previous generation.
+   * "Clear Drawing" removes the drawing from the screen.
    *
    * @param e is the ActionEvent, meaning the button was pressed.
    */
   public void actionPerformed(ActionEvent e) {
     if ("Draw".equals(e.getActionCommand())) {
+      turtle.resetBearing();
       display.clear();
       turtle.rules();
       display.callPaint();
@@ -101,7 +106,6 @@ public class Buttons extends JPanel implements ActionListener {
    */
   public void popTurtle() {
     Turtle popTurtle = turtleStack.pop();
-
     turtle.setWord(popTurtle.getWord());
     turtle.setLength(popTurtle.getLength());
     turtle.setAngle(popTurtle.getAngle());
