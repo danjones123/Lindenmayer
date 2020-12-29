@@ -32,7 +32,7 @@ public class Main {
     turtle.setWord("F--F--F");
     turtle.setLength(10);
     turtle.setAngle(60);
-    turtle.setCoords(400, 400);
+    turtle.setCoords(100, 700);
     String[] genRules = {"F--F--F--G", "GG"};
     turtle.setGenRules(genRules);
 

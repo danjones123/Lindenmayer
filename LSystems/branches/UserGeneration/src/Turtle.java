@@ -25,6 +25,12 @@ public class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
 
   /**
+   * Empty constructor allowing a new Turtle to be called from other classes.
+   */
+  public Turtle() {
+  }
+
+  /**
    * Sets the word of the turtle.
    *
    * @param word is the word to be set to.
@@ -131,9 +137,11 @@ public class Turtle {
   }
 
   /**
-   * Empty constructor allowing a new Turtle to be called from other classes.
+   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
+   * is run.
    */
-  public Turtle() {
+  public void resetBearing() {
+    this.currAngle = 0;
   }
 
   /**
