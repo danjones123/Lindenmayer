@@ -3,52 +3,145 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Class for attempting to use the turtle interpretation to display an LSystem.
+ * Class using turtle interpretation to display an LSystem.
  *
  * @author Daniel Jones
  */
-
-public class Turtle extends Main {
-  String word;
-  double length;
-  double angle;
+public class Turtle {
+  private String initialWord;
+  private double initialLength;
+  private double initialAngle;
+  private double initialCoordX;
+  private double initialCoordY;
+  private String word = "";
+  private double length = 0;
+  private double angle = 0;
   double currAngle = 0;
-  double coordX;
-  double coordY;
+  private double coordX = 0;
+  private double coordY = 0;
+  private String[] genRules;
   double oldX;
   double oldY;
-  Deque<Point> stack = new ArrayDeque<>();
+  Deque<Point> pointStack = new ArrayDeque<>();
 
   /**
-   * Constructs a turtle that takes parameters word, length, angle, x0 and y0.
-   *
-   * @param word   is the string given to the turtle for it to translate into an LSystem.
-   * @param length is the length of the lines to be drawn by the turtle.
-   * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
-   * @param x0     is the starting x coordinate of Turtle
-   * @param y0     is starting y coordinate of Turtle
+   * Empty constructor allowing a new Turtle to be called from other classes.
    */
-  public Turtle(String word, double length, double angle, double x0, double y0) {
-    this.word = word;
-    this.length = length;
-    this.angle = angle;
-    coordX = x0;
-    coordY = y0;
+  public Turtle() {
   }
 
   /**
-   * Constructs a turtle that takes parameters word, length and angle. x0 and y0 are set to 0.
+   * Sets the word of the turtle.
    *
-   * @param word   is the string given to the turtle for it to translate into an LSystem.
-   * @param length is the length of the lines to be drawn by the turtle.
-   * @param angle  is the angle that the turtle should rotate to avoid only drawing a straight line.
+   * @param word is the word to be set to.
    */
-  public Turtle(String word, double length, double angle) {
+  public void setWord(String word) {
     this.word = word;
+    this.initialWord = word;
+  }
+
+  /**
+   * Sets the length of the turtle.
+   *
+   * @param length is the length to be set to.
+   */
+  public void setLength(double length) {
     this.length = length;
+    this.initialLength = length;
+  }
+
+  /**
+   * Sets the angle of the turtle.
+   *
+   * @param angle is the angle to be set to.
+   */
+  public void setAngle(double angle) {
     this.angle = angle;
-    coordX = 0;
-    coordY = 0;
+    this.initialAngle = angle;
+  }
+
+  /**
+   * Sets the starting co-ordinates of the turtle.
+   *
+   * @param x is the starting x co-ordinate.
+   * @param y is the startng y co-ordinate.
+   */
+  public void setCoords(double x, double y) {
+    this.coordX = x;
+    this.coordY = y;
+    this.initialCoordX = x;
+    this.initialCoordY = y;
+  }
+
+  /**
+   * Sets the rules for the generation of new L-Systems.
+   *
+   * @param genRules is the String array of rules for how the L-System should develop.
+   */
+  public void setGenRules(String[] genRules) {
+    this.genRules = genRules;
+  }
+
+  /**
+   * Getter for word.
+   *
+   * @return returns the word, the string of the turtle.
+   */
+  public String getWord() {
+    return word;
+  }
+
+  /**
+   * Getter for length.
+   *
+   * @return returns the length, the length of the turtle lines.
+   */
+  public double getLength() {
+    return length;
+  }
+
+  /**
+   * Getter for angle.
+   *
+   * @return returns the angle.
+   */
+  public double getAngle() {
+    return angle;
+  }
+
+  /**
+   * Getter for x co-ordinate.
+   *
+   * @return returns the x co-ordinate.
+   */
+  public double getCoordX() {
+    return coordX;
+  }
+
+  /**
+   * Getter for y co-ordinate.
+   *
+   * @return returns the y co-ordinate.
+   */
+  public double getCoordY() {
+    return coordY;
+  }
+
+  /**
+   * Getter for the array of generation rules.
+   *
+   * @return returns the String array of generation rules.
+   */
+  public String[] getGenRules() {
+    return genRules;
+  }
+
+  /**
+   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
+   * is run.
+   */
+  public void resetBearing() {
+    this.currAngle = 0;
   }
 
   /**
@@ -62,8 +155,8 @@ public class Turtle extends Main {
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
-        case '[' -> pushCharacter();
-        case ']' -> popCharacter();
+        case '[' -> pushCoords();
+        case ']' -> popCoords();
         default -> System.out.println("Invalid character");
       }
     }
@@ -81,7 +174,8 @@ public class Turtle extends Main {
     oldY = coordY;
     coordX += (length * Math.cos(currAngle));
     coordY += (length * Math.sin(currAngle));
-    Display.setCoords(oldX, oldY, coordX, coordY);
+    Line l = new Line(oldX, oldY, coordX, coordY);
+    l.createLine();
   }
 
   /**
@@ -108,18 +202,18 @@ public class Turtle extends Main {
    * Creates a Point object with the coordinates taken at the time the [ is used and then pushes
    * them into a stack.
    */
-  public void pushCharacter() {
+  public void pushCoords() {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
-    stack.push(pushP);
+    pointStack.push(pushP);
   }
 
   /**
    * Pops the point from the stack and then sets the coordinates back to those that were pushed
    * into the stack.
    */
-  public void popCharacter() {
-    Point popP = stack.pop();
+  public void popCoords() {
+    Point popP = pointStack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
   }
@@ -136,23 +230,26 @@ public class Turtle extends Main {
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
-        if (c == 'F') {
-          next.append(genRules[0]);
-        } else if (c == 'G') {
-          next.append(genRules[1]);
-        } else if (c == '+') {
-          next.append('+');
-        } else if (c == '-') {
-          next.append('-');
-        } else if (c == '[') {
-          next.append('[');
-        } else if (c == ']') {
-          next.append(']');
+        switch (c) {
+          case('F') -> next.append(genRules[0]);
+          case('G') -> next.append(genRules[1]);
+          default -> next.append(c);
         }
       }
       nextWord = next.toString();
       next.setLength(0);
     }
     word = nextWord;
+  }
+
+  /**
+   * Resets the turtle back to the original inputs.
+   */
+  public void reset() {
+    this.word = initialWord;
+    this.length = initialLength;
+    this.angle = initialAngle;
+    this.coordX = initialCoordX;
+    this.coordY = initialCoordY;
   }
 }
