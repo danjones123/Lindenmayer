@@ -10,9 +10,9 @@ import org.junit.Test;
  *
  * @author Daniel Jones.
  */
-public class TurtleTest {
+public class DeterministicTurtleTest {
 
-  Turtle turtle = new Turtle();
+  Turtle turtle = new DeterministicTurtle();
 
   /**
    * Tests that all default values of a Turtle are 0/null.
@@ -350,18 +350,18 @@ public class TurtleTest {
     assertEquals(turtle.getCoordX(), 110, 1e-10);
     assertEquals(turtle.getCoordY(), 100, 1e-10);
 
-    Turtle turtle2 = new Turtle();
-    turtle2.setWord("[F]");
-    turtle2.setLength(10);
-    turtle2.setAngle(90);
-    turtle2.setCoords(100, 100);
-    assertTrue(turtle2.pointStack.isEmpty());
-    assertEquals(turtle2.getCoordX(), 100, 1e-10);
-    assertEquals(turtle2.getCoordY(), 100, 1e-10);
-    turtle2.rules();
-    assertTrue(turtle2.pointStack.isEmpty());
-    assertEquals(turtle2.getCoordX(), 100, 1e-10);
-    assertEquals(turtle2.getCoordY(), 100, 1e-10);
+    DeterministicTurtle deterministicTurtle2 = new DeterministicTurtle();
+    deterministicTurtle2.setWord("[F]");
+    deterministicTurtle2.setLength(10);
+    deterministicTurtle2.setAngle(90);
+    deterministicTurtle2.setCoords(100, 100);
+    assertTrue(deterministicTurtle2.pointStack.isEmpty());
+    assertEquals(deterministicTurtle2.getCoordX(), 100, 1e-10);
+    assertEquals(deterministicTurtle2.getCoordY(), 100, 1e-10);
+    deterministicTurtle2.rules();
+    assertTrue(deterministicTurtle2.pointStack.isEmpty());
+    assertEquals(deterministicTurtle2.getCoordX(), 100, 1e-10);
+    assertEquals(deterministicTurtle2.getCoordY(), 100, 1e-10);
   }
 
 
@@ -472,6 +472,7 @@ public class TurtleTest {
     turtle.setWord("F--F--F");
     turtle.setLength(5);
     turtle.setAngle(60);
+    turtle.saveStartingTurtle();
     String[] genRules = {"F--F--F--G", "GG"};
     turtle.generate(1, genRules);
 
@@ -494,6 +495,7 @@ public class TurtleTest {
     turtle.setLength(5);
     turtle.setAngle(60);
     turtle.setCoords(250, 300);
+    turtle.saveStartingTurtle();
     String[] genRules = {"F--F--F--G", "GG"};
     turtle.generate(1, genRules);
 

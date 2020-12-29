@@ -1,13 +1,9 @@
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-/**
- * Class using turtle interpretation to display an LSystem.
- *
- * @author Daniel Jones
- */
-public class Turtle {
+public abstract class Turtle {
+
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -25,19 +21,13 @@ public class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
 
   /**
-   * Empty constructor allowing a new Turtle to be called from other classes.
-   */
-  public Turtle() {
-  }
-
-  /**
    * Sets the word of the turtle.
    *
    * @param word is the word to be set to.
    */
   public void setWord(String word) {
     this.word = word;
-    this.initialWord = word;
+    //this.initialWord = word;
   }
 
   /**
@@ -47,7 +37,7 @@ public class Turtle {
    */
   public void setLength(double length) {
     this.length = length;
-    this.initialLength = length;
+    //this.initialLength = length;
   }
 
   /**
@@ -57,7 +47,7 @@ public class Turtle {
    */
   public void setAngle(double angle) {
     this.angle = angle;
-    this.initialAngle = angle;
+    //this.initialAngle = angle;
   }
 
   /**
@@ -69,8 +59,8 @@ public class Turtle {
   public void setCoords(double x, double y) {
     this.coordX = x;
     this.coordY = y;
-    this.initialCoordX = x;
-    this.initialCoordY = y;
+    //this.initialCoordX = x;
+    //this.initialCoordY = y;
   }
 
   /**
@@ -81,6 +71,15 @@ public class Turtle {
   public void setGenRules(String[] genRules) {
     this.genRules = genRules;
   }
+
+  public void saveStartingTurtle() {
+    this.initialWord = word;
+    this.initialLength = length;
+    this.initialAngle = angle;
+    this.initialCoordX = coordX;
+    this.initialCoordY = coordY;
+  }
+
 
   /**
    * Getter for word.
@@ -142,6 +141,8 @@ public class Turtle {
    */
   public void resetBearing() {
     this.currAngle = 0;
+    this.coordX = initialCoordX;
+    this.coordY = initialCoordY;
   }
 
   /**
@@ -218,29 +219,7 @@ public class Turtle {
     coordY =  popP.getY();
   }
 
-  /**
-   * Iterates through the string and creates a new string by applying the given rules.
-   *
-   * @param iterations is the number of times to iterate through the string.
-   * @param genRules is an array of rules to be applied to the given characters.
-   */
-  public void generate(int iterations, String[] genRules) {
-    String nextWord = word;
-    StringBuilder next = new StringBuilder();
-    for (int j = 0; j < iterations; j++) {
-      for (int i = 0; i < nextWord.length(); i++) {
-        char c = nextWord.charAt(i);
-        switch (c) {
-          case('F') -> next.append(genRules[0]);
-          case('G') -> next.append(genRules[1]);
-          default -> next.append(c);
-        }
-      }
-      nextWord = next.toString();
-      next.setLength(0);
-    }
-    word = nextWord;
-  }
+  abstract void generate(int iterations, String[] genRules);
 
   /**
    * Resets the turtle back to the original inputs.

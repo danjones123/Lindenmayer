@@ -28,12 +28,13 @@ public class Main {
    * Method to initialise the Display and Buttons and create the frame.
    */
   private static void createAndShowGraphics() {
-    Turtle turtle = new Turtle();
-    turtle.setWord("F--F--F");
+    Turtle turtle = new DeterministicTurtle();
+    turtle.setWord("F-F-F-F");
     turtle.setLength(10);
-    turtle.setAngle(60);
-    turtle.setCoords(100, 700);
-    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.setAngle(90);
+    turtle.setCoords(400, 400);
+    turtle.saveStartingTurtle();
+    String[] genRules = {"FF-F-F-F-FF", "GG"};
     turtle.setGenRules(genRules);
 
     Display display = new Display();
