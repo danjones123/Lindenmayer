@@ -25,17 +25,19 @@ public class Main {
   }
 
   /**
-   * Method to initialise the Display and Buttons and create the frame.
+   * Method to initialise the Display, Turtle and Buttons and create the frame.
    */
   private static void createAndShowGraphics() {
     Turtle turtle = new DeterministicTurtle();
-    turtle.setWord("F-F-F-F");
+    turtle.setWord("F--F--F");
     turtle.setLength(10);
-    turtle.setAngle(90);
+    turtle.setAngle(60);
     turtle.setCoords(400, 400);
     turtle.saveStartingTurtle();
-    String[] genRules = {"FF-F-F-F-FF", "GG"};
-    turtle.setGenRules(genRules);
+    String[] drawRules = {"F--F--F--G"};
+    String[] moveRules = {"GG"};
+    turtle.setDrawRules(drawRules);
+    turtle.setMoveRules(moveRules);
 
     Display display = new Display();
     Buttons buttonPanel = new Buttons(display);
