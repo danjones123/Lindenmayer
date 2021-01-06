@@ -15,7 +15,8 @@ public abstract class Turtle {
   double currAngle = 0;
   private double coordX = 0;
   private double coordY = 0;
-  private String[] genRules;
+  private String[] drawRules;
+  private String[] moveRules;
   double oldX;
   double oldY;
   Deque<Point> pointStack = new ArrayDeque<>();
@@ -64,12 +65,21 @@ public abstract class Turtle {
   }
 
   /**
-   * Sets the rules for the generation of new L-Systems.
+   * Sets the drawing rules for the generation of new L-Systems.
    *
-   * @param genRules is the String array of rules for how the L-System should develop.
+   * @param drawRules is the String array of rules for how the L-System should draw.
    */
-  public void setGenRules(String[] genRules) {
-    this.genRules = genRules;
+  public void setDrawRules(String[] drawRules) {
+    this.drawRules = drawRules;
+  }
+
+  /**
+   * Sets the moving rules for the generation of new L-Systems.
+   *
+   * @param moveRules is the String array of rules for how the L-System should move.
+   */
+  public void setMoveRules(String[] moveRules) {
+    this.moveRules = moveRules;
   }
 
   public void saveStartingTurtle() {
@@ -127,12 +137,21 @@ public abstract class Turtle {
   }
 
   /**
-   * Getter for the array of generation rules.
+   * Getter for the array of drawing rules.
    *
-   * @return returns the String array of generation rules.
+   * @return returns the String array of drawing rules.
    */
-  public String[] getGenRules() {
-    return genRules;
+  public String[] getDrawRules() {
+    return drawRules;
+  }
+
+  /**
+   * Getter for the array of moving rules.
+   *
+   * @return returns the String array of moving rules.
+   */
+  public String[] getMoveRules() {
+    return moveRules;
   }
 
   /**
@@ -219,7 +238,7 @@ public abstract class Turtle {
     coordY =  popP.getY();
   }
 
-  abstract void generate(int iterations, String[] genRules);
+  abstract void generate(int iterations, String[] drawRules, String[] moveRules);
 
   /**
    * Resets the turtle back to the original inputs.

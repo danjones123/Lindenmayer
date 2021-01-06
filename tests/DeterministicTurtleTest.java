@@ -73,10 +73,12 @@ public class DeterministicTurtleTest {
    */
   @Test
   public void testSetGenRules() {
-    String[] genRules = {"FF"};
+    String[] drawRules = {"FF"};
+    String[] moveRules = {"FF"};
     turtle.setWord("F");
-    turtle.setGenRules(genRules);
-    turtle.generate(1, genRules);
+    turtle.setDrawRules(drawRules);
+    turtle.setMoveRules(moveRules);
+    turtle.generate(1, drawRules, moveRules);
     assertEquals("FF", turtle.getWord());
   }
 
@@ -373,8 +375,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("F");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"FFF"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"FFF"};
+    String[] moveRules = {};
+    turtle.generate(1, drawRules, moveRules);
     assertEquals("FFF", turtle.getWord());
   }
 
@@ -386,8 +389,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("F");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"F[F+F+F]F"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"F[F+F+F]F"};
+    String[] moveRules = {};
+    turtle.generate(1, drawRules, moveRules);
     assertEquals("F[F+F+F]F", turtle.getWord());
   }
 
@@ -399,8 +403,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("FGF");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"FF", "GG"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"FF"};
+    String[] moveRules = {"GG"};
+    turtle.generate(1, drawRules, moveRules);
     assertEquals("FFGGFF", turtle.getWord());
   }
 
@@ -412,8 +417,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("FF+[F+F+FGGF]");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"F+G+F", "GGGGGGGG"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"F+G+F"};
+    String[] moveRules = {"GGGGGGGG"};
+    turtle.generate(1, drawRules, moveRules);
     assertEquals("F+G+FF+G+F+[F+G+F+F+G+F+F+G+FGGGGGGGGGGGGGGGGF+G+F]",
         turtle.getWord());
   }
@@ -426,8 +432,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("F");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"FF", "GG"};
-    turtle.generate(2, genRules);
+    String[] drawRules = {"FF"};
+    String[] moveRules = {"GG"};
+    turtle.generate(2, drawRules, moveRules);
     assertEquals("FFFF", turtle.getWord());
   }
 
@@ -439,8 +446,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("FGF");
     turtle.setLength(0);
     turtle.setAngle(0);
-    String[] genRules = {"FF", "GG"};
-    turtle.generate(2, genRules);
+    String[] drawRules = {"FF"};
+    String[] moveRules = {"GG"};
+    turtle.generate(2, drawRules, moveRules);
     assertEquals("FFFFGGGGFFFF", turtle.getWord());
   }
 
@@ -453,8 +461,9 @@ public class DeterministicTurtleTest {
     turtle.setWord("F--F--F");
     turtle.setLength(5);
     turtle.setAngle(60);
-    String[] genRules = {"F--F--F--G", "GG"};
-    turtle.generate(3, genRules);
+    String[] drawRules = {"F--F--F--G"};
+    String[] moveRules = {"GG"};
+    turtle.generate(3, drawRules, moveRules);
     assertEquals("F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F"
             + "--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F"
             + "--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F"
@@ -473,8 +482,9 @@ public class DeterministicTurtleTest {
     turtle.setLength(5);
     turtle.setAngle(60);
     turtle.saveStartingTurtle();
-    String[] genRules = {"F--F--F--G", "GG"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"F--F--F--G"};
+    String[] moveRules = {"GG"};
+    turtle.generate(1, drawRules, moveRules);
 
     assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.getWord());
 
@@ -496,8 +506,9 @@ public class DeterministicTurtleTest {
     turtle.setAngle(60);
     turtle.setCoords(250, 300);
     turtle.saveStartingTurtle();
-    String[] genRules = {"F--F--F--G", "GG"};
-    turtle.generate(1, genRules);
+    String[] drawRules = {"F--F--F--G"};
+    String[] moveRules = {"GG"};
+    turtle.generate(1, drawRules, moveRules);
 
     assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.getWord());
 

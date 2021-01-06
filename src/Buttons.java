@@ -2,8 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 /**
@@ -13,8 +12,9 @@ import javax.swing.JPanel;
  * @author Daniel Jones
  */
 public class Buttons extends JPanel implements ActionListener {
-  Turtle turtle = new DeterministicTurtle();
-  String[] genRules;
+  Turtle turtle;
+  String[] drawRules;
+  String[] moveRules;
   private final Display display;
   private int iterations = 1;
   Deque<DeterministicTurtle> turtleStack = new ArrayDeque<>();
@@ -27,9 +27,9 @@ public class Buttons extends JPanel implements ActionListener {
    */
   public void turtleInit(Turtle turtle) {
     this.turtle = turtle;
-    genRules = turtle.getGenRules();
+    drawRules = turtle.getDrawRules();
+    moveRules = turtle.getMoveRules();
   }
-
 
   /**
    * Constructor for Button which takes the display as a parameter.
@@ -38,7 +38,6 @@ public class Buttons extends JPanel implements ActionListener {
   public Buttons(Display display) {
     this.display = display;
 
-    add(createButton("Draw"));
     add(createButton("Generate"));
     add(createButton("Undo"));
     add(createButton("Clear Drawing"));
@@ -67,20 +66,24 @@ public class Buttons extends JPanel implements ActionListener {
    * @param e is the ActionEvent, meaning the button was pressed.
    */
   public void actionPerformed(ActionEvent e) {
-    if ("Draw".equals(e.getActionCommand())) {
+    if ("Generate".equals((e.getActionCommand()))) {
+      pushTurtle();
+
       turtle.resetBearing();
       display.clear();
       turtle.rules();
       display.callPaint();
-    } else if ("Generate".equals((e.getActionCommand()))) {
-      pushTurtle();
+
       iterations++;
       turtle.reset();
-      turtle.generate(iterations, genRules);
+      turtle.generate(iterations, drawRules, moveRules);
     } else if ("Undo".equals(e.getActionCommand())) {
         if (iterations > 1) {
           popTurtle();
           iterations--;
+          turtle.resetBearing();
+          display.clear();
+          turtle.rules();
           display.callPaint();
         } else {
           display.clear();
