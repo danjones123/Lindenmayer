@@ -1,7 +1,3 @@
-import java.awt.Point;
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * Class using turtle interpretation to display an LSystem.
  *
@@ -33,4 +29,4 @@ public class DeterministicTurtle extends Turtle {
     }
     setWord(nextWord);
   }
- }
+}
