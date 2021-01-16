@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -19,6 +19,10 @@ public abstract class Turtle {
   private String[] moveRules;
   double oldX;
   double oldY;
+  private double lowestCoordX;
+  private double highestCoordX;
+  private double lowestCoordY;
+  private double highestCoordY;
   Deque<Point> pointStack = new ArrayDeque<>();
 
   /**
@@ -90,7 +94,6 @@ public abstract class Turtle {
     this.initialCoordY = coordY;
   }
 
-
   /**
    * Getter for word.
    *
@@ -155,16 +158,6 @@ public abstract class Turtle {
   }
 
   /**
-   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
-   * is run.
-   */
-  public void resetBearing() {
-    this.currAngle = 0;
-    this.coordX = initialCoordX;
-    this.coordY = initialCoordY;
-  }
-
-  /**
    * Rules class to iterate through the String and tell the program what to do at each character.
    */
   public void rules() {
@@ -187,6 +180,8 @@ public abstract class Turtle {
    * length multiplied with the sin/cos of currAngle so as to give it a distance to move and a
    * direction for it to move to.
    *
+   * The method also sets the highest and lowest coordinates which are used to help centre the object in the middle of the screen.
+   *
    * @param length is the length for the coordinates to move.
    */
   public void draw(double length) {
@@ -196,6 +191,23 @@ public abstract class Turtle {
     coordY += (length * Math.sin(currAngle));
     Line l = new Line(oldX, oldY, coordX, coordY);
     l.createLine();
+
+    if (coordX > highestCoordX) {
+      highestCoordX = coordX;
+    }
+    if (coordX < lowestCoordX) {
+      lowestCoordX = coordX;
+    }
+    if (coordY > highestCoordY) {
+      highestCoordY = coordY;
+    }
+    if (coordY < lowestCoordY) {
+      lowestCoordY = coordY;
+    }
+    //System.out.println("Highest X " + highestCoordX);
+    //System.out.println("Highest Y " + highestCoordY);
+    //System.out.println("Lowest X " + lowestCoordX);
+    //System.out.println("Lowest Y " + lowestCoordY);
   }
 
   /**
@@ -249,5 +261,40 @@ public abstract class Turtle {
     this.angle = initialAngle;
     this.coordX = initialCoordX;
     this.coordY = initialCoordY;
+  }
+
+  /**
+   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
+   * is run.
+   */
+  public void resetBearing() {
+    this.currAngle = 0;
+  }
+
+  public void centre() {
+    double middleX = (highestCoordX - lowestCoordX) / 2;
+    double middleY = (highestCoordY - lowestCoordY) / 2;
+    double frameMidX = (double) Main.frameWidth / 2;
+    double frameMidY = (double) Main.frameHeight / 2;
+
+    System.out.println("Mid X coord = " + middleX);
+    System.out.println("Mid Y coord = " + middleY);
+
+    this.coordX = frameMidX - middleX;
+    this.coordY = frameMidY - middleY;
+
+    System.out.println("Coord X = " + coordX);
+    System.out.println("Coord Y = " + coordY);
+
+    //System.out.println("mid frame X - mid X = " + (frameMidX - middleX));
+    //System.out.println("mid frame Y - mid Y = " + (frameMidY - middleY));
+
+  }
+
+  public void resetHighLow() {
+    highestCoordX = 0;
+    highestCoordY = 0;
+    lowestCoordX = 1 * 10e10;
+    lowestCoordY = 1 * 10e10;
   }
 }

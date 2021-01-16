@@ -1,12 +1,12 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+
 /**
- * Testing class for the Turtle class.
+ * Testing class for the Deterministic Turtle class.
+ * As the deterministic Turtle is the simplest this is where move of the features of the Turtle are tested,
+ * with other features exclusive to the different types of turtle tested in their own classes.
  *
  * @author Daniel Jones.
  */
@@ -69,7 +69,7 @@ public class DeterministicTurtleTest {
   }
 
   /**
-   * Tests that setGenRules works.
+   * Tests that you can set generation rules for both draw- and moveRules.
    */
   @Test
   public void testSetGenRules() {
@@ -80,6 +80,31 @@ public class DeterministicTurtleTest {
     turtle.setMoveRules(moveRules);
     turtle.generate(1, drawRules, moveRules);
     assertEquals("FF", turtle.getWord());
+  }
+
+  /**
+   * Tests that both drawRules and moveRules are applied
+   */
+  @Test
+  public void testSetDiffGenRules() {
+    String[] drawRules = {"FFF"};
+    String[] moveRules = {"GGG"};
+    turtle.setWord("FG");
+    turtle.setDrawRules(drawRules);
+    turtle.setMoveRules(moveRules);
+    turtle.generate(1, drawRules, moveRules);
+    assertEquals("FFFGGG", turtle.getWord());
+  }
+
+  @Test
+  public void testSetGetGenRules() {
+    String[] drawRules = {"FFF"};
+    String[] moveRules = {"GGG"};
+    turtle.setDrawRules(drawRules);
+    turtle.setMoveRules(moveRules);
+    assertArrayEquals(turtle.getDrawRules(), drawRules);
+    assertArrayEquals(turtle.getMoveRules(), moveRules);
+
   }
 
   /**
