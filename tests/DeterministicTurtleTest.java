@@ -562,4 +562,125 @@ public class DeterministicTurtleTest {
     turtle.resetBearing();
     assertEquals(0, turtle.currAngle, 1e-10);
   }
+
+  /**
+   * Tests that the growthDirection method can accurately get the direction that the turtle is growing in from simple inputs.
+   */
+  @Test
+  public void testGrowthDirectionXYSimple() {
+    turtle.setWord("F");
+    turtle.setLength(5);
+    turtle.setAngle(180);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("F+FF");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(1, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+
+    turtle.reset();
+    turtle.setWord("F+F");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("F+F");
+    turtle.setAngle(90);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(1, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+
+    turtle.reset();
+    turtle.setWord("F-F");
+    turtle.setAngle(90);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(1, turtle.growthLowY);
+  }
+
+  /**
+   * Tests that the growthDirection method can accurately get the direction that the turtle is growing in from more complicated inputs.
+   */
+  @Test
+  public void testMoreComplicatedGrowths() {
+    turtle.setWord("F-F-F-F");
+    turtle.setLength(5);
+    turtle.setAngle(90);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(1, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("F+F+F+F");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(1, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("--F-F-F-F");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(0, turtle.growthHighX);
+    assertEquals(1, turtle.growthHighY);
+    assertEquals(1, turtle.growthLowX);
+    assertEquals(0, turtle.growthLowY);
+
+
+    turtle.reset();
+    turtle.setWord("F--F--F");
+    turtle.setAngle(60);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(1, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("F--F--F--G--F--F--F--G--F--F--F--G");
+    turtle.setAngle(60);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(0, turtle.growthHighY);
+    assertEquals(0, turtle.growthLowX);
+    assertEquals(1, turtle.growthLowY);
+
+    turtle.reset();
+    turtle.setWord("F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF+F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF+F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF+F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF");
+    turtle.setAngle(90);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthHighX);
+    assertEquals(1, turtle.growthHighY);
+    assertEquals(1, turtle.growthLowX);
+    assertEquals(1, turtle.growthLowY);
+  }
 }
