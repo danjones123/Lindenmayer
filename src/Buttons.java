@@ -71,7 +71,7 @@ public class Buttons extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if ("Generate".equals((e.getActionCommand()))) {
       undoCounter = 0;
-      pushTurtle();
+      turtle.pushTurtle();
 
       turtle.resetHighLow();
 
@@ -95,7 +95,7 @@ public class Buttons extends JPanel implements ActionListener {
         //  popTurtle();
         //}
         iterations--;
-        popTurtle();
+        turtle.popTurtle();
 
         turtle.resetBearing();
         display.clear();
@@ -113,27 +113,5 @@ public class Buttons extends JPanel implements ActionListener {
     }
   }
 
-  /**
-   * Creates a new Turtle with the current parameters and adds it to the stack.
-   */
-  public void pushTurtle() {
-    Turtle pushTurtle = new DeterministicTurtle();
-    pushTurtle.setWord(turtle.getWord());
-    pushTurtle.setLength(turtle.getLength());
-    pushTurtle.setAngle(turtle.getAngle());
-    pushTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
 
-    turtleStack.push(pushTurtle);
-  }
-
-  /**
-   * Pops the top turtle off the stack and sets the main turtle to its parameters.
-   */
-  public void popTurtle() {
-    Turtle popTurtle = turtleStack.pop();
-    turtle.setWord(popTurtle.getWord());
-    turtle.setLength(popTurtle.getLength());
-    turtle.setAngle(popTurtle.getAngle());
-    turtle.setCoords(popTurtle.getCoordX(), popTurtle.getCoordY());
-  }
 }

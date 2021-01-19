@@ -1,7 +1,7 @@
 import java.awt.Point;
-import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 public abstract class Turtle {
 
@@ -29,6 +29,7 @@ public abstract class Turtle {
   int growthLowX;
   int growthLowY;
   Deque<Point> pointStack = new ArrayDeque<>();
+  Deque<String[]> turtleStack = new ArrayDeque<>();
 
   /**
    * Sets the word of the turtle.
@@ -91,6 +92,9 @@ public abstract class Turtle {
     this.moveRules = moveRules;
   }
 
+  /**
+   * Saves the starting point of the turtle to allow the turtle to be reset.
+   */
   public void saveStartingTurtle() {
     this.initialWord = word;
     this.initialLength = length;
@@ -185,7 +189,10 @@ public abstract class Turtle {
    * length multiplied with the sin/cos of currAngle so as to give it a distance to move and a
    * direction for it to move to.
    *
-   * The method also sets the highest and lowest coordinates which are used to help centre the object in the middle of the screen.
+   *<p>
+   * The method also sets the highest and lowest coordinates which are used to help centre the
+   * object in the middle of the screen.
+   *</p>
    *
    * @param length is the length for the coordinates to move.
    */
@@ -293,32 +300,93 @@ public abstract class Turtle {
     this.currAngle = 0;
   }
 
+  /**
+   * Class to centre the turtle drawing in the frame.
+   */
   public void centre() {
-    System.out.println("Highest X " + highestCoordX);
-    System.out.println("Highest Y " + highestCoordY);
-    System.out.println("Lowest X " + lowestCoordX);
-    System.out.println("Lowest Y " + lowestCoordY);
-
     double middleX = (highestCoordX - lowestCoordX) / 2;
     double middleY = (highestCoordY - lowestCoordY) / 2;
     double frameMidX = (double) Main.frameWidth / 2;
     double frameMidY = (double) Main.frameHeight / 2;
 
-    System.out.println("Mid X coord = " + middleX);
-    System.out.println("Mid Y coord = " + middleY);
+    if (growthHighX == 1) {
+      if (growthLowX == 1) {
+        // ignore or make midpoint of frame
+        System.out.println("TODO");
+      } else if (growthLowX == -1) {
+        //shift to lower X
+        System.out.println("TODO");
+      } else {
+        this.coordX = frameMidX - middleX;
+      }
+    } else if (growthHighX == -1) {
+      if (growthLowX == 1) {
+        //shift to higher X
+        System.out.println("TODO");
+      } else if (growthLowX == -1) {
+        // ignore or make midpoint of frame
+        System.out.println("TODO");
+      } else {
+        this.coordX = frameMidX + middleX;
+      }
+    } else {
+      if (growthLowX == 1) {
+        this.coordX = frameMidX + middleX;
+      } else if (growthLowX == -1) {
+        this.coordX = frameMidX - middleX;
+      } else {
+        this.coordX = frameMidX;
+      }
+    }
+
+    if (growthHighY == 1) {
+      if (growthLowY == 1) {
+        // ignore or make midpoint of frame
+        System.out.println("TODO");
+      } else if (growthLowY == -1) {
+        //shift to lower Y
+        System.out.println("TODO");
+      } else {
+        this.coordY = frameMidY - middleY;
+      }
+    } else if (growthHighY == -1) {
+      if (growthLowY == 1) {
+        //shift to higher Y
+        System.out.println("TODO");
+      } else if (growthLowY == -1) {
+        // ignore or make midpoint of frame
+        System.out.println("TODO");
+      } else {
+        this.coordY = frameMidY + middleY;
+      }
+    } else {
+      if (growthLowY == 1) {
+        this.coordY = frameMidY + middleY;
+      } else if (growthLowY == -1) {
+        this.coordY = frameMidY - middleY;
+      } else {
+        // ignore or make midpoint of frame
+        this.coordY = frameMidY;
+      }
+    }
+
+
+    /**
+    double middleX = (highestCoordX - lowestCoordX) / 2;
+    double middleY = (highestCoordY - lowestCoordY) / 2;
+
+    double frameMidX = (double) Main.frameWidth / 2;
+    double frameMidY = (double) Main.frameHeight / 2;
 
     this.coordX = frameMidX - middleX;
     this.coordY = frameMidY + middleY;
 
-    System.out.println("Coord X = " + coordX);
-    System.out.println("Coord Y = " + coordY);
-
-    //System.out.println("mid frame X - mid X = " + (frameMidX - middleX));
-    //System.out.println("mid frame Y - mid Y = " + (frameMidY - middleY));
-
-    System.out.println("\n");
+     */
   }
 
+  /**
+   * Method to reset the highest and lowest X and Y coordinates back to the original numbers.
+   */
   public void resetHighLow() {
     highestCoordX = 0;
     highestCoordY = 0;
@@ -326,34 +394,12 @@ public abstract class Turtle {
     lowestCoordY = 1 * 10e10;
   }
 
+  /**
+   * Class to work out which direction a given L-System is growing in, this will allow the image to
+   * be centred.
+   */
   public void growthDirection() {
-    /**
-     *
-    int startCoordX = (int) initialCoordX;
-    int startCoordY = (int) initialCoordY;
-    rules();
-    int endCoordX = (int) coordX;
-    int endCoordY = (int) coordY;
-
-    if (endCoordX > startCoordX) {
-      growthX = 1;
-    } else if (endCoordX < startCoordX) {
-      growthX = -1;
-    } else {
-      growthX = 0;
-    }
-
-    if (endCoordY > startCoordY) {
-      growthY = 1;
-    } else if (endCoordY < startCoordY) {
-      growthY = -1;
-    } else {
-      growthY = 0;
-    }
-*/
-
-
-
+    pushTurtle();
     int startCoordHighX = (int) coordX;
     int startCoordHighY = (int) coordY;
     int startCoordLowX = (int) coordX;
@@ -364,10 +410,33 @@ public abstract class Turtle {
     int endCoordLowX = (int) lowestCoordX;
     int endCoordLowY = (int) lowestCoordY;
 
-
     growthHighX = Integer.compare(endCoordHighX, startCoordHighX);
     growthHighY = Integer.compare(endCoordHighY, startCoordHighY);
     growthLowX = Integer.compare(startCoordLowX, endCoordLowX);
     growthLowY = Integer.compare(startCoordLowY, endCoordLowY);
+
+    popTurtle();
+    resetBearing();
+  }
+
+  /**
+   * Creates a new Turtle with the current parameters and adds it to the stack.
+   */
+  public void pushTurtle() {
+    String[] pushTurtle = {word, Double.toString(length), Double.toString(angle), Double.toString(coordX), Double.toString(coordY)};
+
+    turtleStack.push(pushTurtle);
+  }
+
+  /**
+   * Pops the top turtle off the stack and sets the main turtle to its parameters.
+   */
+  public void popTurtle() {
+    String[] popTurtle = turtleStack.pop();
+    word = popTurtle[0];
+    length = Double.parseDouble(popTurtle[1]);
+    angle = Double.parseDouble(popTurtle[2]);
+    coordX = Double.parseDouble(popTurtle[3]);
+    coordY = Double.parseDouble(popTurtle[4]);
   }
 }
