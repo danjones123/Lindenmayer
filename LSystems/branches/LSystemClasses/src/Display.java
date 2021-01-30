@@ -31,6 +31,12 @@ public class Display extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
+    g.setColor(Color.RED);
+    g.drawLine(0, Main.frameHeight / 2, Main.frameWidth, Main.frameHeight / 2);
+    g.drawLine(Main.frameWidth / 2, 0, Main.frameWidth / 2, Main.frameHeight);
+
+
+
     g.setColor(Color.BLACK);
     g.drawString("Press draw to draw Lindenmeyer System!", 40, 15);
 

@@ -723,65 +723,135 @@ public class DeterministicTurtleTest {
     assertEquals(0, turtle.getCoordY(), 1e-10);
   }
 
+  /**
+   * Test to make sure that the rate of growth to any side is measured, ie that the function can tell if the
+   * function is growing more to the positive x or negative x.
+   */
   @Test
-  public void testSimpleCentre() {
-    turtle.setWord("F");
+  public void testGrowthOffset() {
+    turtle.setWord("F+FF");
     turtle.setLength(10);
     turtle.setAngle(180);
     turtle.setCoords(0,0);
     turtle.saveStartingTurtle();
     turtle.growthDirection();
+    assertEquals(1, turtle.growthFactorX, 1e-10);
+    assertEquals(1, turtle.growthFactorY, 1e-10);
+
+    turtle.reset();
+    turtle.setWord("F+FFFF");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(0.333, turtle.growthFactorX, 1e-3);
+    assertEquals(1, turtle.growthFactorY, 1e-10);
+
+
+    turtle.reset();
+    turtle.setWord("FFFF+F");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(1, turtle.growthFactorX, 1e-10);
+    assertEquals(1, turtle.growthFactorY, 1e-10);
+
+    turtle.reset();
+    turtle.setWord("-F-FFFF+F");
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    assertEquals(3, turtle.growthFactorX, 1e-10);
+    assertEquals(1, turtle.growthFactorY, 1e-10);
+
+    turtle.reset();
+    turtle.setWord("-F-FFFF+F");
+    turtle.setAngle(90);
+    turtle.setCoords(400, 400);
+    turtle.saveStartingTurtle();
+    turtle.growthDirection();
+    //assertEquals(0.25, turtle.growthFactorX, 1e-10);
+    //assertEquals(2, turtle.growthFactorY, 1e-10);
+  }
+
+
+  /**
+   * Tests to see that moving one space in any direction the turtle goes to the centre.
+   */
+  @Test
+  public void testSimpleCentre() {
+    turtle.setWord("F");
+    turtle.setLength(10);
+    turtle.setAngle(90);
+    turtle.setCoords(400,400);
+    turtle.saveStartingTurtle();
+    //turtle.growthDirection();
     turtle.rules();
     turtle.centre();
     assertEquals((double) ((Main.frameWidth)/2)-5, turtle.getCoordX(), 1e-10);
     assertEquals((double) Main.frameHeight/2, turtle.getCoordY(), 1e-10);
+    assertEquals((double) ((Main.frameWidth)/2), turtle.middleX, 1e-10);
+    assertEquals((double) Main.frameHeight/2, turtle.middleY, 1e-10);
+
+    turtle.reset();
+    turtle.setWord("+F");
+    turtle.saveStartingTurtle();
+    //turtle.growthDirection();
+    turtle.rules();
+    turtle.centre();
+    assertEquals((double) Main.frameWidth/2, turtle.getCoordX(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordY(), 1e-10);
+
+    turtle.reset();
+    turtle.setWord("-F");
+    turtle.saveStartingTurtle();
+   //turtle.growthDirection();
+    turtle.rules();
+    turtle.centre();
+    assertEquals((double) ((Main.frameHeight)/2), turtle.getCoordX(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordY(), 1e-10);
+
+    turtle.reset();
+    turtle.setWord("--F");
+    turtle.saveStartingTurtle();
+    //turtle.growthDirection();
+    turtle.rules();
+    turtle.centre();
+    assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordX(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2), turtle.getCoordY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("+F");
     turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(0,0);
+    turtle.setAngle(45);
     turtle.saveStartingTurtle();
-    turtle.growthDirection();
-    turtle.rules();
-    turtle.centre();
-    assertEquals((double) Main.frameWidth/2, turtle.getCoordX(), 1e-10);
-    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("F+F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(0,0);
-    turtle.saveStartingTurtle();
-    turtle.growthDirection();
-    turtle.rules();
-    turtle.centre();
-    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordX(), 1e-10);
-    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("F-F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(0,0);
-    turtle.saveStartingTurtle();
-    turtle.growthDirection();
+    //turtle.growthDirection();
     turtle.rules();
     turtle.centre();
     assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordX(), 1e-10);
     assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordY(), 1e-10);
 
     turtle.reset();
-    turtle.setWord("++F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(0,0);
+    turtle.setWord("-F");
     turtle.saveStartingTurtle();
-    turtle.growthDirection();
+    //turtle.growthDirection();
+    turtle.rules();
+    turtle.centre();
+    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordX(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordY(), 1e-10);
+
+    turtle.reset();
+    turtle.setWord("---F");
+    turtle.saveStartingTurtle();
+    //turtle.growthDirection();
     turtle.rules();
     turtle.centre();
     assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordX(), 1e-10);
-    assertEquals((double) ((Main.frameHeight)/2), turtle.getCoordY(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2)-5, turtle.getCoordY(), 1e-10);
+
+    turtle.reset();
+    turtle.setWord("+++F");
+    turtle.saveStartingTurtle();
+    //turtle.growthDirection();
+    turtle.rules();
+    turtle.centre();
+    assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordX(), 1e-10);
+    assertEquals((double) ((Main.frameHeight)/2)+5, turtle.getCoordY(), 1e-10);
   }
 }

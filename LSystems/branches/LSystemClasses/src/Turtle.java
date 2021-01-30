@@ -1,10 +1,12 @@
 import java.awt.Point;
+import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Stack;
 
 public abstract class Turtle {
 
+  private static DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -20,14 +22,18 @@ public abstract class Turtle {
   private String[] moveRules;
   double oldX;
   double oldY;
-  private double lowestCoordX;
-  private double highestCoordX;
-  private double lowestCoordY;
-  private double highestCoordY;
+  private double lowestCoordX = 1 * 10e10;
+  private double highestCoordX = 0;
+  private double lowestCoordY = 1 * 10e10;
+  private double highestCoordY = 0;
+  double middleX;
+  double middleY;
   int growthHighX;
   int growthHighY;
   int growthLowX;
   int growthLowY;
+  double growthFactorX = 1;
+  double growthFactorY = 1;
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
 
@@ -211,10 +217,10 @@ public abstract class Turtle {
       lowestCoordY = coordY;
     }
 
-    oldX = coordX;
-    oldY = coordY;
-    coordX += (length * Math.cos(currAngle));
-    coordY += (length * Math.sin(currAngle));
+    oldX = Double.parseDouble(df.format(coordX));
+    oldY = Double.parseDouble(df.format(coordY));
+    coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
+    coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
     Line l = new Line(oldX, oldY, coordX, coordY);
     l.createLine();
 
@@ -243,8 +249,8 @@ public abstract class Turtle {
    * @param length is the distance to move.
    */
   public void move(double length) {
-    coordX += (length * Math.cos(currAngle));
-    coordY += (length * Math.sin(currAngle));
+    coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
+    coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
   }
 
   /**
@@ -304,12 +310,13 @@ public abstract class Turtle {
    * Class to centre the turtle drawing in the frame.
    */
   public void centre() {
-    double middleX = (highestCoordX - lowestCoordX) / 2;
-    double middleY = (highestCoordY - lowestCoordY) / 2;
-    double frameMidX = (double) Main.frameWidth / 2;
-    double frameMidY = (double) Main.frameHeight / 2;
+    //double middleX = (highestCoordX - lowestCoordX) / 2;
+    //double middleY = (highestCoordY - lowestCoordY) / 2;
+    //ouble frameMidX = (double) Main.frameWidth / 2;
+    //double frameMidY = (double) Main.frameHeight / 2;
 
-    if (growthHighX == 1) {
+    /**
+     * if (growthHighX == 1) {
       if (growthLowX == 1) {
         // ignore or make midpoint of frame
         System.out.println("TODO");
@@ -369,19 +376,49 @@ public abstract class Turtle {
         this.coordY = frameMidY;
       }
     }
+*/
 
+/**
+    middleX = (highestCoordX - lowestCoordX) / 2;
+    middleY = (highestCoordY - lowestCoordY) / 2;
 
-    /**
-    double middleX = (highestCoordX - lowestCoordX) / 2;
-    double middleY = (highestCoordY - lowestCoordY) / 2;
+    frameMidX = (double) Main.frameWidth / 2;
+    frameMidY = (double) Main.frameHeight / 2;
+
+    this.coordX = frameMidX - middleX;
+    this.coordY = frameMidY + middleY;
+*/
+
+    middleX = (highestCoordX + lowestCoordX) / 2;
+    middleY = (highestCoordY + lowestCoordY) / 2;
 
     double frameMidX = (double) Main.frameWidth / 2;
     double frameMidY = (double) Main.frameHeight / 2;
 
-    this.coordX = frameMidX - middleX;
-    this.coordY = frameMidY + middleY;
+    double changingX = coordX - middleX;
+    double changingY = coordY - middleY;
 
-     */
+    //double offSetX = frameMidX - middleX;
+    //double offSetY = frameMidY - middleY;
+
+    if (changingX > 0) {
+      this.coordX = frameMidX - changingX;
+    } else if (changingX < 0) {
+      this.coordX = frameMidX - changingX;
+    } else {
+      this.coordX = frameMidX;
+    }
+
+    if (changingY > 0) {
+      this.coordY = frameMidY + changingY;
+    } else if (changingY < 0) {
+      this.coordY = frameMidY + changingY;
+    } else {
+      this.coordY = frameMidY;
+    }
+
+    //this.coordX = changingX + frameMidX;
+    //this.coordY = changingY + frameMidY;
   }
 
   /**
@@ -399,6 +436,9 @@ public abstract class Turtle {
    * be centred.
    */
   public void growthDirection() {
+    growthFactorX = 1;
+    growthFactorY = 1;
+
     pushTurtle();
     int startCoordHighX = (int) coordX;
     int startCoordHighY = (int) coordY;
@@ -409,6 +449,13 @@ public abstract class Turtle {
     int endCoordHighY = (int) highestCoordY;
     int endCoordLowX = (int) lowestCoordX;
     int endCoordLowY = (int) lowestCoordY;
+
+    if (highestCoordX != 0 && lowestCoordX != 0) {
+      growthFactorX = (Math.sqrt(Math.pow(highestCoordX / lowestCoordX, 2)));
+    }
+    if (highestCoordY != 0 && lowestCoordY != 0) {
+      growthFactorY = (Math.sqrt(Math.pow(highestCoordY / lowestCoordY, 2)));
+    }
 
     growthHighX = Integer.compare(endCoordHighX, startCoordHighX);
     growthHighY = Integer.compare(endCoordHighY, startCoordHighY);
