@@ -80,7 +80,7 @@ public class Buttons extends JPanel implements ActionListener {
       display.clear();
       turtle.rules();
       turtle.resetBearing();
-      turtle.centre();
+      //turtle.centre();
       display.clear();
       turtle.rules();
 
