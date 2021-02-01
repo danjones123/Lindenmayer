@@ -26,8 +26,10 @@ public abstract class Turtle {
   private double highestCoordX = 0;
   private double lowestCoordY = 1 * 10e10;
   private double highestCoordY = 0;
-  double middleX;
-  double middleY;
+  private double middleX;
+  private double middleY;
+  double startingCoordX;
+  double startingCoordY;
   int growthHighX;
   int growthHighY;
   int growthLowX;
@@ -154,6 +156,14 @@ public abstract class Turtle {
     return coordY;
   }
 
+  public double getMiddleX() {
+    return (highestCoordX + lowestCoordX) / 2;
+  }
+
+  public double getMiddleY() {
+    return (highestCoordY + lowestCoordY) / 2;
+  }
+
   /**
    * Getter for the array of drawing rules.
    *
@@ -176,6 +186,9 @@ public abstract class Turtle {
    * Rules class to iterate through the String and tell the program what to do at each character.
    */
   public void rules() {
+    startingCoordX = coordX;
+    startingCoordY = coordY;
+
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
@@ -310,115 +323,37 @@ public abstract class Turtle {
    * Class to centre the turtle drawing in the frame.
    */
   public void centre() {
-    //double middleX = (highestCoordX - lowestCoordX) / 2;
-    //double middleY = (highestCoordY - lowestCoordY) / 2;
-    //ouble frameMidX = (double) Main.frameWidth / 2;
-    //double frameMidY = (double) Main.frameHeight / 2;
-
-    /**
-     * if (growthHighX == 1) {
-      if (growthLowX == 1) {
-        // ignore or make midpoint of frame
-        System.out.println("TODO");
-      } else if (growthLowX == -1) {
-        //shift to lower X
-        System.out.println("TODO");
-      } else {
-        this.coordX = frameMidX - middleX;
-      }
-    } else if (growthHighX == -1) {
-      if (growthLowX == 1) {
-        //shift to higher X
-        System.out.println("TODO");
-      } else if (growthLowX == -1) {
-        // ignore or make midpoint of frame
-        System.out.println("TODO");
-      } else {
-        this.coordX = frameMidX + middleX;
-      }
-    } else {
-      if (growthLowX == 1) {
-        this.coordX = frameMidX + middleX;
-      } else if (growthLowX == -1) {
-        this.coordX = frameMidX - middleX;
-      } else {
-        this.coordX = frameMidX;
-      }
-    }
-
-    if (growthHighY == 1) {
-      if (growthLowY == 1) {
-        // ignore or make midpoint of frame
-        System.out.println("TODO");
-      } else if (growthLowY == -1) {
-        //shift to lower Y
-        System.out.println("TODO");
-      } else {
-        this.coordY = frameMidY - middleY;
-      }
-    } else if (growthHighY == -1) {
-      if (growthLowY == 1) {
-        //shift to higher Y
-        System.out.println("TODO");
-      } else if (growthLowY == -1) {
-        // ignore or make midpoint of frame
-        System.out.println("TODO");
-      } else {
-        this.coordY = frameMidY + middleY;
-      }
-    } else {
-      if (growthLowY == 1) {
-        this.coordY = frameMidY + middleY;
-      } else if (growthLowY == -1) {
-        this.coordY = frameMidY - middleY;
-      } else {
-        // ignore or make midpoint of frame
-        this.coordY = frameMidY;
-      }
-    }
-*/
-
-/**
-    middleX = (highestCoordX - lowestCoordX) / 2;
-    middleY = (highestCoordY - lowestCoordY) / 2;
-
-    frameMidX = (double) Main.frameWidth / 2;
-    frameMidY = (double) Main.frameHeight / 2;
-
-    this.coordX = frameMidX - middleX;
-    this.coordY = frameMidY + middleY;
-*/
-
     middleX = (highestCoordX + lowestCoordX) / 2;
     middleY = (highestCoordY + lowestCoordY) / 2;
 
     double frameMidX = (double) Main.frameWidth / 2;
     double frameMidY = (double) Main.frameHeight / 2;
 
-    double changingX = coordX - middleX;
-    double changingY = coordY - middleY;
+    double offsetFromStartToMidX = startingCoordX - middleX;
+    double offsetFromStartToMidY = startingCoordY - middleY;
 
-    //double offSetX = frameMidX - middleX;
-    //double offSetY = frameMidY - middleY;
+    double offsetFromMidFrameToMidCoordX = frameMidX - middleX;
+    double offsetFromMidFrameToMidCoordY = frameMidY - middleY;
 
-    if (changingX > 0) {
-      this.coordX = frameMidX - changingX;
-    } else if (changingX < 0) {
-      this.coordX = frameMidX - changingX;
-    } else {
-      this.coordX = frameMidX;
+    if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX > 0) {
+      this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX < 0) {
+      this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX < 0 && offsetFromMidFrameToMidCoordX > 0) {
+      this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX < 0 && offsetFromMidFrameToMidCoordX < 0) {
+      this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
     }
 
-    if (changingY > 0) {
-      this.coordY = frameMidY + changingY;
-    } else if (changingY < 0) {
-      this.coordY = frameMidY + changingY;
-    } else {
-      this.coordY = frameMidY;
+    if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY > 0) {
+      this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY < 0) {
+      this.coordY = frameMidY - Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY < 0 && offsetFromMidFrameToMidCoordY > 0) {
+      this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY < 0 && offsetFromMidFrameToMidCoordY < 0) {
+      this.coordY = frameMidY - Math.abs(offsetFromMidFrameToMidCoordY);
     }
-
-    //this.coordX = changingX + frameMidX;
-    //this.coordY = changingY + frameMidY;
   }
 
   /**
@@ -429,41 +364,6 @@ public abstract class Turtle {
     highestCoordY = 0;
     lowestCoordX = 1 * 10e10;
     lowestCoordY = 1 * 10e10;
-  }
-
-  /**
-   * Class to work out which direction a given L-System is growing in, this will allow the image to
-   * be centred.
-   */
-  public void growthDirection() {
-    growthFactorX = 1;
-    growthFactorY = 1;
-
-    pushTurtle();
-    int startCoordHighX = (int) coordX;
-    int startCoordHighY = (int) coordY;
-    int startCoordLowX = (int) coordX;
-    int startCoordLowY = (int) coordY;
-    rules();
-    int endCoordHighX = (int) highestCoordX;
-    int endCoordHighY = (int) highestCoordY;
-    int endCoordLowX = (int) lowestCoordX;
-    int endCoordLowY = (int) lowestCoordY;
-
-    if (highestCoordX != 0 && lowestCoordX != 0) {
-      growthFactorX = (Math.sqrt(Math.pow(highestCoordX / lowestCoordX, 2)));
-    }
-    if (highestCoordY != 0 && lowestCoordY != 0) {
-      growthFactorY = (Math.sqrt(Math.pow(highestCoordY / lowestCoordY, 2)));
-    }
-
-    growthHighX = Integer.compare(endCoordHighX, startCoordHighX);
-    growthHighY = Integer.compare(endCoordHighY, startCoordHighY);
-    growthLowX = Integer.compare(startCoordLowX, endCoordLowX);
-    growthLowY = Integer.compare(startCoordLowY, endCoordLowY);
-
-    popTurtle();
-    resetBearing();
   }
 
   /**
