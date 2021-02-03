@@ -1,9 +1,5 @@
 import org.junit.Test;
 
-import javax.swing.*;
-
-import java.awt.*;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertArrayEquals;
 
@@ -140,7 +136,7 @@ public class DeterministicTurtleTest {
   }
 
   /**
-   * Tests that the coordiantes of the turtle are changed multiple times when multiple F's are
+   * Tests that the coordinates of the turtle are changed multiple times when multiple F's are
    * given.
    */
   @Test
@@ -184,7 +180,7 @@ public class DeterministicTurtleTest {
   }
 
   /**
-   * Tests that the turtle coordinates are what they shoudl be when draw and move are both called.
+   * Tests that the turtle coordinates are what they should be when draw and move are both called.
    */
   @Test
   public void testDrawMoveDraw() {
@@ -281,7 +277,7 @@ public class DeterministicTurtleTest {
    * Tests that if a square is given that the starting and ending co-ordinates are the same.
    */
   @Test
-  public void sqaureCoords() {
+  public void squareCoords() {
     turtle.setWord("F+F+F+F");
     turtle.setLength(10);
     turtle.setAngle(90);
@@ -486,7 +482,7 @@ public class DeterministicTurtleTest {
    * Tests that generate works with multiple iterations and more complex strings/rules.
    */
   @Test
-  public void testMoreComplextIterations() {
+  public void testMoreComplexIterations() {
     turtle.setWord("FGF");
     turtle.setLength(0);
     turtle.setAngle(0);

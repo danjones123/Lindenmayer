@@ -14,7 +14,16 @@ public class StochasticTurtle extends Turtle {
   public StochasticTurtle() {
   }
 
-  //Make separate getRules or something to allow user to decide how much weight each rule holds rather that it always being equal chance
+  //Make separate getRules or something to allow user to decide how much weight each rule holds
+  //rather that it always being equal chance
+
+  /**
+   * Generate method for a stochastic turtle, can have different sets of drawing rules.
+   *
+   * @param iterations the number of times the generation rules are to be iterated through.
+   * @param drawRules the rules for drawing lines.
+   * @param moveRules the rules for moving.
+   */
   public void generate(int iterations, String[] drawRules, String[] moveRules) {
     String nextWord = getWord();
     StringBuilder next = new StringBuilder();
@@ -29,7 +38,7 @@ public class StochasticTurtle extends Turtle {
           int randomPosition = new Random().nextInt(moveRules.length);
           System.out.println(randomPosition);
           next.append(moveRules[randomPosition]);
-        }else {
+        } else {
           next.append(c);
         }
       }

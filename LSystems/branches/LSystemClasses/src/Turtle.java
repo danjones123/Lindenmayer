@@ -2,11 +2,10 @@ import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 
 public abstract class Turtle {
 
-  private static DecimalFormat df = new DecimalFormat("0.00000");
+  private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -26,16 +25,8 @@ public abstract class Turtle {
   private double highestCoordX = 0;
   private double lowestCoordY = 1 * 10e10;
   private double highestCoordY = 0;
-  private double middleX;
-  private double middleY;
   double startingCoordX;
   double startingCoordY;
-  int growthHighX;
-  int growthHighY;
-  int growthLowX;
-  int growthLowY;
-  double growthFactorX = 1;
-  double growthFactorY = 1;
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
 
@@ -73,7 +64,7 @@ public abstract class Turtle {
    * Sets the starting co-ordinates of the turtle.
    *
    * @param x is the starting x co-ordinate.
-   * @param y is the startng y co-ordinate.
+   * @param y is the starting y co-ordinate.
    */
   public void setCoords(double x, double y) {
     this.coordX = x;
@@ -216,19 +207,7 @@ public abstract class Turtle {
    * @param length is the length for the coordinates to move.
    */
   public void draw(double length) {
-    //REFACTOR OUT COMPARING HIGHEST/LOWEST COORDS
-    if (coordX > highestCoordX) {
-      highestCoordX = coordX;
-    }
-    if (coordX < lowestCoordX) {
-      lowestCoordX = coordX;
-    }
-    if (coordY > highestCoordY) {
-      highestCoordY = coordY;
-    }
-    if (coordY < lowestCoordY) {
-      lowestCoordY = coordY;
-    }
+    calcHighLowCoord();
 
     oldX = Double.parseDouble(df.format(coordX));
     oldY = Double.parseDouble(df.format(coordY));
@@ -237,18 +216,8 @@ public abstract class Turtle {
     Line l = new Line(oldX, oldY, coordX, coordY);
     l.createLine();
 
-    if (coordX > highestCoordX) {
-      highestCoordX = coordX;
-    }
-    if (coordX < lowestCoordX) {
-      lowestCoordX = coordX;
-    }
-    if (coordY > highestCoordY) {
-      highestCoordY = coordY;
-    }
-    if (coordY < lowestCoordY) {
-      lowestCoordY = coordY;
-    }
+    calcHighLowCoord();
+
     //System.out.println("Highest X " + highestCoordX);
     //System.out.println("Highest Y " + highestCoordY);
     //System.out.println("Lowest X " + lowestCoordX);
@@ -323,8 +292,8 @@ public abstract class Turtle {
    * Class to centre the turtle drawing in the frame.
    */
   public void centre() {
-    middleX = (highestCoordX + lowestCoordX) / 2;
-    middleY = (highestCoordY + lowestCoordY) / 2;
+    double middleX = (highestCoordX + lowestCoordX) / 2;
+    double middleY = (highestCoordY + lowestCoordY) / 2;
 
     double frameMidX = (double) Main.frameWidth / 2;
     double frameMidY = (double) Main.frameHeight / 2;
@@ -370,7 +339,8 @@ public abstract class Turtle {
    * Creates a new Turtle with the current parameters and adds it to the stack.
    */
   public void pushTurtle() {
-    String[] pushTurtle = {word, Double.toString(length), Double.toString(angle), Double.toString(coordX), Double.toString(coordY)};
+    String[] pushTurtle = {word, Double.toString(length), Double.toString(angle),
+        Double.toString(coordX), Double.toString(coordY)};
 
     turtleStack.push(pushTurtle);
   }
@@ -385,5 +355,23 @@ public abstract class Turtle {
     angle = Double.parseDouble(popTurtle[2]);
     coordX = Double.parseDouble(popTurtle[3]);
     coordY = Double.parseDouble(popTurtle[4]);
+  }
+
+  /**
+   * Calculates the highest and lowest co-ordinates in the current drawing.
+   */
+  public void calcHighLowCoord() {
+    if (coordX > highestCoordX) {
+      highestCoordX = coordX;
+    }
+    if (coordX < lowestCoordX) {
+      lowestCoordX = coordX;
+    }
+    if (coordY > highestCoordY) {
+      highestCoordY = coordY;
+    }
+    if (coordY < lowestCoordY) {
+      lowestCoordY = coordY;
+    }
   }
 }

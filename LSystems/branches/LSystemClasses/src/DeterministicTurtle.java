@@ -11,7 +11,13 @@ public class DeterministicTurtle extends Turtle {
   public DeterministicTurtle() {
   }
 
-
+  /**
+   * Generate method for a deterministic turtle.
+   *
+   * @param iterations the number of times the generation rules are to be iterated through.
+   * @param drawRule the rule for drawing lines.
+   * @param moveRule the rule for moving.
+   */
   public void generate(int iterations, String[] drawRule, String[] moveRule) {
     String nextWord = getWord();
     StringBuilder next = new StringBuilder();

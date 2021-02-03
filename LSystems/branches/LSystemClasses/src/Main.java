@@ -33,7 +33,7 @@ public class Main {
     Turtle turtle = new DeterministicTurtle();
 
     //turtle.setWord("F-F-F-F");
-    //turtle.setLength(10);
+    //turtle.setLength(5);
     //turtle.setAngle(90);
     //String[] drawRules = {"FF-FF"};
     //String[] moveRules = {"GG"};
@@ -44,17 +44,17 @@ public class Main {
     //String[] drawRules = {"F--F--F--G"};
     //String[] moveRules = {"GG"};
 
-    //turtle.setWord("F+F+F+F");
-    //turtle.setLength(1);
-    //turtle.setAngle(90);
-    //String[] drawRules = {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"};
-    //String[] moveRules = {"GGGGGG"};
-
-    turtle.setWord("F");
-    turtle.setLength(5);
-    turtle.setAngle(25.7);
-    String[] drawRules = {"FF+[+F-F-F]-[-F+F+F]"};
+    turtle.setWord("F+F+F+F");
+    turtle.setLength(2);
+    turtle.setAngle(90);
+    String[] drawRules = {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"};
     String[] moveRules = {"GGGGGG"};
+
+    //turtle.setWord("F");
+    //turtle.setLength(5);
+    //turtle.setAngle(25.7);
+    //String[] drawRules = {"FF+[+F-F-F]-[-F+F+F]"};
+    //String[] moveRules = {"GGGGGG"};
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
     turtle.saveStartingTurtle();
