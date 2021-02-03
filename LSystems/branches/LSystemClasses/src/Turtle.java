@@ -218,10 +218,6 @@ public abstract class Turtle {
 
     calcHighLowCoord();
 
-    //System.out.println("Highest X " + highestCoordX);
-    //System.out.println("Highest Y " + highestCoordY);
-    //System.out.println("Lowest X " + lowestCoordX);
-    //System.out.println("Lowest Y " + lowestCoordY);
   }
 
   /**
