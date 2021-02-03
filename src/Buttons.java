@@ -15,8 +15,9 @@ public class Buttons extends JPanel implements ActionListener {
   String[] drawRules;
   String[] moveRules;
   private final Display display;
-  private int iterations = 1;
+  private int iterations = 0;
   private int undoCounter = 0;
+  private int genCounter = 1;
 
 
   /**
@@ -71,8 +72,6 @@ public class Buttons extends JPanel implements ActionListener {
       turtle.pushTurtle();
 
       turtle.resetHighLow();
-
-      //turtle.setLength(turtle.getLength()*0.1);
       turtle.resetBearing();
       display.clear();
       turtle.rules();
@@ -86,19 +85,29 @@ public class Buttons extends JPanel implements ActionListener {
       iterations++;
       turtle.reset();
       turtle.generate(iterations, drawRules, moveRules);
+      System.out.println("iterations =" + iterations);
     } else if ("Undo".equals(e.getActionCommand())) {
+
       if (iterations > 1) {
-        //if (undoCounter == 0) {
-        //  popTurtle();
-        //}
+        if (undoCounter == 0) {
+          turtle.popTurtle();
+          iterations--;
+          undoCounter = 1;
+        }
         iterations--;
         turtle.popTurtle();
 
+        turtle.resetHighLow();
         turtle.resetBearing();
         display.clear();
         turtle.rules();
+        turtle.resetBearing();
+        turtle.centre();
+        display.clear();
+        turtle.rules();
         display.callPaint();
-        undoCounter++;
+
+        System.out.println("iterations =" + iterations);
       } else {
         turtle.reset();
         display.clear();
