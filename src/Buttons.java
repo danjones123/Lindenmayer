@@ -1,7 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -19,14 +17,13 @@ public class Buttons extends JPanel implements ActionListener {
   private final Display display;
   private int iterations = 1;
   private int undoCounter = 0;
-  Deque<Turtle> turtleStack = new ArrayDeque<>();
 
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
-   * main aswell.
+   * main as well.
    *
-   * @param turtle is the turlte that is initialised in main.
+   * @param turtle is the turtle that is initialised in main.
    */
   public void turtleInit(Turtle turtle) {
     this.turtle = turtle;
@@ -61,7 +58,7 @@ public class Buttons extends JPanel implements ActionListener {
 
   /**
    * Checks which button was pressed and calls the correct methods for that button.
-   * "Draw" draws the turtle intepretation.
+   * "Draw" draws the turtle interpretation.
    * "Generate" generates through the L-System.
    * "Undo" undoes the previous generation.
    * "Clear Drawing" removes the drawing from the screen.

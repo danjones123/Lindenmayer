@@ -1,24 +1,23 @@
 import org.junit.Test;
-import java.awt.event.ActionEvent;
 import static org.junit.Assert.*;
 
 public class ButtonsTest {
 
   Display display = new Display();
-  Turtle detTurlte = new DeterministicTurtle();
+  Turtle detTurtle = new DeterministicTurtle();
   Turtle stochTurtle = new StochasticTurtle();
   Buttons b = new Buttons(display);
 
   @Test
   public void testDetTurtleInit() {
-    detTurlte.setWord("FFF");
+    detTurtle.setWord("FFF");
     String[] drawRules = {"FFFFFF"};
     String[] moveRules = {"GG"};
-    detTurlte.setDrawRules(drawRules);
-    detTurlte.setMoveRules(moveRules);
-    b.turtleInit(detTurlte);
-    assertArrayEquals(detTurlte.getDrawRules(), drawRules);
-    assertArrayEquals(detTurlte.getMoveRules(), moveRules);
+    detTurtle.setDrawRules(drawRules);
+    detTurtle.setMoveRules(moveRules);
+    b.turtleInit(detTurtle);
+    assertArrayEquals(detTurtle.getDrawRules(), drawRules);
+    assertArrayEquals(detTurtle.getMoveRules(), moveRules);
   }
 
   @Test
