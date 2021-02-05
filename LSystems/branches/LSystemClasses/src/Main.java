@@ -32,17 +32,17 @@ public class Main {
   private static void createAndShowGraphics() {
     Turtle turtle = new DeterministicTurtle();
 
-    turtle.setWord("F-F-F-F");
-    turtle.setLength(5);
-    turtle.setAngle(90);
-    String[] drawRules = {"FF-FF"};
-    String[] moveRules = {"GG"};
-
-    //turtle.setWord("F--F--F");
-    //turtle.setLength(10);
-    //turtle.setAngle(60);
-    //String[] drawRules = {"F--F--F--G"};
+    //turtle.setWord("F-F-F-F");
+    //turtle.setLength(5);
+    //turtle.setAngle(90);
+    //String[] drawRules = {"FF-FF"};
     //String[] moveRules = {"GG"};
+
+    turtle.setWord("F--F--F");
+    turtle.setLength(10);
+    turtle.setAngle(60);
+    String[] drawRules = {"F--F--F--G"};
+    String[] moveRules = {"GG"};
 
     //turtle.setWord("F+F+F+F");
     //turtle.setLength(2);

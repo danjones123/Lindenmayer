@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -15,9 +16,8 @@ public class Buttons extends JPanel implements ActionListener {
   String[] drawRules;
   String[] moveRules;
   private final Display display;
-  private int iterations = 0;
-  private int undoCounter = 0;
-  private int genCounter = 1;
+  private int iterations = 1;
+  TwoQueue tq = new TwoQueue();
 
 
   /**
@@ -30,6 +30,7 @@ public class Buttons extends JPanel implements ActionListener {
     this.turtle = turtle;
     drawRules = turtle.getDrawRules();
     moveRules = turtle.getMoveRules();
+    tq.resetQueue();
   }
 
   /**
@@ -59,7 +60,6 @@ public class Buttons extends JPanel implements ActionListener {
 
   /**
    * Checks which button was pressed and calls the correct methods for that button.
-   * "Draw" draws the turtle interpretation.
    * "Generate" generates through the L-System.
    * "Undo" undoes the previous generation.
    * "Clear Drawing" removes the drawing from the screen.
@@ -68,46 +68,47 @@ public class Buttons extends JPanel implements ActionListener {
    */
   public void actionPerformed(ActionEvent e) {
     if ("Generate".equals((e.getActionCommand()))) {
-      undoCounter = 0;
-      turtle.pushTurtle();
 
-      turtle.resetHighLow();
-      turtle.resetBearing();
-      display.clear();
-      turtle.rules();
-      turtle.resetBearing();
-      turtle.centre();
-      display.clear();
-      turtle.rules();
 
-      display.callPaint();
+      switch (tq.lastTwo("g")) {
+        case ("uu"):
+        case ("gu"):
+          iterations++;
+          turtle.pushTurtle();
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
 
-      iterations++;
-      turtle.reset();
-      turtle.generate(iterations, drawRules, moveRules);
-      System.out.println("iterations =" + iterations);
+          break;
+        default:
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+      }
+
     } else if ("Undo".equals(e.getActionCommand())) {
-
       if (iterations > 1) {
-        if (undoCounter == 0) {
-          turtle.popTurtle();
-          iterations--;
-          undoCounter = 1;
+
+        switch (tq.lastTwo("u")) {
+          case ("gg"):
+          case ("ug"):
+            turtle.popTurtle();
+            iterations--;
+            turtle.popTurtle();
+            iterations--;
+            draw();
+            break;
+          default:
+            turtle.popTurtle();
+            iterations--;
+            draw();
         }
-        iterations--;
-        turtle.popTurtle();
-
-        turtle.resetHighLow();
-        turtle.resetBearing();
-        display.clear();
-        turtle.rules();
-        turtle.resetBearing();
-        turtle.centre();
-        display.clear();
-        turtle.rules();
-        display.callPaint();
-
-        System.out.println("iterations =" + iterations);
       } else {
         turtle.reset();
         display.clear();
@@ -117,6 +118,19 @@ public class Buttons extends JPanel implements ActionListener {
       turtle.reset();
       display.clear();
     }
+  }
+
+  public void draw() {
+    turtle.resetHighLow();
+    turtle.resetBearing();
+    display.clear();
+    turtle.rules();
+    turtle.resetBearing();
+    turtle.centre();
+    display.clear();
+    turtle.rules();
+
+    display.callPaint();
   }
 
 
