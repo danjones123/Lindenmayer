@@ -3,6 +3,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * Abstract class for the Turtle which draws the L-Systems.
+ *
+ * @author Daniel Jones
+ */
 public abstract class Turtle {
 
   private final DecimalFormat df = new DecimalFormat("0.00000");
@@ -21,10 +26,10 @@ public abstract class Turtle {
   private String[] moveRules;
   double oldX;
   double oldY;
-  private double lowestCoordX = 1 * 10e10;
-  private double highestCoordX = 0;
-  private double lowestCoordY = 1 * 10e10;
-  private double highestCoordY = 0;
+  double lowestCoordX = 1 * 10e10;
+  double highestCoordX = 0;
+  double lowestCoordY = 1 * 10e10;
+  double highestCoordY = 0;
   double startingCoordX;
   double startingCoordY;
   Deque<Point> pointStack = new ArrayDeque<>();
@@ -37,7 +42,6 @@ public abstract class Turtle {
    */
   public void setWord(String word) {
     this.word = word;
-    //this.initialWord = word;
   }
 
   /**
@@ -47,7 +51,6 @@ public abstract class Turtle {
    */
   public void setLength(double length) {
     this.length = length;
-    //this.initialLength = length;
   }
 
   /**
@@ -57,7 +60,6 @@ public abstract class Turtle {
    */
   public void setAngle(double angle) {
     this.angle = angle;
-    //this.initialAngle = angle;
   }
 
   /**
@@ -69,8 +71,6 @@ public abstract class Turtle {
   public void setCoords(double x, double y) {
     this.coordX = x;
     this.coordY = y;
-    //this.initialCoordX = x;
-    //this.initialCoordY = y;
   }
 
   /**
@@ -147,10 +147,20 @@ public abstract class Turtle {
     return coordY;
   }
 
+  /**
+   * Returns the centre along the X axis of the current turtle drawing.
+   *
+   * @return returns the midpoint of the highest and lowest co-ordinates.
+   */
   public double getMiddleX() {
     return (highestCoordX + lowestCoordX) / 2;
   }
 
+  /**
+   * Returns the centre along the Y axis of the current turtle drawing.
+   *
+   * @return returns the midpoint of the highest and lowest co-ordinates.
+   */
   public double getMiddleY() {
     return (highestCoordY + lowestCoordY) / 2;
   }
@@ -198,11 +208,6 @@ public abstract class Turtle {
    * Stores the original x and y coordinates and then transforms the new ones by adding them to
    * length multiplied with the sin/cos of currAngle so as to give it a distance to move and a
    * direction for it to move to.
-   *
-   *<p>
-   * The method also sets the highest and lowest coordinates which are used to help centre the
-   * object in the middle of the screen.
-   *</p>
    *
    * @param length is the length for the coordinates to move.
    */
@@ -286,6 +291,9 @@ public abstract class Turtle {
 
   /**
    * Class to centre the turtle drawing in the frame.
+   * It does this by adjusting the start of the turtle by the offset
+   * from the starting co-ordinate to the midpoint and the offset from
+   * the midpoint of the drawing to the midpoint of the frame.
    */
   public void centre() {
     double middleX = (highestCoordX + lowestCoordX) / 2;

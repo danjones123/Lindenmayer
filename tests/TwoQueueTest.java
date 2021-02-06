@@ -2,9 +2,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class for testing the TwoQueue class.
+ */
 public class TwoQueueTest {
   TwoQueue tq = new TwoQueue();
 
+  /**
+   * Tests the values of the queue after the queue is reset/initialised.
+   */
   @Test
   public void resetQueue() {
     tq.resetQueue();
@@ -13,6 +19,9 @@ public class TwoQueueTest {
 
   }
 
+  /**
+   * Tests that the last two of the queue are recorded in the correct order.
+   */
   @Test
   public void lastTwo() {
     tq.resetQueue();

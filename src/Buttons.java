@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -22,7 +21,7 @@ public class Buttons extends JPanel implements ActionListener {
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
-   * main as well.
+   * main as well. Also initialises the queue.
    *
    * @param turtle is the turtle that is initialised in main.
    */
@@ -64,15 +63,17 @@ public class Buttons extends JPanel implements ActionListener {
    * "Undo" undoes the previous generation.
    * "Clear Drawing" removes the drawing from the screen.
    *
+   * <p>
+   * Generate and undo check what to do using a queue that always holds two values of the last
+   * two buttons that were pressed.
+   * </p>
+   *
    * @param e is the ActionEvent, meaning the button was pressed.
    */
   public void actionPerformed(ActionEvent e) {
     if ("Generate".equals((e.getActionCommand()))) {
-
-
       switch (tq.lastTwo("g")) {
-        case ("uu"):
-        case ("gu"):
+        case ("uu"), ("gu") -> {
           iterations++;
           turtle.pushTurtle();
           turtle.reset();
@@ -82,32 +83,30 @@ public class Buttons extends JPanel implements ActionListener {
           iterations++;
           turtle.reset();
           turtle.generate(iterations, drawRules, moveRules);
-
-          break;
-        default:
+        }
+        default -> {
           turtle.pushTurtle();
           draw();
           iterations++;
           turtle.reset();
           turtle.generate(iterations, drawRules, moveRules);
+        }
       }
-
     } else if ("Undo".equals(e.getActionCommand())) {
       if (iterations > 1) {
-
         switch (tq.lastTwo("u")) {
-          case ("gg"):
-          case ("ug"):
+          case ("gg"), ("ug") -> {
             turtle.popTurtle();
             iterations--;
             turtle.popTurtle();
             iterations--;
             draw();
-            break;
-          default:
+          }
+          default -> {
             turtle.popTurtle();
             iterations--;
             draw();
+          }
         }
       } else {
         turtle.reset();
@@ -120,6 +119,10 @@ public class Buttons extends JPanel implements ActionListener {
     }
   }
 
+  /**
+   * Method for drawing the turtle. Ensures that it is always drawn in the same direction
+   * and that it is centred.
+   */
   public void draw() {
     turtle.resetHighLow();
     turtle.resetBearing();

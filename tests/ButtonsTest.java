@@ -1,6 +1,9 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Class for testing the Buttons class.
+ */
 public class ButtonsTest {
 
   Display display = new Display();
@@ -8,6 +11,9 @@ public class ButtonsTest {
   Turtle stochTurtle = new StochasticTurtle();
   Buttons b = new Buttons(display);
 
+  /**
+   * Tests that a deterministic turtle can be initialised with the correct rules
+   */
   @Test
   public void testDetTurtleInit() {
     detTurtle.setWord("FFF");
@@ -20,6 +26,9 @@ public class ButtonsTest {
     assertArrayEquals(detTurtle.getMoveRules(), moveRules);
   }
 
+  /**
+   * Tests that a stochastic turtle can be initialised with the correct rules
+   */
   @Test
   public void testStochTurtleInit() {
     stochTurtle.setWord("FFF");
