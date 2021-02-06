@@ -111,6 +111,9 @@ public class DeterministicTurtleTest {
     assertEquals("FFFGGG", turtle.getWord());
   }
 
+  /**
+   * Test for setting and getting the generation and move rules.
+   */
   @Test
   public void testSetGetGenRules() {
     String[] drawRules = {"FFF"};
@@ -703,4 +706,22 @@ public class DeterministicTurtleTest {
     assertEquals((double) ((Main.frameWidth)/2), turtle.getMiddleX(), 1e-10);
     assertEquals((double) Main.frameHeight/2, turtle.getMiddleY(), 1e-10);
   }
+
+  /**
+   * Tests that the calcHighLow class works
+   */
+  @Test
+  public void testCalculateHighLow() {
+    turtle.setWord("F+F+F+F");
+    turtle.setLength(10);
+    turtle.setAngle(90);
+    turtle.setCoords(20, 20);
+    turtle.rules();
+    turtle.calcHighLowCoord();
+    assertEquals(20, turtle.lowestCoordX, 1e-10);
+    assertEquals(20, turtle.lowestCoordY, 1e-10);
+    assertEquals(30, turtle.highestCoordX, 1e-10);
+    assertEquals(30, turtle.highestCoordY, 1e-10);
+  }
+
 }
