@@ -27,9 +27,9 @@ public class Main {
    * Method to initialise the Display, Turtle and Buttons and create the frame.
    */
   private static void createAndShowGraphics() {
-    Turtle turtle = new DeterministicTurtle();
+    StochasticTurtle turtle = new StochasticTurtle();
 
-    SavedShapes shape = new SavedShapes(10);
+    SavedShapes shape = new SavedShapes(4);
 
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
@@ -38,6 +38,8 @@ public class Main {
     turtle.setDrawRules(drawRules);
     String[] moveRules = shape.getMoveRules();
     turtle.setMoveRules(moveRules);
+    //turtle.stochAngle(false, 23, 27);
+    //turtle.setLengthRatio(0.5);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);

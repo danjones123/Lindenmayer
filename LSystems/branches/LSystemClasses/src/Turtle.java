@@ -33,7 +33,9 @@ public abstract class Turtle {
   double startingCoordX;
   double startingCoordY;
   Deque<Point> pointStack = new ArrayDeque<>();
+  Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
+  int waste = 0;
 
   /**
    * Sets the word of the turtle.
@@ -193,13 +195,30 @@ public abstract class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
-        case 'F' -> draw(length);
-        case 'G' -> move(length);
-        case '+' -> rotate(angle);
-        case '-' -> rotate(-angle);
-        case '[' -> pushCoords();
-        case ']' -> popCoords();
-        default -> System.out.println("Invalid character");
+        case 'X':
+        case 'Y':
+          break;
+        case 'F':
+          draw(length);
+          break;
+        case 'G':
+          move(length);
+          break;
+        case '+':
+          rotate(angle);
+          break;
+        case '-':
+          rotate(-angle);
+          break;
+        case '[':
+          pushCoords();
+          break;
+        case ']':
+          popCoords();
+          break;
+        default:
+          waste++;
+          break;
       }
     }
   }
@@ -253,6 +272,7 @@ public abstract class Turtle {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
     pointStack.push(pushP);
+    angleStack.push(currAngle);
   }
 
   /**
@@ -263,6 +283,7 @@ public abstract class Turtle {
     Point popP = pointStack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
+    currAngle = angleStack.pop();
   }
 
   abstract void generate(int iterations, String[] drawRules, String[] moveRules);

@@ -6,6 +6,10 @@ import java.util.Random;
  * @author Daniel Jones
  */
 public class StochasticTurtle extends Turtle {
+  boolean apply = false;
+  double minAngle;
+  double maxAngle;
+  double lengthScaler = 0.6;
 
 
   /**
@@ -16,6 +20,28 @@ public class StochasticTurtle extends Turtle {
 
   //Make separate getRules or something to allow user to decide how much weight each rule holds
   //rather that it always being equal chance
+
+  public void stochAngle(boolean apply, double minAngle, double maxAngle) {
+    this.apply = apply;
+    this.minAngle = minAngle;
+    this.maxAngle = maxAngle;
+  }
+
+  public void angleVariance() {
+    if (apply) {
+      double crippledAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
+      setAngle(crippledAngle);
+      //System.out.println(crippledAngle);
+    }
+  }
+
+  public void setLengthRatio(double lengthScaler) {
+    this.lengthScaler = lengthScaler;
+  }
+
+  public void changeRatio() {
+    setLength(getLength() * lengthScaler);
+  }
 
   /**
    * Generate method for a stochastic turtle, can have different sets of drawing rules.
@@ -32,18 +58,32 @@ public class StochasticTurtle extends Turtle {
         char c = nextWord.charAt(i);
         if (c == ('F')) {
           int randomPosition = new Random().nextInt(drawRules.length);
-          System.out.println(randomPosition);
+          //System.out.println(randomPosition);
           next.append(drawRules[randomPosition]);
-        } else if (c == ('G')) {
-          int randomPosition = new Random().nextInt(moveRules.length);
-          System.out.println(randomPosition);
-          next.append(moveRules[randomPosition]);
+          //double randomPosition = Math.random();
+          //if (randomPosition < 0.2) {
+          //  next.append(drawRules[0]);
+          //} else if (randomPosition < 0.6 && randomPosition >= 20) {
+          //  next.append(drawRules[1]);
+          //} else {
+          //  next.append(drawRules[2]);
+          //}
+        } else if (c == ('X')) {
+          next.append(moveRules[0]);
+        } else if (c == 'Y') {
+          next.append(moveRules[1]);
+        } else if (c == '+' || c == '-') {
+          angleVariance();
+          next.append(c);
         } else {
           next.append(c);
         }
+
       }
       nextWord = next.toString();
       next.setLength(0);
+      changeRatio();
+      System.out.println(nextWord);
     }
     setWord(nextWord);
   }
