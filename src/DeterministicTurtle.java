@@ -15,8 +15,8 @@ public class DeterministicTurtle extends Turtle {
    * Generate method for a deterministic turtle.
    *
    * @param iterations the number of times the generation rules are to be iterated through.
-   * @param drawRule the rule for drawing lines.
-   * @param moveRule the rule for moving.
+   * @param drawRule   the rule for drawing lines.
+   * @param moveRule   the rule for moving.
    */
   public void generate(int iterations, String[] drawRule, String[] moveRule) {
     String nextWord = getWord();
@@ -25,8 +25,8 @@ public class DeterministicTurtle extends Turtle {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
         switch (c) {
-          case('F') -> next.append(drawRule[0]);
-          case('G') -> next.append(moveRule[0]);
+          case ('F') -> next.append(drawRule[0]);
+          case ('G') -> next.append(moveRule[0]);
           default -> next.append(c);
         }
       }
