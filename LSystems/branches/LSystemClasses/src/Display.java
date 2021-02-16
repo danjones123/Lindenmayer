@@ -38,7 +38,7 @@ public class Display extends JPanel {
 
 
     g.setColor(Color.BLACK);
-    g.drawString("Press draw to draw Lindenmeyer System!", 40, 15);
+    g.drawString("Press generate to draw Lindenmayer System!", 40, 15);
 
     for (Line line : lines) {
       if (line != null) {

@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 /**
- * Class to save inputs for the L-System that can be put into the turlte.
+ * Class to save inputs for the L-System that can be put into the turtle.
+ *
+ * @author Daniel Jones.
  */
 public class SavedShapes {
   String word;
@@ -40,12 +42,13 @@ public class SavedShapes {
   }
 
   /**
-   * Initialies all of the 2D arrays and adds them to the shapes arrayList.
+   * Initialises all of the 2D arrays and adds them to the shapes arrayList.
    */
   public void initialise() {
     String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {"G"}}; //0
     String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}}; //1
-    String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"}, {"GGGGGG"}}; //2
+    String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
+        {"GGGGGG"}}; //2
     String[][] scaryTree = {{"F", "5", "25.7"}, {"FF+[+F-F-F]-[-F+F+F]"}, {"G"}}; //3
     String[][] stochastic = {{"F", "70", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"}}; //4
     String[][] shuriken = {{"F-F-F-F", "2", "90"}, {"FF-F-F-F-F-F+F"}, {"G"}}; //5
@@ -54,13 +57,17 @@ public class SavedShapes {
     String[][] sparse = {{"F-F-F-F", "1", "90"}, {"FF-F--F-F"}, {"G"}}; //8
     String[][] idk = {{"F-F-F-F", "5", "90"}, {"F-FF--F-F"}, {"G"}}; //9
     String[][] idk2 = {{"F-F-F-F", "5", "90"}, {"F-F+F-F-F"}, {"G"}}; //10
-    String[][] ecksAndWhy = {{"---YYY", "50", "30"}, {"FF"}, {"X[-FFF][+FFF]FX", "YFX[+Y][-Y]"}}; //11
-    String[][] nonStochXy = {{"X", "50", "20"}, {"FF"}, {"F[+X]F[-X]+X"}, {"Y"}}; //12
+    String[][] ecksAndWhy = {{"---YYY", "50", "30"}, {"FF"}, {"X[-FFF][+FFF]FX",
+        "YFX[+Y][-Y]"}}; //11
+    String[][] nonStochXy = {{"-----X", "50", "20"}, {"FF"}, {"F[+X]F[-X]+X"}, {"Y"}}; //12
     String[][] nonStochXy2 = {{"----X", "50", "25.7"}, {"FF"}, {"F[+X][-X]FX"}}; //13
-    String[][] hilbert = {{"X", "15", "90"}, {"F"}, {"+YF-XFX-FY+", "-XF+YFY+FX-"}}; //14
-    String[][] turtletoynet = {{"X", "15", "22"}, {"F+[F]F[-F]F", "FF-[-F+F+F]+[+F-F-F]", "FF+[+F-F-F]-[F+F+F]"}, {"F+[[X]-X]-F[-FX]+X", "-XF+YFY+FX-"}}; //15
-    String[][] handDrawn = {{"X", "15", "90"}, {"XF+XF", "XF-XF", "XFXXX"}, {"XF"}}; //16
-    String[][] ecksAndWhyStochastic = {{"---YYY", "50", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"X[-FFF][+FFF]FX", "YFX[+Y][-Y]"}}; //17
+    String[][] nonStochXy3 = {{"----X", "50", "22.5"}, {"FF"}, {"F-[[X]+X]+F[+FX]-X"}};
+    String[][] hilbert = {{"X", "15", "90"}, {"F"}, {"+YF-XFX-FY+", "-XF+YFY+FX-"}}; //15
+    String[][] turtletoynet = {{"X", "15", "22"}, {"F+[F]F[-F]F", "FF-[-F+F+F]+[+F-F-F]",
+        "FF+[+F-F-F]-[F+F+F]"}, {"F+[[X]-X]-F[-FX]+X", "-XF+YFY+FX-"}}; //16
+    String[][] handDrawn = {{"X", "15", "90"}, {"XF+XF", "XF-XF", "XFXXX"}, {"XF"}}; //17
+    String[][] ecksAndWhyStochastic = {{"---YYY", "50", "30"}, {"F[+F]F[-F]F", "F[+F]F",
+        "F[-F]F"}, {"X[-FFF][+FFF]FX", "YFX[+Y][-Y]"}}; //18
 
 
 
@@ -78,6 +85,7 @@ public class SavedShapes {
     shapes.add(ecksAndWhy);
     shapes.add(nonStochXy);
     shapes.add(nonStochXy2);
+    shapes.add(nonStochXy3);
     shapes.add(hilbert);
     shapes.add(turtletoynet);
     shapes.add(handDrawn);
