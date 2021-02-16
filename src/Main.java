@@ -1,5 +1,8 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+
 
 /**
  * The class to initialise the GUI.
@@ -29,7 +32,7 @@ public class Main {
   private static void createAndShowGraphics() {
     StochasticTurtle turtle = new StochasticTurtle();
 
-    SavedShapes shape = new SavedShapes(4);
+    SavedShapes shape = new SavedShapes(13);
 
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
@@ -38,8 +41,8 @@ public class Main {
     turtle.setDrawRules(drawRules);
     String[] moveRules = shape.getMoveRules();
     turtle.setMoveRules(moveRules);
-    //turtle.stochAngle(false, 23, 27);
-    //turtle.setLengthRatio(0.5);
+    turtle.stochAngle(false, 0, 90);
+    turtle.setLengthRatio(0.6);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);

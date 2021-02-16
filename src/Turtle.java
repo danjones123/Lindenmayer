@@ -35,7 +35,6 @@ public abstract class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
-  int waste = 0;
 
   /**
    * Sets the word of the turtle.
@@ -195,30 +194,13 @@ public abstract class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
-        case 'X':
-        case 'Y':
-          break;
-        case 'F':
-          draw(length);
-          break;
-        case 'G':
-          move(length);
-          break;
-        case '+':
-          rotate(angle);
-          break;
-        case '-':
-          rotate(-angle);
-          break;
-        case '[':
-          pushCoords();
-          break;
-        case ']':
-          popCoords();
-          break;
-        default:
-          waste++;
-          break;
+        case 'F' -> draw(length);
+        case 'G' -> move(length);
+        case '+' -> rotate(angle);
+        case '-' -> rotate(-angle);
+        case '[' -> pushCoords();
+        case ']' -> popCoords();
+        default -> System.out.println("Unused character");
       }
     }
   }
