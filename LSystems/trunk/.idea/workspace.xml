@@ -2,10 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="487feec3-7dc1-43db-a0d3-73462d62cc46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Line.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/LineTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DeterministicTurtle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/StochasticTurtle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TwoQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/ButtonsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/DeterministicTurtleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/SavedShapesTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/StochasticTurtleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/TwoQueueTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Display.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/TurtleTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +57,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LineTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Trunk" />
@@ -75,9 +85,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.LineTest" />
         <item itemvalue="JUnit.TurtleTest" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -90,16 +100,16 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2912" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2912" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2912" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2912" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -115,6 +125,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="-1230" y="202" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613482815772">
+      <screen x="-1920" y="-125" width="1920" height="1160" />
+    </state>
+    <state x="-1230" y="202" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482815772" />
     <state x="-1254" y="196" key="FileChooserDialogImpl" timestamp="1606486268016">
       <screen x="-1920" y="-125" width="1920" height="1160" />
     </state>
@@ -143,10 +157,10 @@
       <screen x="-1920" y="-125" width="1920" height="1160" />
     </state>
     <state x="-1255" y="346" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486207608" />
-    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1606486209397">
+    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1613482614688">
       <screen x="-1920" y="-125" width="1920" height="1160" />
     </state>
-    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486209397" />
+    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482614688" />
     <state x="-1323" y="75" key="new project wizard" timestamp="1606485971505">
       <screen x="-1920" y="-125" width="1920" height="1160" />
     </state>

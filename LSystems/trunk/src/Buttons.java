@@ -1,7 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -13,23 +11,26 @@ import javax.swing.JPanel;
  * @author Daniel Jones
  */
 public class Buttons extends JPanel implements ActionListener {
-  Turtle turtle = new Turtle();
-  String[] genRules;
+  Turtle turtle;
+  String[] drawRules;
+  String[] moveRules;
   private final Display display;
   private int iterations = 1;
-  Deque<Turtle> turtleStack = new ArrayDeque<>();
+  TwoQueue tq = new TwoQueue();
+
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
-   * main aswell.
+   * main as well. Also initialises the queue.
    *
-   * @param turtle is the turlte that is initialised in main.
+   * @param turtle is the turtle that is initialised in main.
    */
   public void turtleInit(Turtle turtle) {
     this.turtle = turtle;
-    genRules = turtle.getGenRules();
+    drawRules = turtle.getDrawRules();
+    moveRules = turtle.getMoveRules();
+    tq.resetQueue();
   }
-
 
   /**
    * Constructor for Button which takes the display as a parameter.
@@ -38,7 +39,6 @@ public class Buttons extends JPanel implements ActionListener {
   public Buttons(Display display) {
     this.display = display;
 
-    add(createButton("Draw"));
     add(createButton("Generate"));
     add(createButton("Undo"));
     add(createButton("Clear Drawing"));
@@ -59,28 +59,59 @@ public class Buttons extends JPanel implements ActionListener {
 
   /**
    * Checks which button was pressed and calls the correct methods for that button.
-   * "Draw" draws the turtle intepretation.
    * "Generate" generates through the L-System.
    * "Undo" undoes the previous generation.
    * "Clear Drawing" removes the drawing from the screen.
    *
+   * <p>
+   * Generate and undo check what to do using a queue that always holds two values of the last
+   * two buttons that were pressed.
+   * </p>
+   *
    * @param e is the ActionEvent, meaning the button was pressed.
    */
   public void actionPerformed(ActionEvent e) {
-    if ("Draw".equals(e.getActionCommand())) {
-      turtle.resetBearing();
-      display.clear();
-      turtle.rules();
-      display.callPaint();
-    } else if ("Generate".equals((e.getActionCommand()))) {
-      pushTurtle();
-      iterations++;
-      turtle.reset();
-      turtle.generate(iterations, genRules);
+    if ("Generate".equals((e.getActionCommand()))) {
+      switch (tq.lastTwo("g")) {
+        case ("uu"), ("gu") -> {
+          iterations++;
+          turtle.pushTurtle();
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+        }
+        default -> {
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+        }
+      }
     } else if ("Undo".equals(e.getActionCommand())) {
-      popTurtle();
-      iterations--;
-      display.callPaint();
+      if (iterations > 1) {
+        switch (tq.lastTwo("u")) {
+          case ("gg"), ("ug") -> {
+            turtle.popTurtle();
+            iterations--;
+            turtle.popTurtle();
+            iterations--;
+            draw();
+          }
+          default -> {
+            turtle.popTurtle();
+            iterations--;
+            draw();
+          }
+        }
+      } else {
+        turtle.reset();
+        display.clear();
+      }
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
       iterations = 1;
       turtle.reset();
@@ -89,26 +120,21 @@ public class Buttons extends JPanel implements ActionListener {
   }
 
   /**
-   * Creates a new Turtle with the current parameters and adds it to the stack.
+   * Method for drawing the turtle. Ensures that it is always drawn in the same direction
+   * and that it is centred.
    */
-  public void pushTurtle() {
-    Turtle pushTurtle = new Turtle();
-    pushTurtle.setWord(turtle.getWord());
-    pushTurtle.setLength(turtle.getLength());
-    pushTurtle.setAngle(turtle.getAngle());
-    pushTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
+  public void draw() {
+    turtle.resetHighLow();
+    turtle.resetBearing();
+    display.clear();
+    turtle.rules();
+    turtle.resetBearing();
+    turtle.centre();
+    display.clear();
+    turtle.rules();
 
-    turtleStack.push(pushTurtle);
+    display.callPaint();
   }
 
-  /**
-   * Pops the top turtle off the stack and sets the main turtle to its parameters.
-   */
-  public void popTurtle() {
-    Turtle popTurtle = turtleStack.pop();
-    turtle.setWord(popTurtle.getWord());
-    turtle.setLength(popTurtle.getLength());
-    turtle.setAngle(popTurtle.getAngle());
-    turtle.setCoords(popTurtle.getCoordX(), popTurtle.getCoordY());
-  }
+
 }
