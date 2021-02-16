@@ -1,13 +1,16 @@
 import java.awt.Point;
+import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Class using turtle interpretation to display an LSystem.
+ * Abstract class for the Turtle which draws the L-Systems.
  *
  * @author Daniel Jones
  */
-public class Turtle {
+public abstract class Turtle {
+
+  private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -19,16 +22,19 @@ public class Turtle {
   double currAngle = 0;
   private double coordX = 0;
   private double coordY = 0;
-  private String[] genRules;
+  private String[] drawRules;
+  private String[] moveRules;
   double oldX;
   double oldY;
+  double lowestCoordX = 1 * 10e10;
+  double highestCoordX = 0;
+  double lowestCoordY = 1 * 10e10;
+  double highestCoordY = 0;
+  double startingCoordX;
+  double startingCoordY;
   Deque<Point> pointStack = new ArrayDeque<>();
-
-  /**
-   * Empty constructor allowing a new Turtle to be called from other classes.
-   */
-  public Turtle() {
-  }
+  Deque<Double> angleStack = new ArrayDeque<>();
+  Deque<String[]> turtleStack = new ArrayDeque<>();
 
   /**
    * Sets the word of the turtle.
@@ -37,7 +43,6 @@ public class Turtle {
    */
   public void setWord(String word) {
     this.word = word;
-    this.initialWord = word;
   }
 
   /**
@@ -47,7 +52,6 @@ public class Turtle {
    */
   public void setLength(double length) {
     this.length = length;
-    this.initialLength = length;
   }
 
   /**
@@ -57,29 +61,46 @@ public class Turtle {
    */
   public void setAngle(double angle) {
     this.angle = angle;
-    this.initialAngle = angle;
   }
 
   /**
    * Sets the starting co-ordinates of the turtle.
    *
    * @param x is the starting x co-ordinate.
-   * @param y is the startng y co-ordinate.
+   * @param y is the starting y co-ordinate.
    */
   public void setCoords(double x, double y) {
     this.coordX = x;
     this.coordY = y;
-    this.initialCoordX = x;
-    this.initialCoordY = y;
   }
 
   /**
-   * Sets the rules for the generation of new L-Systems.
+   * Sets the drawing rules for the generation of new L-Systems.
    *
-   * @param genRules is the String array of rules for how the L-System should develop.
+   * @param drawRules is the String array of rules for how the L-System should draw.
    */
-  public void setGenRules(String[] genRules) {
-    this.genRules = genRules;
+  public void setDrawRules(String[] drawRules) {
+    this.drawRules = drawRules;
+  }
+
+  /**
+   * Sets the moving rules for the generation of new L-Systems.
+   *
+   * @param moveRules is the String array of rules for how the L-System should move.
+   */
+  public void setMoveRules(String[] moveRules) {
+    this.moveRules = moveRules;
+  }
+
+  /**
+   * Saves the starting point of the turtle to allow the turtle to be reset.
+   */
+  public void saveStartingTurtle() {
+    this.initialWord = word;
+    this.initialLength = length;
+    this.initialAngle = angle;
+    this.initialCoordX = coordX;
+    this.initialCoordY = coordY;
   }
 
   /**
@@ -128,26 +149,48 @@ public class Turtle {
   }
 
   /**
-   * Getter for the array of generation rules.
+   * Returns the centre along the X axis of the current turtle drawing.
    *
-   * @return returns the String array of generation rules.
+   * @return returns the midpoint of the highest and lowest co-ordinates.
    */
-  public String[] getGenRules() {
-    return genRules;
+  public double getMiddleX() {
+    return (highestCoordX + lowestCoordX) / 2;
   }
 
   /**
-   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
-   * is run.
+   * Returns the centre along the Y axis of the current turtle drawing.
+   *
+   * @return returns the midpoint of the highest and lowest co-ordinates.
    */
-  public void resetBearing() {
-    this.currAngle = 0;
+  public double getMiddleY() {
+    return (highestCoordY + lowestCoordY) / 2;
+  }
+
+  /**
+   * Getter for the array of drawing rules.
+   *
+   * @return returns the String array of drawing rules.
+   */
+  public String[] getDrawRules() {
+    return drawRules;
+  }
+
+  /**
+   * Getter for the array of moving rules.
+   *
+   * @return returns the String array of moving rules.
+   */
+  public String[] getMoveRules() {
+    return moveRules;
   }
 
   /**
    * Rules class to iterate through the String and tell the program what to do at each character.
    */
   public void rules() {
+    startingCoordX = coordX;
+    startingCoordY = coordY;
+
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
@@ -157,7 +200,7 @@ public class Turtle {
         case '-' -> rotate(-angle);
         case '[' -> pushCoords();
         case ']' -> popCoords();
-        default -> System.out.println("Invalid character");
+        default -> System.out.println("Unused character");
       }
     }
   }
@@ -170,12 +213,17 @@ public class Turtle {
    * @param length is the length for the coordinates to move.
    */
   public void draw(double length) {
-    oldX = coordX;
-    oldY = coordY;
-    coordX += (length * Math.cos(currAngle));
-    coordY += (length * Math.sin(currAngle));
+    calcHighLowCoord();
+
+    oldX = Double.parseDouble(df.format(coordX));
+    oldY = Double.parseDouble(df.format(coordY));
+    coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
+    coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
     Line l = new Line(oldX, oldY, coordX, coordY);
     l.createLine();
+
+    calcHighLowCoord();
+
   }
 
   /**
@@ -185,8 +233,8 @@ public class Turtle {
    * @param length is the distance to move.
    */
   public void move(double length) {
-    coordX += (length * Math.cos(currAngle));
-    coordY += (length * Math.sin(currAngle));
+    coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
+    coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
   }
 
   /**
@@ -206,6 +254,7 @@ public class Turtle {
     Point pushP = new Point();
     pushP.setLocation(coordX, coordY);
     pointStack.push(pushP);
+    angleStack.push(currAngle);
   }
 
   /**
@@ -216,31 +265,10 @@ public class Turtle {
     Point popP = pointStack.pop();
     coordX =  popP.getX();
     coordY =  popP.getY();
+    currAngle = angleStack.pop();
   }
 
-  /**
-   * Iterates through the string and creates a new string by applying the given rules.
-   *
-   * @param iterations is the number of times to iterate through the string.
-   * @param genRules is an array of rules to be applied to the given characters.
-   */
-  public void generate(int iterations, String[] genRules) {
-    String nextWord = word;
-    StringBuilder next = new StringBuilder();
-    for (int j = 0; j < iterations; j++) {
-      for (int i = 0; i < nextWord.length(); i++) {
-        char c = nextWord.charAt(i);
-        switch (c) {
-          case('F') -> next.append(genRules[0]);
-          case('G') -> next.append(genRules[1]);
-          default -> next.append(c);
-        }
-      }
-      nextWord = next.toString();
-      next.setLength(0);
-    }
-    word = nextWord;
-  }
+  abstract void generate(int iterations, String[] drawRules, String[] moveRules);
 
   /**
    * Resets the turtle back to the original inputs.
@@ -251,5 +279,106 @@ public class Turtle {
     this.angle = initialAngle;
     this.coordX = initialCoordX;
     this.coordY = initialCoordY;
+    this.currAngle = 0;
+    resetHighLow();
+    resetBearing();
+  }
+
+  /**
+   * Sets the currAngle to 0, ensuring that the starting position is the same each time the program
+   * is run.
+   */
+  public void resetBearing() {
+    this.currAngle = 0;
+  }
+
+  /**
+   * Class to centre the turtle drawing in the frame.
+   * It does this by adjusting the start of the turtle by the offset
+   * from the starting co-ordinate to the midpoint and the offset from
+   * the midpoint of the drawing to the midpoint of the frame.
+   */
+  public void centre() {
+    double middleX = (highestCoordX + lowestCoordX) / 2;
+    double middleY = (highestCoordY + lowestCoordY) / 2;
+
+    double frameMidX = (double) Main.frameWidth / 2;
+    double frameMidY = (double) Main.frameHeight / 2;
+
+    double offsetFromStartToMidX = startingCoordX - middleX;
+    double offsetFromStartToMidY = startingCoordY - middleY;
+
+    double offsetFromMidFrameToMidCoordX = frameMidX - middleX;
+    double offsetFromMidFrameToMidCoordY = frameMidY - middleY;
+
+    if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX > 0) {
+      this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX < 0) {
+      this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX < 0 && offsetFromMidFrameToMidCoordX > 0) {
+      this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
+    } else if (offsetFromStartToMidX < 0 && offsetFromMidFrameToMidCoordX < 0) {
+      this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
+    }
+
+    if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY > 0) {
+      this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY < 0) {
+      this.coordY = frameMidY - Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY < 0 && offsetFromMidFrameToMidCoordY > 0) {
+      this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
+    } else if (offsetFromStartToMidY < 0 && offsetFromMidFrameToMidCoordY < 0) {
+      this.coordY = frameMidY - Math.abs(offsetFromMidFrameToMidCoordY);
+    }
+  }
+
+  /**
+   * Method to reset the highest and lowest X and Y coordinates back to the original numbers.
+   */
+  public void resetHighLow() {
+    highestCoordX = 0;
+    highestCoordY = 0;
+    lowestCoordX = 1 * 10e10;
+    lowestCoordY = 1 * 10e10;
+  }
+
+  /**
+   * Creates a new Turtle with the current parameters and adds it to the stack.
+   */
+  public void pushTurtle() {
+    String[] pushTurtle = {word, Double.toString(length), Double.toString(angle),
+        Double.toString(coordX), Double.toString(coordY)};
+
+    turtleStack.push(pushTurtle);
+  }
+
+  /**
+   * Pops the top turtle off the stack and sets the main turtle to its parameters.
+   */
+  public void popTurtle() {
+    String[] popTurtle = turtleStack.pop();
+    word = popTurtle[0];
+    length = Double.parseDouble(popTurtle[1]);
+    angle = Double.parseDouble(popTurtle[2]);
+    coordX = Double.parseDouble(popTurtle[3]);
+    coordY = Double.parseDouble(popTurtle[4]);
+  }
+
+  /**
+   * Calculates the highest and lowest co-ordinates in the current drawing.
+   */
+  public void calcHighLowCoord() {
+    if (coordX > highestCoordX) {
+      highestCoordX = coordX;
+    }
+    if (coordX < lowestCoordX) {
+      lowestCoordX = coordX;
+    }
+    if (coordY > highestCoordY) {
+      highestCoordY = coordY;
+    }
+    if (coordY < lowestCoordY) {
+      lowestCoordY = coordY;
+    }
   }
 }
