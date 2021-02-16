@@ -73,7 +73,16 @@ public class StochasticTurtle extends Turtle {
         char c = nextWord.charAt(i);
         if (c == ('F')) {
           int randomPosition = new Random().nextInt(drawRules.length);
+          //System.out.println(randomPosition);
           next.append(drawRules[randomPosition]);
+          //double randomPosition = Math.random();
+          //if (randomPosition < 0.2) {
+          //  next.append(drawRules[0]);
+          //} else if (randomPosition < 0.6 && randomPosition >= 20) {
+          //  next.append(drawRules[1]);
+          //} else {
+          //  next.append(drawRules[2]);
+          //}
         } else if (c == ('X')) {
           next.append(moveRules[0]);
         } else if (c == 'Y') {

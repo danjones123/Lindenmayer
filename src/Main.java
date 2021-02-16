@@ -1,7 +1,5 @@
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
+import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -32,7 +30,7 @@ public class Main {
   private static void createAndShowGraphics() {
     StochasticTurtle turtle = new StochasticTurtle();
 
-    SavedShapes shape = new SavedShapes(3);
+    SavedShapes shape = new SavedShapes(13);
 
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
