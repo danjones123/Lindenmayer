@@ -28,7 +28,8 @@ public class Main {
    * Method to initialise the Display, Turtle and Buttons and create the frame.
    */
   private static void createAndShowGraphics() {
-    StochasticTurtle turtle = new StochasticTurtle();
+    Turtle turtle = new Turtle();
+    Lindenmayer lSys = new Lindenmayer(2, turtle);
 
     SavedShapes shape = new SavedShapes(13);
 
@@ -36,11 +37,11 @@ public class Main {
     turtle.setLength(shape.getLength());
     turtle.setAngle(shape.getAngle());
     String[] drawRules = shape.getDrawRules();
-    turtle.setDrawRules(drawRules);
+    lSys.setDrawRules(drawRules);
     String[] moveRules = shape.getMoveRules();
-    turtle.setMoveRules(moveRules);
-    turtle.stochAngle(false, 0, 90);
-    turtle.setLengthRatio(0.6);
+    lSys.setMoveRules(moveRules);
+    lSys.stochAngle(false, 0, 90);
+    lSys.setLengthRatio(0.6);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
@@ -48,7 +49,7 @@ public class Main {
 
     Display display = new Display();
     Buttons buttonPanel = new Buttons(display);
-    buttonPanel.turtleInit(turtle);
+    buttonPanel.turtleInit(turtle, lSys);
 
     JFrame.setDefaultLookAndFeelDecorated(true);
     JFrame frame = new JFrame("LSystem");
