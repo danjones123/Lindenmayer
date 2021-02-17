@@ -1,22 +1,62 @@
 import java.util.Random;
 
-/**
- * Class using turtle interpretation to display an LSystem.
- *
- * @author Daniel Jones
- */
-public class StochasticTurtle extends Turtle {
+public class Lindenmayer {
+  int currentClass;
+  int iterations;
+  private String[] drawRules;
+  private String[] moveRules;
   boolean apply = false;
   double minAngle;
   double maxAngle;
   double lengthScaler = 1;
+  Turtle turtle;
+
+
+  public Lindenmayer(int currentClass, Turtle turtle){
+    this.currentClass = currentClass;
+    this.turtle = turtle;
+  }
+
+  public void generate(int iterations) {
+    this.iterations = iterations;
+    if (currentClass == 1) {
+      detGenerate();
+    } if (currentClass == 2) {
+      stochGenerate();
+    }
+  }
+
 
 
   /**
-   * Empty constructor allowing a new Turtle to be called from other classes.
+   * Generate method for a deterministic turtle.
    */
-  public StochasticTurtle() {
+  public void detGenerate() {
+    String nextWord = turtle.getWord();
+    StringBuilder next = new StringBuilder();
+    for (int j = 0; j < iterations; j++) {
+      for (int i = 0; i < nextWord.length(); i++) {
+        char c = nextWord.charAt(i);
+        switch (c) {
+          case ('F') -> next.append(drawRules[0]);
+          case ('G') -> next.append(moveRules[0]);
+          default -> next.append(c);
+        }
+      }
+      nextWord = next.toString();
+      next.setLength(0);
+    }
+    turtle.setWord(nextWord);
   }
+
+
+
+
+
+
+
+
+
 
   /**
    * Class for taking a user-defined range of angles for the lines to be drawn at.
@@ -38,7 +78,7 @@ public class StochasticTurtle extends Turtle {
   public void angleVariance() {
     if (apply) {
       double crippledAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
-      setAngle(crippledAngle);
+      turtle.setAngle(crippledAngle);
     }
   }
 
@@ -55,18 +95,14 @@ public class StochasticTurtle extends Turtle {
    * Sets the length to the current length mulitplied by the length scalar.
    */
   public void changeRatio() {
-    setLength(getLength() * lengthScaler);
+    turtle.setLength(turtle.getLength() * lengthScaler);
   }
 
   /**
    * Generate method for a stochastic turtle, can have different sets of drawing rules.
-   *
-   * @param iterations the number of times the generation rules are to be iterated through.
-   * @param drawRules the rules for drawing lines.
-   * @param moveRules the rules for moving.
    */
-  public void generate(int iterations, String[] drawRules, String[] moveRules) {
-    String nextWord = getWord();
+  public void stochGenerate() {
+    String nextWord = turtle.getWord();
     StringBuilder next = new StringBuilder();
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
@@ -100,6 +136,43 @@ public class StochasticTurtle extends Turtle {
       changeRatio();
       System.out.println(nextWord);
     }
-    setWord(nextWord);
+    turtle.setWord(nextWord);
+  }
+
+
+  /**
+   * Sets the drawing rules for the generation of new L-Systems.
+   *
+   * @param drawRules is the String array of rules for how the L-System should draw.
+   */
+  public void setDrawRules(String[] drawRules) {
+    this.drawRules = drawRules;
+  }
+
+  /**
+   * Sets the moving rules for the generation of new L-Systems.
+   *
+   * @param moveRules is the String array of rules for how the L-System should move.
+   */
+  public void setMoveRules(String[] moveRules) {
+    this.moveRules = moveRules;
+  }
+
+  /**
+   * Getter for the array of drawing rules.
+   *
+   * @return returns the String array of drawing rules.
+   */
+  public String[] getDrawRules() {
+    return drawRules;
+  }
+
+  /**
+   * Getter for the array of moving rules.
+   *
+   * @return returns the String array of moving rules.
+   */
+  public String[] getMoveRules() {
+    return moveRules;
   }
 }

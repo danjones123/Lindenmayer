@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  */
 public class Buttons extends JPanel implements ActionListener {
   Turtle turtle;
+  Lindenmayer lSys;
   String[] drawRules;
   String[] moveRules;
   private final Display display;
@@ -24,10 +25,11 @@ public class Buttons extends JPanel implements ActionListener {
    *
    * @param turtle is the turtle that is initialised in main.
    */
-  public void turtleInit(Turtle turtle) {
+  public void turtleInit(Turtle turtle, Lindenmayer lSys) {
     this.turtle = turtle;
-    drawRules = turtle.getDrawRules();
-    moveRules = turtle.getMoveRules();
+    this.lSys = lSys;
+    drawRules = lSys.getDrawRules();
+    moveRules = lSys.getMoveRules();
     tq.resetQueue();
   }
 
@@ -76,19 +78,19 @@ public class Buttons extends JPanel implements ActionListener {
           iterations++;
           turtle.pushTurtle();
           turtle.reset();
-          turtle.generate(iterations, drawRules, moveRules);
+          lSys.generate(iterations);
           turtle.pushTurtle();
           draw();
           iterations++;
           turtle.reset();
-          turtle.generate(iterations, drawRules, moveRules);
+          lSys.generate(iterations);
         }
         default -> {
           turtle.pushTurtle();
           draw();
           iterations++;
           turtle.reset();
-          turtle.generate(iterations, drawRules, moveRules);
+          lSys.generate(iterations);
         }
       }
     } else if ("Undo".equals(e.getActionCommand())) {

@@ -8,7 +8,7 @@ import java.util.Deque;
  *
  * @author Daniel Jones
  */
-public abstract class Turtle {
+public class Turtle {
 
   private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
@@ -22,8 +22,7 @@ public abstract class Turtle {
   double currAngle = 0;
   private double coordX = 0;
   private double coordY = 0;
-  private String[] drawRules;
-  private String[] moveRules;
+
   double oldX;
   double oldY;
   double lowestCoordX = 1 * 10e10;
@@ -74,23 +73,7 @@ public abstract class Turtle {
     this.coordY = y;
   }
 
-  /**
-   * Sets the drawing rules for the generation of new L-Systems.
-   *
-   * @param drawRules is the String array of rules for how the L-System should draw.
-   */
-  public void setDrawRules(String[] drawRules) {
-    this.drawRules = drawRules;
-  }
 
-  /**
-   * Sets the moving rules for the generation of new L-Systems.
-   *
-   * @param moveRules is the String array of rules for how the L-System should move.
-   */
-  public void setMoveRules(String[] moveRules) {
-    this.moveRules = moveRules;
-  }
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -166,23 +149,7 @@ public abstract class Turtle {
     return (highestCoordY + lowestCoordY) / 2;
   }
 
-  /**
-   * Getter for the array of drawing rules.
-   *
-   * @return returns the String array of drawing rules.
-   */
-  public String[] getDrawRules() {
-    return drawRules;
-  }
 
-  /**
-   * Getter for the array of moving rules.
-   *
-   * @return returns the String array of moving rules.
-   */
-  public String[] getMoveRules() {
-    return moveRules;
-  }
 
   /**
    * Rules class to iterate through the String and tell the program what to do at each character.
@@ -194,6 +161,7 @@ public abstract class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
+        case 'X', 'Y' -> { }
         case 'F' -> draw(length);
         case 'G' -> move(length);
         case '+' -> rotate(angle);
@@ -267,8 +235,6 @@ public abstract class Turtle {
     coordY =  popP.getY();
     currAngle = angleStack.pop();
   }
-
-  abstract void generate(int iterations, String[] drawRules, String[] moveRules);
 
   /**
    * Resets the turtle back to the original inputs.
