@@ -11,10 +11,14 @@ public class SavedShapes {
   double angle;
   String[] drawRules;
   String[] moveRules;
+  String[] rulesX;
+  String[] rulesY;
   ArrayList<String[][]> shapes = new ArrayList<>();
   String[][] shape;
   String[] shapeDraw;
   String[] shapeMove;
+  String[] shapeX;
+  String[] shapeY;
 
   /**
    * Constructor for saved shapes which initialises the arrayList and sets the values in
@@ -32,42 +36,52 @@ public class SavedShapes {
     this.angle = Double.parseDouble(shape[0][2]);
     shapeDraw = new String[shape[1].length];
     shapeMove = new String[shape[2].length];
+    shapeX = new String[shape[3].length];
+    shapeY = new String[shape[4].length];
 
     System.arraycopy(shape[1], 0, shapeDraw, 0, shape[1].length);
-
     System.arraycopy(shape[2], 0, shapeMove, 0, shape[2].length);
+    System.arraycopy(shape[3], 0, shapeX, 0, shape[3].length);
+    System.arraycopy(shape[4], 0, shapeY, 0, shape[4].length);
 
     drawRules = shapeDraw;
     moveRules = shapeMove;
+    rulesX = shapeX;
+    rulesY = shapeY;
   }
 
   /**
    * Initialises all of the 2D arrays and adds them to the shapes arrayList.
    */
   public void initialise() {
-    String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {"G"}}; //0
-    String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}}; //1
+    String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {"G"}, {""}, {""}}; //0
+    String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}, {""}, {""} }; //1
     String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
-        {"GGGGGG"}}; //2
-    String[][] scaryTree = {{"F", "5", "25.7"}, {"FF+[+F-F-F]-[-F+F+F]"}, {"G"}}; //3
-    String[][] stochastic = {{"F", "70", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"}}; //4
-    String[][] shuriken = {{"F-F-F-F", "2", "90"}, {"FF-F-F-F-F-F+F"}, {"G"}}; //5
-    String[][] moreSquares = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-FF"}, {"G"}}; //6
-    String[][] rectangles = {{"F-F-F-F", "5", "90"}, {"FF-F+F-F-FF"}, {"G"}}; //7
-    String[][] sparse = {{"F-F-F-F", "1", "90"}, {"FF-F--F-F"}, {"G"}}; //8
-    String[][] idk = {{"F-F-F-F", "5", "90"}, {"F-FF--F-F"}, {"G"}}; //9
-    String[][] idk2 = {{"F-F-F-F", "5", "90"}, {"F-F+F-F-F"}, {"G"}}; //10
-    String[][] ecksAndWhy = {{"---YYY", "50", "30"}, {"FF"}, {"X[-FFF][+FFF]FX",
-        "YFX[+Y][-Y]"}}; //11
-    String[][] nonStochXy = {{"-----X", "50", "20"}, {"FF"}, {"F[+X]F[-X]+X"}, {"Y"}}; //12
-    String[][] nonStochXy2 = {{"----X", "50", "25.7"}, {"FF"}, {"F[+X][-X]FX"}}; //13
-    String[][] nonStochXy3 = {{"----X", "50", "22.5"}, {"FF"}, {"F-[[X]+X]+F[+FX]-X"}};
-    String[][] hilbert = {{"X", "15", "90"}, {"F"}, {"+YF-XFX-FY+", "-XF+YFY+FX-"}}; //15
+        {"GGGGGG"}, {""}, {""}}; //2
+    String[][] scaryTree = {{"F", "5", "25.7"}, {"FF+[+F-F-F]-[-F+F+F]"}, {"G"}, {""}, {""}}; //3
+    String[][] stochastic = {{"F", "70", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"},
+        {""}, {""}}; //4
+    String[][] shuriken = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-F-F+F"}, {"G"}, {""}, {""}}; //5
+    String[][] moreSquares = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-FF"}, {"G"}, {""}, {""}}; //6
+    String[][] rectangles = {{"F-F-F-F", "5", "90"}, {"FF-F+F-F-FF"}, {"G"}, {""}, {""}}; //7
+    String[][] sparse = {{"F-F-F-F", "1", "90"}, {"FF-F--F-F"}, {"G"}, {""}, {""}}; //8
+    String[][] idk = {{"F-F-F-F", "5", "90"}, {"F-FF--F-F"}, {"G"}, {""}, {""}}; //9
+    String[][] idk2 = {{"F-F-F-F", "5", "90"}, {"F-F+F-F-F"}, {"G"}, {""}, {""}}; //10
+    String[][] kochIsland = {{"F-F-F-F", "5", "90"}, {"F-F+F+FF-F-F+F"}, {"G"}, {""}, {""}}; //11
+    String[][] kochSnowflake = {{"F++F++F", "5", "60"}, {"F-F++F-F"}, {"G"}, {""}, {""}}; //12
+    String[][] ecksAndWhy = {{"---YYY", "50", "30"}, {"FF"}, {"",
+        ""}, {"X[-FFF][+FFF]FX"}, {"YFX[+Y][-Y]"}}; //13
+    String[][] nonStochXy = {{"-----X", "50", "20"}, {"FF"}, {""}, {"F[+X]F[-X]+X"}, {"Y"}}; //14
+    String[][] nonStochXy2 = {{"----X", "50", "25.7"}, {"FF"}, {""}, {"F[+X][-X]FX"}, {""}}; //15
+    String[][] nonStochXy3 = {{"----X", "50", "22.5"}, {"FF"}, {""}, {"F-[[X]+X]+F[+FX]-X"},
+        {""}}; //16
+    String[][] hilbert = {{"X", "15", "90"}, {"F"}, {""}, {"+YF-XFX-FY+"}, {"-XF+YFY+FX-"}}; //17
     String[][] turtletoynet = {{"X", "15", "22"}, {"F+[F]F[-F]F", "FF-[-F+F+F]+[+F-F-F]",
-        "FF+[+F-F-F]-[F+F+F]"}, {"F+[[X]-X]-F[-FX]+X", "-XF+YFY+FX-"}}; //16
-    String[][] handDrawn = {{"X", "15", "90"}, {"XF+XF", "XF-XF", "XFXXX"}, {"XF"}}; //17
+        "FF+[+F-F-F]-[F+F+F]"}, {""}, {"F+[[X]-X]-F[-FX]+X"}, {"-XF+YFY+FX-"}}; //18
+    String[][] handDrawn = {{"X", "15", "90"}, {"XF+XF", "XF-XF", "XFXXX"}, {""}, {"XF"},
+        {""}}; //19
     String[][] ecksAndWhyStochastic = {{"---YYY", "50", "30"}, {"F[+F]F[-F]F", "F[+F]F",
-        "F[-F]F"}, {"X[-FFF][+FFF]FX", "YFX[+Y][-Y]"}}; //18
+        "F[-F]F"}, {""}, {"X[-FFF][+FFF]FX"}, {"YFX[+Y][-Y]"}}; //20
 
 
 
@@ -82,6 +96,8 @@ public class SavedShapes {
     shapes.add(sparse);
     shapes.add(idk);
     shapes.add(idk2);
+    shapes.add(kochIsland);
+    shapes.add(kochSnowflake);
     shapes.add(ecksAndWhy);
     shapes.add(nonStochXy);
     shapes.add(nonStochXy2);
@@ -135,5 +151,23 @@ public class SavedShapes {
    */
   public String[] getMoveRules() {
     return moveRules;
+  }
+
+  /**
+   * Gets the X Rules for the turtle.
+   *
+   * @return returns the X Rules.
+   */
+  public String[] getRulesX() {
+    return rulesX;
+  }
+
+  /**
+   * Gets the Y Rules for the turtle.
+   *
+   * @return returns the Y Rules.
+   */
+  public String[] getRulesY() {
+    return rulesY;
   }
 }
