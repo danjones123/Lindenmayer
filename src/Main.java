@@ -1,5 +1,7 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 
 
 /**
@@ -29,19 +31,22 @@ public class Main {
    */
   private static void createAndShowGraphics() {
     Turtle turtle = new Turtle();
-    Lindenmayer lSys = new Lindenmayer(2, turtle);
-
     SavedShapes shape = new SavedShapes(13);
-
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
     turtle.setAngle(shape.getAngle());
     String[] drawRules = shape.getDrawRules();
-    lSys.setDrawRules(drawRules);
     String[] moveRules = shape.getMoveRules();
-    lSys.setMoveRules(moveRules);
-    lSys.stochAngle(false, 0, 90);
-    lSys.setLengthRatio(0.6);
+    String[] rulesX = shape.getRulesX();
+    String[] rulesY = shape.getRulesY();
+
+    Lindenmayer linSys = new Lindenmayer(1, turtle);
+    linSys.setDrawRules(drawRules);
+    linSys.setMoveRules(moveRules);
+    linSys.setRulesX(rulesX);
+    linSys.setRulesY(rulesY);
+    linSys.stochAngle(false, 0, 90);
+    linSys.setLengthRatio(0.5);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
@@ -49,7 +54,7 @@ public class Main {
 
     Display display = new Display();
     Buttons buttonPanel = new Buttons(display);
-    buttonPanel.turtleInit(turtle, lSys);
+    buttonPanel.turtleInit(turtle, linSys);
 
     JFrame.setDefaultLookAndFeelDecorated(true);
     JFrame frame = new JFrame("LSystem");

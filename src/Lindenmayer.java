@@ -1,10 +1,17 @@
 import java.util.Random;
 
+/**
+ * Class for instantiating L-System logic.
+ *
+ * @author Daniel Jones
+ */
 public class Lindenmayer {
   int currentClass;
   int iterations;
   private String[] drawRules;
   private String[] moveRules;
+  private String[] rulesX;
+  private String[] rulesY;
   boolean apply = false;
   double minAngle;
   double maxAngle;
@@ -12,16 +19,29 @@ public class Lindenmayer {
   Turtle turtle;
 
 
-  public Lindenmayer(int currentClass, Turtle turtle){
+  /**
+   * Constructor for L-system.
+   *
+   * @param currentClass takes a value to decide the class of L-system to initialise.
+   * @param turtle is the turtle implementation that the L-system is drawn by.
+   */
+  public Lindenmayer(int currentClass, Turtle turtle) {
     this.currentClass = currentClass;
     this.turtle = turtle;
   }
 
+  /**
+   * The generate method calls one of the other generate methods depending on which the
+   * user tells it to call.
+   *
+   * @param iterations the number of times to apply the given rule.
+   */
   public void generate(int iterations) {
     this.iterations = iterations;
     if (currentClass == 1) {
       detGenerate();
-    } if (currentClass == 2) {
+    }
+    if (currentClass == 2) {
       stochGenerate();
     }
   }
@@ -40,6 +60,8 @@ public class Lindenmayer {
         switch (c) {
           case ('F') -> next.append(drawRules[0]);
           case ('G') -> next.append(moveRules[0]);
+          case ('X') -> next.append(rulesX[0]);
+          case ('Y') -> next.append(rulesY[0]);
           default -> next.append(c);
         }
       }
@@ -107,36 +129,35 @@ public class Lindenmayer {
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
-        if (c == ('F')) {
-          int randomPosition = new Random().nextInt(drawRules.length);
-          //System.out.println(randomPosition);
-          next.append(drawRules[randomPosition]);
-          //double randomPosition = Math.random();
-          //if (randomPosition < 0.2) {
-          //  next.append(drawRules[0]);
-          //} else if (randomPosition < 0.6 && randomPosition >= 20) {
-          //  next.append(drawRules[1]);
-          //} else {
-          //  next.append(drawRules[2]);
-          //}
-        } else if (c == ('X')) {
-          next.append(moveRules[0]);
-        } else if (c == 'Y') {
-          next.append(moveRules[1]);
-        } else if (c == '+' || c == '-') {
-          angleVariance();
-          next.append(c);
-        } else {
-          next.append(c);
-        }
+        switch (c) {
+          case ('F') -> next.append(randomChar(drawRules));
+          case ('G') -> next.append(randomChar(moveRules));
 
+          case 'X' -> next.append(randomChar(rulesX));
+          case 'Y' -> next.append(randomChar(rulesY));
+          case '+', '-' -> {
+            angleVariance();
+            next.append(c);
+          }
+          default -> next.append(c);
+        }
       }
       nextWord = next.toString();
       next.setLength(0);
       changeRatio();
-      System.out.println(nextWord);
     }
     turtle.setWord(nextWord);
+  }
+
+  /**
+   * Class for returning random char form a given array.
+   *
+   * @param rules is the array of rules given
+   * @return returns a random element from the array.
+   */
+  public String randomChar(String[] rules) {
+    int randomPosition = new Random().nextInt(rules.length);
+    return rules[randomPosition];
   }
 
 
@@ -159,6 +180,24 @@ public class Lindenmayer {
   }
 
   /**
+   * Sets the rules for X, used in node rewriting.
+   *
+   * @param rulesX is the array of rules to be applied to X
+   */
+  public void setRulesX(String[] rulesX) {
+    this.rulesX = rulesX;
+  }
+
+  /**
+   * Sets the rules for Y, used in node rewriting.
+   *
+   * @param rulesY is the array of rules to be applied to Y
+   */
+  public void setRulesY(String[] rulesY) {
+    this.rulesY = rulesY;
+  }
+
+  /**
    * Getter for the array of drawing rules.
    *
    * @return returns the String array of drawing rules.
@@ -174,5 +213,19 @@ public class Lindenmayer {
    */
   public String[] getMoveRules() {
     return moveRules;
+  }
+
+  /**
+   * Gets the rules for X.
+   */
+  public String[] getRulesX() {
+    return rulesX;
+  }
+
+  /**
+   * Gets the rules for Y.
+   */
+  public String[] getRulesY() {
+    return rulesY;
   }
 }

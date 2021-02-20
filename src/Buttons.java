@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  * The Buttons class creates the button panel and assigns the action to be performed when a
@@ -11,9 +11,11 @@ import java.awt.event.ActionListener;
  */
 public class Buttons extends JPanel implements ActionListener {
   Turtle turtle;
-  Lindenmayer lSys;
+  Lindenmayer linSys;
   String[] drawRules;
   String[] moveRules;
+  String[] rulesX;
+  String[] rulesY;
   private final Display display;
   private int iterations = 1;
   TwoQueue tq = new TwoQueue();
@@ -25,11 +27,13 @@ public class Buttons extends JPanel implements ActionListener {
    *
    * @param turtle is the turtle that is initialised in main.
    */
-  public void turtleInit(Turtle turtle, Lindenmayer lSys) {
+  public void turtleInit(Turtle turtle, Lindenmayer linSys) {
     this.turtle = turtle;
-    this.lSys = lSys;
-    drawRules = lSys.getDrawRules();
-    moveRules = lSys.getMoveRules();
+    this.linSys = linSys;
+    drawRules = linSys.getDrawRules();
+    moveRules = linSys.getMoveRules();
+    rulesX = linSys.getRulesX();
+    rulesY = linSys.getRulesY();
     tq.resetQueue();
   }
 
@@ -78,19 +82,19 @@ public class Buttons extends JPanel implements ActionListener {
           iterations++;
           turtle.pushTurtle();
           turtle.reset();
-          lSys.generate(iterations);
+          linSys.generate(iterations);
           turtle.pushTurtle();
           draw();
           iterations++;
           turtle.reset();
-          lSys.generate(iterations);
+          linSys.generate(iterations);
         }
         default -> {
           turtle.pushTurtle();
           draw();
           iterations++;
           turtle.reset();
-          lSys.generate(iterations);
+          linSys.generate(iterations);
         }
       }
     } else if ("Undo".equals(e.getActionCommand())) {
