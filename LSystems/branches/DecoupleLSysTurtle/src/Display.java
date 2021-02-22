@@ -1,78 +1,74 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
+import java.awt.*;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
-/**
- * The Display class to create the display.
- *
- * @author Daniel Jones.
- */
-public class Display extends JPanel {
-  private static final ArrayList<Line> lines = new ArrayList<>();
+public class Display extends JFrame {
+  static int frameWidth = 800;
+  static int frameHeight = 800;
+  static Turtle turtle = new Turtle();
+  static Lindenmayer linSys = new Lindenmayer(turtle);
+  static SavedShapes shape = new SavedShapes();
 
-  /**
-   * Constructor for display sets the background color to white.
-   */
   public Display() {
-    setBackground(Color.WHITE);
+
   }
 
   /**
-   * Overrides paintComponent and tells it to print the co-ordinates from lines when they are
-   * called.
-   *
-   * @param g is the graphics component of Swing.
-   */
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
-
-    g.setColor(Color.RED);
-    g.drawLine(0, Main.frameHeight / 2, Main.frameWidth, Main.frameHeight / 2);
-    g.drawLine(Main.frameWidth / 2, 0, Main.frameWidth / 2, Main.frameHeight);
+   * Method to initialise the Display and create the frame.
+  */
+  public static void createAndShowGui() {
+    initialiseTurtleLinden();
+    Painting painting = new Painting();
+    Buttons buttonPanel = new Buttons(painting);
+    Settings settings = new Settings(turtle, linSys, shape);
+    buttonPanel.turtleInit(turtle, linSys);
+    JFrame frame = new JFrame();
+    frame.setSize(frameWidth, frameHeight + 120);
 
 
+    JPanel mainPanel = new JPanel(false);
+    JPanel settingsTab = new JPanel(false);
+    JTabbedPane tabs = new JTabbedPane();
 
-    g.setColor(Color.BLACK);
-    g.drawString("Press generate to draw Lindenmayer System!", 40, 15);
+    mainPanel.add(painting);
+    mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+    settingsTab.add(settings);
+    //settingsTab.add(setBut, BorderLayout.CENTER);
 
-    for (Line line : lines) {
-      if (line != null) {
-        g2d.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
-      }
-    }
+    tabs.addTab("Drawing", mainPanel);
+    tabs.addTab("Settings", settingsTab);
+
+    setDefaultLookAndFeelDecorated(true);
+
+    frame.add(tabs);
+
+    frame.setLocationRelativeTo(null);
+
+    frame.setVisible(true);
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-  /**
-   * Creates a new line with the given parameters and adds the line to the lines array list.
-   *
-   * @param x1 is the starting x co-ordinate.
-   * @param y1 is the starting x co-ordinate.
-   * @param x2 is the ending x co-ordinate.
-   * @param y2 is the ending x co-ordinate.
-   */
-  public void addLine(double x1, double y1, double x2, double y2) {
-    Line line = new Line(x1, y1, x2, y2);
-    lines.add(line);
-  }
+  public static void initialiseTurtleLinden() {
+    turtle.setWord(shape.getWord());
+    turtle.setLength(shape.getLength());
+    turtle.setAngle(shape.getAngle());
+    String[] drawRules = shape.getDrawRules();
+    String[] moveRules = shape.getMoveRules();
+    String[] rulesX = shape.getRulesX();
+    String[] rulesY = shape.getRulesY();
 
-  /**
-   * Calls paintComponent to draw any new lines.
-   */
-  public void callPaint() {
-    repaint();
-  }
 
-  /**
-   * Empties the lines arraylist and removes any lines from the screen.
-   */
-  public void clear() {
-    lines.clear();
-    repaint();
+    linSys.setDrawRules(drawRules);
+    linSys.setMoveRules(moveRules);
+    linSys.setRulesX(rulesX);
+    linSys.setRulesY(rulesY);
+    linSys.stochAngle(false, 0, 90);
+    linSys.setLengthRatio(1);
+
+
+    turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
+    turtle.saveStartingTurtle();
   }
 }
-

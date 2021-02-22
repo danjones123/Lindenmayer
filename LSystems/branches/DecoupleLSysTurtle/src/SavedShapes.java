@@ -19,18 +19,16 @@ public class SavedShapes {
   String[] shapeMove;
   String[] shapeX;
   String[] shapeY;
+  int presetNo = 0;
 
   /**
    * Constructor for saved shapes which initialises the arrayList and sets the values in
    * SavedShapes to the current int.
-   *
-   * @param corresponding is the integer which corresponds to the value of the arrayList that
-   *                     the current L-System should be taken from.
    */
-  public SavedShapes(int corresponding) {
+  public SavedShapes() {
     initialise();
 
-    shape = shapes.get(corresponding);
+    shape = shapes.get(getPresetNo());
     this.word = shape[0][0];
     this.length = Double.parseDouble(shape[0][1]);
     this.angle = Double.parseDouble(shape[0][2]);
@@ -59,7 +57,7 @@ public class SavedShapes {
     String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
         {"GGGGGG"}, {""}, {""}}; //2
     String[][] scaryTree = {{"F", "5", "25.7"}, {"FF+[+F-F-F]-[-F+F+F]"}, {"G"}, {""}, {""}}; //3
-    String[][] stochastic = {{"F", "70", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"},
+    String[][] stochastic = {{"F", "10", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"},
         {""}, {""}}; //4
     String[][] shuriken = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-F-F+F"}, {"G"}, {""}, {""}}; //5
     String[][] moreSquares = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-FF"}, {"G"}, {""}, {""}}; //6
@@ -169,5 +167,13 @@ public class SavedShapes {
    */
   public String[] getRulesY() {
     return rulesY;
+  }
+
+  public void setPresetNo(int presetNo) {
+    this.presetNo = presetNo;
+  }
+
+  public int getPresetNo() {
+    return presetNo;
   }
 }

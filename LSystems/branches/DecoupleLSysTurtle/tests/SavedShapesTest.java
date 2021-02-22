@@ -12,7 +12,8 @@ public class SavedShapesTest {
    */
   @Test
   public void initialise() {
-    SavedShapes shape = new SavedShapes(3);
+    SavedShapes shape = new SavedShapes();
+    shape.setPresetNo(3);
 
     assertEquals("F", shape.getWord());
     assertEquals(5, shape.getLength(), 1e-10);
