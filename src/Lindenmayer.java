@@ -6,7 +6,7 @@ import java.util.Random;
  * @author Daniel Jones
  */
 public class Lindenmayer {
-  int currentClass;
+  int currentClass = 1;
   int iterations;
   private String[] drawRules;
   private String[] moveRules;
@@ -22,11 +22,9 @@ public class Lindenmayer {
   /**
    * Constructor for L-system.
    *
-   * @param currentClass takes a value to decide the class of L-system to initialise.
    * @param turtle is the turtle implementation that the L-system is drawn by.
    */
-  public Lindenmayer(int currentClass, Turtle turtle) {
-    this.currentClass = currentClass;
+  public Lindenmayer(Turtle turtle) {
     this.turtle = turtle;
   }
 
@@ -227,5 +225,13 @@ public class Lindenmayer {
    */
   public String[] getRulesY() {
     return rulesY;
+  }
+
+  public void setCurrentClass(int current) {
+    this.currentClass = current;
+  }
+
+  public int getCurrentClass() {
+    return currentClass;
   }
 }

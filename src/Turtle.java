@@ -268,8 +268,8 @@ public class Turtle {
     double middleX = (highestCoordX + lowestCoordX) / 2;
     double middleY = (highestCoordY + lowestCoordY) / 2;
 
-    double frameMidX = (double) Main.frameWidth / 2;
-    double frameMidY = (double) Main.frameHeight / 2;
+    double frameMidX = (double) Display.frameWidth / 2;
+    double frameMidY = (double) Display.frameHeight / 2;
 
     double offsetFromStartToMidX = startingCoordX - middleX;
     double offsetFromStartToMidY = startingCoordY - middleY;

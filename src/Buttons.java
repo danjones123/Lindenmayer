@@ -16,10 +16,23 @@ public class Buttons extends JPanel implements ActionListener {
   String[] moveRules;
   String[] rulesX;
   String[] rulesY;
-  private final Display display;
+  private final Painting painting;
   private int iterations = 1;
   TwoQueue tq = new TwoQueue();
 
+
+  /**
+   * Constructor for Button which takes the display as a parameter.
+   * Calls createButton to create buttons.
+   */
+  public Buttons(Painting painting) {
+    this.painting = painting;
+
+    add(createButton("Generate"));
+    add(createButton("Undo"));
+    add(createButton("Clear Drawing"));
+
+  }
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
@@ -35,18 +48,6 @@ public class Buttons extends JPanel implements ActionListener {
     rulesX = linSys.getRulesX();
     rulesY = linSys.getRulesY();
     tq.resetQueue();
-  }
-
-  /**
-   * Constructor for Button which takes the display as a parameter.
-   * Calls createButton to create buttons.
-   */
-  public Buttons(Display display) {
-    this.display = display;
-
-    add(createButton("Generate"));
-    add(createButton("Undo"));
-    add(createButton("Clear Drawing"));
   }
 
   /**
@@ -115,12 +116,12 @@ public class Buttons extends JPanel implements ActionListener {
         }
       } else {
         turtle.reset();
-        display.clear();
+        painting.clear();
       }
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
       iterations = 1;
       turtle.reset();
-      display.clear();
+      painting.clear();
     }
   }
 
@@ -131,14 +132,14 @@ public class Buttons extends JPanel implements ActionListener {
   public void draw() {
     turtle.resetHighLow();
     turtle.resetBearing();
-    display.clear();
+    painting.clear();
     turtle.rules();
     turtle.resetBearing();
     turtle.centre();
-    display.clear();
+    painting.clear();
     turtle.rules();
 
-    display.callPaint();
+    painting.callPaint();
   }
 
 

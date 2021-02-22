@@ -7,11 +7,11 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class ButtonsTest {
 
-  Display display = new Display();
+  Painting painting = new Painting();
   Turtle turtle = new Turtle();
-  Lindenmayer lSysDet = new Lindenmayer(1, turtle);
-  Lindenmayer lSysStoch = new Lindenmayer(2, turtle);
-  Buttons b = new Buttons(display);
+  Lindenmayer lSysDet = new Lindenmayer(turtle);
+  Lindenmayer lSysStoch = new Lindenmayer(turtle);
+  Buttons b = new Buttons(painting);
 
   /**
    * Tests that a deterministic turtle can be initialised with the correct rules
@@ -34,6 +34,7 @@ public class ButtonsTest {
   @Test
   public void testStochTurtleInit() {
     turtle.setWord("FFF");
+    lSysStoch.setCurrentClass(2);
     String[] drawRules = {"FFFFFF"};
     String[] moveRules = {"GG"};
     lSysStoch.setDrawRules(drawRules);

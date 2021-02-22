@@ -9,7 +9,7 @@ public class Line {
   double x2;
   double y2;
 
-  Display display = new Display();
+  Painting painting = new Painting();
 
   /**
    * Constructor sets the x1, x2, y1 and y2 variables to those given.
@@ -30,6 +30,6 @@ public class Line {
    * Add a line with the given values to the display where they will be added to an ArrayList.
    */
   public void createLine() {
-    display.addLine(x1, y1, x2, y2);
+    painting.addLine(x1, y1, x2, y2);
   }
 }

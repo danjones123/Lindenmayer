@@ -5,8 +5,9 @@ import static org.junit.Assert.*;
 public class LindenmayerTest {
 
   Turtle turtle = new Turtle();
-  Lindenmayer lSysDet = new Lindenmayer(1, turtle);
-  Lindenmayer lSysStoch = new Lindenmayer(2, turtle);
+  Lindenmayer lSysDet = new Lindenmayer(turtle);
+  Lindenmayer lSysStoch = new Lindenmayer(turtle);
+
 
 
 
@@ -234,10 +235,15 @@ public class LindenmayerTest {
     turtle.setWord("Y");
     turtle.setLength(0);
     turtle.setAngle(0);
+    lSysStoch.setCurrentClass(2);
     String[] drawRules = {"F-F-F-F"};
-    String[] moveRules = {"X[-FFF][+FFF]FX", "YFX[+Y][-Y]"};
+    String[] moveRules = {""};
+    String[] rulesX = {"X[-FFF][+FFF]FX"};
+    String[] rulesY = {"YFX[+Y][-Y]"};
     lSysStoch.setDrawRules(drawRules);
     lSysStoch.setMoveRules(moveRules);
+    lSysStoch.setRulesX(rulesX);
+    lSysStoch.setRulesY(rulesY);
     lSysStoch.generate(1);
     assertEquals("YFX[+Y][-Y]", turtle.getWord());
     lSysStoch.generate(1);
