@@ -330,6 +330,10 @@ public class Turtle {
     coordY = Double.parseDouble(popTurtle[4]);
   }
 
+  public void resetStack() {
+    turtleStack.clear();
+  }
+
   /**
    * Calculates the highest and lowest co-ordinates in the current drawing.
    */
@@ -347,4 +351,6 @@ public class Turtle {
       lowestCoordY = coordY;
     }
   }
+
+
 }

@@ -19,15 +19,19 @@ public class SavedShapes {
   String[] shapeMove;
   String[] shapeX;
   String[] shapeY;
-  int presetNo = 0;
+  private int presetNo = 0;
 
   /**
    * Constructor for saved shapes which initialises the arrayList and sets the values in
    * SavedShapes to the current int.
    */
   public SavedShapes() {
-    initialise();
+    savedPresets();
 
+    update();
+  }
+
+  public void update() {
     shape = shapes.get(getPresetNo());
     this.word = shape[0][0];
     this.length = Double.parseDouble(shape[0][1]);
@@ -48,10 +52,12 @@ public class SavedShapes {
     rulesY = shapeY;
   }
 
+
+
   /**
    * Initialises all of the 2D arrays and adds them to the shapes arrayList.
    */
-  public void initialise() {
+  public void savedPresets() {
     String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {"G"}, {""}, {""}}; //0
     String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}, {""}, {""} }; //1
     String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
