@@ -116,6 +116,7 @@ public class Buttons extends JPanel implements ActionListener {
         }
       } else {
         turtle.reset();
+        turtle.resetStack();
         painting.clear();
       }
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
@@ -142,5 +143,10 @@ public class Buttons extends JPanel implements ActionListener {
     painting.callPaint();
   }
 
-
+  public void externalReset() {
+    iterations = 1;
+    turtle.reset();
+    turtle.resetStack();
+    painting.clear();
+  }
 }

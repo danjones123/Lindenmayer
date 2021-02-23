@@ -21,7 +21,7 @@ public class Display extends JFrame {
     initialiseTurtleLinden();
     Painting painting = new Painting();
     Buttons buttonPanel = new Buttons(painting);
-    Settings settings = new Settings(turtle, linSys, shape);
+    Settings settings = new Settings(turtle, linSys, shape, buttonPanel);
     buttonPanel.turtleInit(turtle, linSys);
     JFrame frame = new JFrame();
     frame.setSize(frameWidth, frameHeight + 120);
@@ -34,23 +34,20 @@ public class Display extends JFrame {
     mainPanel.add(painting);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     settingsTab.add(settings);
-    //settingsTab.add(setBut, BorderLayout.CENTER);
 
     tabs.addTab("Drawing", mainPanel);
     tabs.addTab("Settings", settingsTab);
 
+
     setDefaultLookAndFeelDecorated(true);
-
     frame.add(tabs);
-
     frame.setLocationRelativeTo(null);
-
     frame.setVisible(true);
-
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   public static void initialiseTurtleLinden() {
+    shape.update();
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
     turtle.setAngle(shape.getAngle());
@@ -65,7 +62,6 @@ public class Display extends JFrame {
     linSys.setRulesX(rulesX);
     linSys.setRulesY(rulesY);
     linSys.stochAngle(false, 0, 90);
-    linSys.setLengthRatio(1);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);

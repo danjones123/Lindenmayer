@@ -65,6 +65,7 @@ public class Lindenmayer {
       }
       nextWord = next.toString();
       next.setLength(0);
+      changeRatio();
     }
     turtle.setWord(nextWord);
   }
