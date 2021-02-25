@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * The Display class to create the display.
@@ -10,6 +12,7 @@ import javax.swing.JPanel;
  */
 public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
+  boolean drawCentreLines;
 
   /**
    * Constructor for display sets the background color to white.
@@ -17,6 +20,7 @@ public class Painting extends JPanel {
   public Painting() {
     setBackground(Color.WHITE);
     setPreferredSize(new Dimension(Display.frameWidth, Display.frameHeight));
+    drawCentre();
   }
 
   /**
@@ -30,10 +34,14 @@ public class Painting extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    g.setColor(Color.RED);
-    g.drawLine(0, Display.frameHeight / 2, Display.frameWidth, Display.frameHeight / 2);
-    g.drawLine(Display.frameWidth / 2, 0, Display.frameWidth / 2, Display.frameHeight);
 
+
+
+    if (drawCentreLines) {
+      g.setColor(Color.RED);
+      g.drawLine(0, Display.frameHeight / 2, Display.frameWidth, Display.frameHeight / 2);
+      g.drawLine(Display.frameWidth / 2, 0, Display.frameWidth / 2, Display.frameHeight);
+    }
 
 
     g.setColor(Color.BLACK);
@@ -56,6 +64,24 @@ public class Painting extends JPanel {
   public void addLine(double x1, double y1, double x2, double y2) {
     Line line = new Line(x1, y1, x2, y2);
     lines.add(line);
+  }
+
+  public void drawCentre() {
+    JCheckBox check = new JCheckBox();
+    check.setText("Show centre lines");
+    check.setFocusable(false);
+    check.setBounds(300, 300, 130, 40);
+
+    check.addActionListener(e -> {
+      if (e.getSource() == check) {
+        if (check.isSelected()) {
+          drawCentreLines = true;
+        } else {
+          drawCentreLines = false;
+        }
+      }
+    });
+    add(check);
   }
 
   /**
