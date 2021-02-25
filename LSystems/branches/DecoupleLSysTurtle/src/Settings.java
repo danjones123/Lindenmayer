@@ -112,20 +112,27 @@ public class Settings extends JPanel {
 
   public void centreLineCheckBox() {
     JCheckBox check = new JCheckBox();
+    JButton updateCheck = new JButton("Update");
     check.setText("Show centre lines");
     check.setFocusable(false);
     check.setBounds(300, 300, 130, 40);
+    updateCheck.setBounds(450, 300, 75, 40);
 
-
-    //check.addActionListener(e -> {
-    //  JCheckBox source = (JCheckBox) e.setSource();
-    //  if (source.isSelected()) {
-    //   System.out.println("selce");
-    //  } else {
-      //  System.out.println("AAAAA");
-     // }
+    //updateCheck.addActionListener(new ActionListener() {
+    //  @Override
+    //  public void actionPerformed(ActionEvent e) {
+     //   if (e.getSource() == updateCheck) {
+     //     if (check.isSelected()) {
+    //        painting.drawCentre(true);
+    //      } else {
+    //        painting.drawCentre(false);
+    //      }
+    //    }
+    //  }
     //});
-   // add(check);
+
+    add(updateCheck);
+    add(check);
 
   }
 }
