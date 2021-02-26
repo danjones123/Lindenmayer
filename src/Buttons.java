@@ -143,6 +143,9 @@ public class Buttons extends JPanel implements ActionListener {
     painting.callPaint();
   }
 
+  /**
+   * Used to reset the turtle and sets iterations to 1 from outside of the Buttons class.
+   */
   public void externalReset() {
     iterations = 1;
     turtle.reset();

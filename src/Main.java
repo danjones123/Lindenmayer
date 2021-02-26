@@ -1,7 +1,5 @@
 import javax.swing.SwingUtilities;
 
-
-
 /**
  * The class to initialise the GUI.
  *
