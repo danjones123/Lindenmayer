@@ -1,9 +1,14 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+
 
 /**
  * The Display class to create the display.
@@ -66,6 +71,9 @@ public class Painting extends JPanel {
     lines.add(line);
   }
 
+  /**
+   * Method for checking if the user would like the centre lines drawn.
+   */
   public void drawCentre() {
     JCheckBox check = new JCheckBox();
     check.setText("Show centre lines");
@@ -74,11 +82,7 @@ public class Painting extends JPanel {
 
     check.addActionListener(e -> {
       if (e.getSource() == check) {
-        if (check.isSelected()) {
-          drawCentreLines = true;
-        } else {
-          drawCentreLines = false;
-        }
+        drawCentreLines = check.isSelected();
       }
     });
     add(check);

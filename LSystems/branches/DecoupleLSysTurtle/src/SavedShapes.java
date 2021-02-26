@@ -31,6 +31,9 @@ public class SavedShapes {
     update();
   }
 
+  /**
+   * Initialises and updates the rules and axioms with the current preset number.
+   */
   public void update() {
     shape = shapes.get(getPresetNo());
     this.word = shape[0][0];

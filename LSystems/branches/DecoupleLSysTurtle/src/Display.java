@@ -1,8 +1,13 @@
-import java.awt.*;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+/**
+ * Class for the initialisation of the Display and turlte/L-system in the program.
+ *
+ * @author Daniel Jones.
+ */
 public class Display extends JFrame {
   static int frameWidth = 800;
   static int frameHeight = 800;
@@ -21,24 +26,26 @@ public class Display extends JFrame {
     initialiseTurtleLinden();
     Painting painting = new Painting();
     Buttons buttonPanel = new Buttons(painting);
-    Settings settings = new Settings(turtle, linSys, shape, buttonPanel);
     buttonPanel.turtleInit(turtle, linSys);
-    JFrame frame = new JFrame();
-    frame.setSize(frameWidth, frameHeight + 120);
 
 
     JPanel mainPanel = new JPanel(false);
-    JPanel settingsTab = new JPanel(false);
-    JTabbedPane tabs = new JTabbedPane();
-
     mainPanel.add(painting);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+
+    Settings settings = new Settings(turtle, linSys, shape, buttonPanel);
+    JPanel settingsTab = new JPanel(false);
     settingsTab.add(settings);
 
+
+    JTabbedPane tabs = new JTabbedPane();
     tabs.addTab("Drawing", mainPanel);
     tabs.addTab("Settings", settingsTab);
 
 
+    JFrame frame = new JFrame();
+    frame.setSize(frameWidth, frameHeight + 120);
     setDefaultLookAndFeelDecorated(true);
     frame.add(tabs);
     frame.setLocationRelativeTo(null);
@@ -46,6 +53,9 @@ public class Display extends JFrame {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
+  /**
+   * Class for initialising the turtle and L-system implementation.
+   */
   public static void initialiseTurtleLinden() {
     shape.update();
     turtle.setWord(shape.getWord());
