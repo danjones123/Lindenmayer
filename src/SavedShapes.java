@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Class to save inputs for the L-System that can be put into the turtle.
@@ -26,7 +31,8 @@ public class SavedShapes {
    * SavedShapes to the current int.
    */
   public SavedShapes() {
-    savedPresets();
+    //savedPresets();
+    presetsFromFile();
 
     update();
   }
@@ -56,12 +62,25 @@ public class SavedShapes {
   }
 
 
+  public void presetsFromFile() {
+    Scanner saver;
+    saver = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+        .getResourceAsStream("SavedPresets")));
+    while (saver.hasNextLine()) {
+      String data = saver.nextLine();
+      String[] tokens = data.split(",");
+      String[][] newPreset = {{tokens[1], tokens[2], tokens[3]}, {tokens[4]}, {tokens[5]}, {tokens[6]}, {tokens[7]}};
+      shapes.add(newPreset);
+    }
+    saver.close();
+  }
+
 
   /**
    * Initialises all of the 2D arrays and adds them to the shapes arrayList.
-   */
+
   public void savedPresets() {
-    String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {"G"}, {""}, {""}}; //0
+    String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {""}, {""}, {""}}; //0
     String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}, {""}, {""} }; //1
     String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
         {"GGGGGG"}, {""}, {""}}; //2
@@ -114,7 +133,7 @@ public class SavedShapes {
     shapes.add(handDrawn);
     shapes.add(ecksAndWhyStochastic);
   }
-
+*/
   /**
    * Gets the word for the turtle.
    *

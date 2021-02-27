@@ -3,13 +3,9 @@ import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import java.util.Objects;
+import java.util.Scanner;
+import javax.swing.*;
 
 /**
  * Class for creating the settings window and controlling what the buttons do.
@@ -24,6 +20,7 @@ public class Settings extends JPanel {
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
+  private boolean centreSetTurlte = true;
 
 
   /**
@@ -48,6 +45,8 @@ public class Settings extends JPanel {
     lengthRatioButtons();
     axiomBoxes();
     saveChanges();
+    stochasticAngleButtons();
+    centreTurtle();
   }
 
   /**
@@ -75,12 +74,10 @@ public class Settings extends JPanel {
    * Method that creates a dropdown list of the possible presets for the user to choose from.
    */
   public void presetBox() {
-    JLabel presetLabel = new JLabel("Presets");
-    String[] presetNames = {"squares", "sierpinski", "lakes", "scaryTree", "stochastic",
-        "shuriken", "moreSquares", "rectangles", "sparse", "idk", "idk2", "kochIsland",
-        "kochSnowflake", "ecksAndWhy", "nonStochXy", "nonStochXy2", "nonStochXy3", "hilbert",
-        "turtletoynet", "handDrawn", "ecksAndWhyStochastic"};
+    String[] presetNames = new String[presetNumber()];
+    fillPresets(presetNames);
 
+    JLabel presetLabel = new JLabel("Choose Preset");
     JComboBox<String> presets = new JComboBox<>(presetNames);
     presets.setBounds((Display.frameWidth / 2) - 50, 100, 150, 30);
     presetLabel.setBounds((Display.frameWidth / 2) - 100, 100, 150, 30);
@@ -88,14 +85,41 @@ public class Settings extends JPanel {
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
-        //shapes.setPresetNo(presets.getSelectedIndex());
-        //buttons.externalReset();
-        //Display.initialiseTurtleLinden();
         System.out.println(presets.getSelectedIndex());
       }
     });
     add(presets);
     add(presetLabel);
+  }
+
+  public void fillPresets(String[] stringToBeFilled) {
+    Scanner savedNames;
+    savedNames = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+        .getResourceAsStream("SavedPresets")));
+    int i = 0;
+
+    savedNames.reset();
+    while (savedNames.hasNextLine()) {
+      String data = savedNames.nextLine();
+      String[] tokens = data.split(",");
+      stringToBeFilled[i] = tokens[0];
+      i++;
+    }
+  }
+
+  public int presetNumber() {
+    Scanner savedCounter;
+    savedCounter = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+        .getResourceAsStream("SavedPresets")));
+    int presetCount = 0;
+    while (savedCounter.hasNextLine()) {
+      String data = savedCounter.nextLine();
+      String[] tokens = data.split(",");
+      if (tokens[0] != null) {
+        presetCount++;
+      }
+    }
+    return presetCount;
   }
 
   /**
@@ -128,6 +152,60 @@ public class Settings extends JPanel {
 
     add(lengthRatio);
     add(enterButton);
+  }
+
+  public void stochasticAngleButtons() {
+    //Replace with checkbox
+
+    JRadioButton stochAngleActivate = new JRadioButton("Use Stochastic Angle");
+    JRadioButton stochAngleDeactivate = new JRadioButton("Do Not Use Stochastic Angle");
+    JTextField minAngle = new JTextField("Input minimum angle", 10);
+    JTextField maxAngle = new JTextField("Input minimum angle", 10);
+    JButton enterButton = new JButton("Enter Ratio");
+    stochAngleActivate.setBounds((Display.frameWidth / 2) - 150, 400, 150, 25);
+    stochAngleDeactivate.setBounds((Display.frameWidth / 2), 400, 150, 25);
+    maxAngle.setBounds((Display.frameWidth / 2) - 150, 425, 150, 25);
+    minAngle.setBounds((Display.frameWidth / 2), 425, 150, 25);
+
+    maxAngle.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
+
+    minAngle.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
+
+    enterButton.setBounds((Display.frameWidth / 2), 150, 100, 25);
+
+    add(stochAngleActivate);
+    add(stochAngleDeactivate);
+    add(minAngle);
+    add(maxAngle);
+  }
+
+  public void centreTurtle() {
+    JCheckBox centreTurtle = new JCheckBox();
+    centreTurtle.setText("Centre turtle");
+    centreTurtle.setFocusable(false);
+    centreTurtle.setBounds((Display.frameWidth / 2), 500, 150, 25);
+
+    centreTurtle.setSelected(true);
+    centreTurtle.addActionListener(e -> {
+      if (e.getSource() == centreTurtle) {
+        centreSetTurlte = centreTurtle.isSelected();
+      }
+    });
+    add(centreTurtle);
   }
 
   /**
@@ -201,6 +279,8 @@ public class Settings extends JPanel {
       shapes.setPresetNo(presetNum);
       Display.initialiseTurtleLinden();
 
+      buttons.setCentreTurtle(centreSetTurlte);
+
       buttons.externalReset();
 
       axiomBoxes();
@@ -208,6 +288,3 @@ public class Settings extends JPanel {
     add(save);
   }
 }
-
-//Text boxes ect for axioms
-//Combobox for presets

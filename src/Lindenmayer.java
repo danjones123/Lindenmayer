@@ -44,8 +44,6 @@ public class Lindenmayer {
     }
   }
 
-
-
   /**
    * Generate method for a deterministic turtle.
    */
@@ -70,15 +68,6 @@ public class Lindenmayer {
     turtle.setWord(nextWord);
   }
 
-
-
-
-
-
-
-
-
-
   /**
    * Class for taking a user-defined range of angles for the lines to be drawn at.
    *
@@ -98,8 +87,8 @@ public class Lindenmayer {
    */
   public void angleVariance() {
     if (apply) {
-      double crippledAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
-      turtle.setAngle(crippledAngle);
+      double randomAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
+      turtle.setAngle(randomAngle);
     }
   }
 
@@ -129,9 +118,8 @@ public class Lindenmayer {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
         switch (c) {
-          case ('F') -> next.append(randomChar(drawRules));
-          case ('G') -> next.append(randomChar(moveRules));
-
+          case 'F' -> next.append(randomChar(drawRules));
+          case 'G' -> next.append(randomChar(moveRules));
           case 'X' -> next.append(randomChar(rulesX));
           case 'Y' -> next.append(randomChar(rulesY));
           case '+', '-' -> {
@@ -158,7 +146,6 @@ public class Lindenmayer {
     int randomPosition = new Random().nextInt(rules.length);
     return rules[randomPosition];
   }
-
 
   /**
    * Sets the drawing rules for the generation of new L-Systems.

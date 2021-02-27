@@ -61,17 +61,17 @@ public class Display extends JFrame {
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
     turtle.setAngle(shape.getAngle());
-    String[] drawRules = shape.getDrawRules();
-    String[] moveRules = shape.getMoveRules();
-    String[] rulesX = shape.getRulesX();
-    String[] rulesY = shape.getRulesY();
+    //String[] drawRules = shape.getDrawRules();
+    //String[] moveRules = shape.getMoveRules();
+    //String[] rulesX = shape.getRulesX();
+    //String[] rulesY = shape.getRulesY();
 
 
-    linSys.setDrawRules(drawRules);
-    linSys.setMoveRules(moveRules);
-    linSys.setRulesX(rulesX);
-    linSys.setRulesY(rulesY);
-    linSys.stochAngle(false, 0, 90);
+    linSys.setDrawRules(shape.getDrawRules());
+    linSys.setMoveRules(shape.getMoveRules());
+    linSys.setRulesX(shape.rulesX);
+    linSys.setRulesY(shape.rulesY);
+    linSys.stochAngle(false, 0, 0);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
