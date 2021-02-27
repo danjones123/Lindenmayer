@@ -75,17 +75,17 @@ public class Painting extends JPanel {
    * Method for checking if the user would like the centre lines drawn.
    */
   public void drawCentre() {
-    JCheckBox check = new JCheckBox();
-    check.setText("Show centre lines");
-    check.setFocusable(false);
-    check.setBounds(300, 300, 130, 40);
+    JCheckBox centreLineCheckBox = new JCheckBox();
+    centreLineCheckBox.setText("Show centre lines");
+    centreLineCheckBox.setFocusable(false);
+    centreLineCheckBox.setBounds(370, 300, 130, 40);
 
-    check.addActionListener(e -> {
-      if (e.getSource() == check) {
-        drawCentreLines = check.isSelected();
+    centreLineCheckBox.addActionListener(e -> {
+      if (e.getSource() == centreLineCheckBox) {
+        drawCentreLines = centreLineCheckBox.isSelected();
       }
     });
-    add(check);
+    add(centreLineCheckBox);
   }
 
   /**

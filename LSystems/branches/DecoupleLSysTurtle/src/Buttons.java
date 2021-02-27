@@ -16,6 +16,7 @@ public class Buttons extends JPanel implements ActionListener {
   String[] moveRules;
   String[] rulesX;
   String[] rulesY;
+  boolean centreTurtle = true;
   private final Painting painting;
   private int iterations = 1;
   TwoQueue tq = new TwoQueue();
@@ -135,11 +136,12 @@ public class Buttons extends JPanel implements ActionListener {
     turtle.resetBearing();
     painting.clear();
     turtle.rules();
-    turtle.resetBearing();
-    turtle.centre();
-    painting.clear();
-    turtle.rules();
-
+    if (centreTurtle) {
+      turtle.resetBearing();
+      turtle.centre();
+      painting.clear();
+      turtle.rules();
+    }
     painting.callPaint();
   }
 
@@ -151,5 +153,9 @@ public class Buttons extends JPanel implements ActionListener {
     turtle.reset();
     turtle.resetStack();
     painting.clear();
+  }
+
+  public void setCentreTurtle(boolean centreTurtle) {
+    this.centreTurtle = centreTurtle;
   }
 }
