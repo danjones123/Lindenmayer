@@ -53,6 +53,7 @@ public class Painting extends JPanel {
 
     for (Line line : lines) {
       if (line != null) {
+        g2d.setColor(line.color);
         g2d.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
       }
     }
@@ -66,8 +67,8 @@ public class Painting extends JPanel {
    * @param x2 is the ending x co-ordinate.
    * @param y2 is the ending x co-ordinate.
    */
-  public void addLine(double x1, double y1, double x2, double y2) {
-    Line line = new Line(x1, y1, x2, y2);
+  public void addLine(double x1, double y1, double x2, double y2, Color color) {
+    Line line = new Line(x1, y1, x2, y2, color);
     lines.add(line);
   }
 

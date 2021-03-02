@@ -68,12 +68,26 @@ public class SavedShapes {
         .getResourceAsStream("SavedPresets")));
     while (saver.hasNextLine()) {
       String data = saver.nextLine();
-      String[] tokens = data.split(",");
-      String[][] newPreset = {{tokens[1], tokens[2], tokens[3]}, {tokens[4]}, {tokens[5]}, {tokens[6]}, {tokens[7]}};
+      String[] tokens = data.split("/");
+      removeSpace(tokens);
+      String[] axiomSplit = tokens[1].split(",");
+      String[] splitF = tokens[2].split(",");
+      String[] splitG =  tokens[3].split(",");
+      String[] splitX =  tokens[4].split(",");
+      String[] splitY =  tokens[5].split(",");
+      String[][] newPreset = {axiomSplit, splitF, splitG, splitX, splitY};
       shapes.add(newPreset);
     }
     saver.close();
   }
+
+  public String[] removeSpace(String[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = arr[i].replaceAll("\\s+", "");
+    }
+    return arr;
+  }
+
 
 
   /**

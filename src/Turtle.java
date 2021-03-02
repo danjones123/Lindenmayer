@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.awt.Color;
 
 /**
  * Abstract class for the Turtle which draws the L-Systems.
@@ -34,6 +35,7 @@ public class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
+  private String prevWord = "";
 
   /**
    * Sets the word of the turtle.
@@ -73,7 +75,13 @@ public class Turtle {
     this.coordY = y;
   }
 
+  public void setPrevWord(String prevWord) {
+    this.prevWord = prevWord;
+  }
 
+  public String getPrevWord() {
+    return prevWord;
+  }
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -162,7 +170,7 @@ public class Turtle {
       char current = word.charAt(i);
       switch (current) {
         case 'X', 'Y' -> { }
-        case 'F' -> draw(length);
+        case 'F' -> draw(length, Color.BLACK);
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
@@ -180,19 +188,20 @@ public class Turtle {
    *
    * @param length is the length for the coordinates to move.
    */
-  public void draw(double length) {
+  public void draw(double length, Color color) {
     calcHighLowCoord();
 
     oldX = Double.parseDouble(df.format(coordX));
     oldY = Double.parseDouble(df.format(coordY));
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
-    Line l = new Line(oldX, oldY, coordX, coordY);
+    Line l = new Line(oldX, oldY, coordX, coordY, color);
     l.createLine();
 
     calcHighLowCoord();
 
   }
+
 
   /**
    * Moves the coordinates by the given length multiplied by the given angle but does not draw
@@ -204,6 +213,7 @@ public class Turtle {
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
   }
+
 
   /**
    * Changes the current angle of the line by adding the radian version of the given angle.
