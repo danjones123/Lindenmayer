@@ -50,6 +50,7 @@ public class Lindenmayer {
   public void detGenerate() {
     String nextWord = turtle.getWord();
     StringBuilder next = new StringBuilder();
+    nextWord = nextWord.replaceAll("f", "");
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
@@ -62,6 +63,7 @@ public class Lindenmayer {
         }
       }
       nextWord = next.toString();
+      System.out.println(nextWord);
       next.setLength(0);
       changeRatio();
     }
