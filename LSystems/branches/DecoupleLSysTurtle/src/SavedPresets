@@ -1,6 +1,5 @@
-straight line/ F, 10, 90/ FF/ / / /
-squares/ F-F-F-F, 5, 90/ FF-FF/ / / /
 sierpinski/ F--F--F, 10, 60/ F--F--F--G/ GG/ / /
+squares/ F-F-F-F, 5, 90/ FF-FF/ / / /
 lakes/ F+F+F+F, 2, 90/ F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF/ GGGGGG/ / /
 scaryTree/ F, 5, 25.7/ FF+[+F-F-F]-[-F+F+F]/ G/ / /
 stochastic/ F, 10, 30/ F[+F]F[-F]F, F[+F]F, F[-F]F/ G/ / /

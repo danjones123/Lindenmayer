@@ -38,7 +38,7 @@ public class Settings extends JPanel {
     this.buttons = buttons;
 
     setBackground(Color.WHITE);
-    setPreferredSize(new Dimension(Display.frameWidth, Display.frameHeight));
+    setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     setLayout(null);
     linClassButtons();
     presetBox();
@@ -57,8 +57,8 @@ public class Settings extends JPanel {
     JRadioButton deterministic = new JRadioButton("Deterministic");
     JRadioButton stochastic = new JRadioButton("Stochastic");
     deterministic.setSelected(true);
-    deterministic.setBounds((Display.frameWidth / 2) - 150, 50, 150, 30);
-    stochastic.setBounds((Display.frameWidth / 2), 50, 150, 30);
+    deterministic.setBounds((Initialise.frameWidth / 2) - 150, 50, 150, 30);
+    stochastic.setBounds((Initialise.frameWidth / 2), 50, 150, 30);
 
     ButtonGroup linClasses = new ButtonGroup();
     linClasses.add(deterministic);
@@ -79,8 +79,8 @@ public class Settings extends JPanel {
 
     JLabel presetLabel = new JLabel("Choose Preset");
     JComboBox<String> presets = new JComboBox<>(presetNames);
-    presets.setBounds((Display.frameWidth / 2) - 50, 100, 150, 30);
-    presetLabel.setBounds((Display.frameWidth / 2) - 100, 100, 150, 30);
+    presets.setBounds((Initialise.frameWidth / 2) - 50, 100, 150, 30);
+    presetLabel.setBounds((Initialise.frameWidth / 2) - 100, 100, 150, 30);
 
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
@@ -128,8 +128,8 @@ public class Settings extends JPanel {
   public void lengthRatioButtons() {
     JTextField lengthRatio = new JTextField("Input length scaler", 10);
     JButton enterButton = new JButton("Enter Ratio");
-    lengthRatio.setBounds((Display.frameWidth / 2) - 150, 150, 150, 25);
-    enterButton.setBounds((Display.frameWidth / 2), 150, 100, 25);
+    lengthRatio.setBounds((Initialise.frameWidth / 2) - 150, 150, 150, 25);
+    enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
 
     lengthRatio.addFocusListener(new FocusAdapter() {
       @Override
@@ -162,10 +162,10 @@ public class Settings extends JPanel {
     JTextField minAngle = new JTextField("Input minimum angle", 10);
     JTextField maxAngle = new JTextField("Input minimum angle", 10);
     JButton enterButton = new JButton("Enter Ratio");
-    stochAngleActivate.setBounds((Display.frameWidth / 2) - 150, 425, 150, 25);
-    stochAngleDeactivate.setBounds((Display.frameWidth / 2), 425, 150, 25);
-    maxAngle.setBounds((Display.frameWidth / 2) - 150, 450, 150, 25);
-    minAngle.setBounds((Display.frameWidth / 2), 450, 150, 25);
+    stochAngleActivate.setBounds((Initialise.frameWidth / 2) - 150, 425, 150, 25);
+    stochAngleDeactivate.setBounds((Initialise.frameWidth / 2), 425, 150, 25);
+    maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 450, 150, 25);
+    minAngle.setBounds((Initialise.frameWidth / 2), 450, 150, 25);
 
     maxAngle.addFocusListener(new FocusAdapter() {
       @Override
@@ -185,7 +185,7 @@ public class Settings extends JPanel {
       }
     });
 
-    enterButton.setBounds((Display.frameWidth / 2), 150, 100, 25);
+    enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
 
     add(stochAngleActivate);
     add(stochAngleDeactivate);
@@ -197,7 +197,7 @@ public class Settings extends JPanel {
     JCheckBox centreTurtle = new JCheckBox();
     centreTurtle.setText("Centre turtle");
     centreTurtle.setFocusable(false);
-    centreTurtle.setBounds((Display.frameWidth / 2), 500, 150, 25);
+    centreTurtle.setBounds((Initialise.frameWidth / 2), 500, 150, 25);
 
     centreTurtle.setSelected(true);
     centreTurtle.addActionListener(e -> {
@@ -215,48 +215,48 @@ public class Settings extends JPanel {
   public void axiomBoxes() {
     JTextField axiomString = new JTextField(turtle.getWord(), 15);
     JLabel axiomStringLabel = new JLabel("Starting Axiom");
-    axiomString.setBounds((Display.frameWidth / 2), 200, 300, 25);
-    axiomStringLabel.setBounds((Display.frameWidth / 2) - 100, 200, 150, 25);
+    axiomString.setBounds((Initialise.frameWidth / 2), 200, 300, 25);
+    axiomStringLabel.setBounds((Initialise.frameWidth / 2) - 100, 200, 150, 25);
 
     JTextField axiomLength = new JTextField(Double.toString(turtle.getLength()), 15);
     JLabel axiomLengthLabel = new JLabel("Starting Length");
-    axiomLength.setBounds((Display.frameWidth / 2), 225, 300, 25);
-    axiomLengthLabel.setBounds((Display.frameWidth / 2) - 100, 225, 150, 25);
+    axiomLength.setBounds((Initialise.frameWidth / 2), 225, 300, 25);
+    axiomLengthLabel.setBounds((Initialise.frameWidth / 2) - 100, 225, 150, 25);
 
     JTextField axiomAngle = new JTextField(Double.toString(turtle.getAngle()), 15);
     JLabel axiomAngleLabel = new JLabel("Starting Angle");
-    axiomAngle.setBounds((Display.frameWidth / 2), 250, 300, 25);
-    axiomAngleLabel.setBounds((Display.frameWidth / 2) - 100, 250, 150, 25);
+    axiomAngle.setBounds((Initialise.frameWidth / 2), 250, 300, 25);
+    axiomAngleLabel.setBounds((Initialise.frameWidth / 2) - 100, 250, 150, 25);
 
     JTextField startingCoordX = new JTextField(Double.toString(turtle.getCoordX()), 15);
     JLabel startingCoordLabelX = new JLabel("Starting X Co-ordinate");
-    startingCoordX.setBounds((Display.frameWidth / 2), 275, 300, 25);
-    startingCoordLabelX.setBounds((Display.frameWidth / 2) - 100, 275, 150, 25);
+    startingCoordX.setBounds((Initialise.frameWidth / 2), 275, 300, 25);
+    startingCoordLabelX.setBounds((Initialise.frameWidth / 2) - 100, 275, 150, 25);
 
     JTextField startingCoordY = new JTextField(Double.toString(turtle.getCoordY()), 15);
     JLabel startingCoordLabelY = new JLabel("Starting Y Co-ordinate");
-    startingCoordY.setBounds((Display.frameWidth / 2), 300, 300, 25);
-    startingCoordLabelY.setBounds((Display.frameWidth / 2) - 100, 300, 150, 25);
+    startingCoordY.setBounds((Initialise.frameWidth / 2), 300, 300, 25);
+    startingCoordLabelY.setBounds((Initialise.frameWidth / 2) - 100, 300, 150, 25);
 
     JTextField drawRules = new JTextField(Arrays.toString(linSys.getDrawRules()), 15);
     JLabel drawRulesLabel = new JLabel("Drawing Rules");
-    drawRules.setBounds((Display.frameWidth / 2), 325, 300, 25);
-    drawRulesLabel.setBounds((Display.frameWidth / 2) - 100, 325, 150, 25);
+    drawRules.setBounds((Initialise.frameWidth / 2), 325, 300, 25);
+    drawRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 325, 150, 25);
 
     JTextField moveRules = new JTextField(Arrays.toString(linSys.getMoveRules()), 15);
     JLabel moveRulesLabel = new JLabel("Moving Rules");
-    moveRules.setBounds((Display.frameWidth / 2), 350, 300, 25);
-    moveRulesLabel.setBounds((Display.frameWidth / 2) - 100, 350, 150, 25);
+    moveRules.setBounds((Initialise.frameWidth / 2), 350, 300, 25);
+    moveRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 350, 150, 25);
 
     JTextField rulesX = new JTextField(Arrays.toString(linSys.getRulesX()), 15);
     JLabel rulesLabelX = new JLabel("X Rules");
-    rulesX.setBounds((Display.frameWidth / 2), 375, 300, 25);
-    rulesLabelX.setBounds((Display.frameWidth / 2) - 100, 375, 150, 25);
+    rulesX.setBounds((Initialise.frameWidth / 2), 375, 300, 25);
+    rulesLabelX.setBounds((Initialise.frameWidth / 2) - 100, 375, 150, 25);
 
     JTextField rulesY = new JTextField(Arrays.toString(linSys.getRulesY()), 15);
     JLabel rulesLabelY = new JLabel("Y Rules");
-    rulesY.setBounds((Display.frameWidth / 2), 400, 300, 25);
-    rulesLabelY.setBounds((Display.frameWidth / 2) - 100, 400, 150, 25);
+    rulesY.setBounds((Initialise.frameWidth / 2), 400, 300, 25);
+    rulesLabelY.setBounds((Initialise.frameWidth / 2) - 100, 400, 150, 25);
 
     add(axiomString);
     add(axiomStringLabel);
@@ -283,7 +283,7 @@ public class Settings extends JPanel {
    */
   public void saveChanges() {
     JButton save = new JButton("Save Changes");
-    save.setBounds((Display.frameWidth / 2) - 75, 750, 150, 50);
+    save.setBounds((Initialise.frameWidth / 2) - 75, 750, 150, 50);
     save.addActionListener(e -> {
       linSys.setCurrentClass(currentClass);
 
@@ -293,7 +293,7 @@ public class Settings extends JPanel {
       //add starting co-ordinates
 
       shapes.setPresetNo(presetNum);
-      Display.initialiseTurtleLinden();
+      Initialise.initialiseTurtleLinden();
 
       buttons.setCentreTurtle(centreSetTurlte);
 

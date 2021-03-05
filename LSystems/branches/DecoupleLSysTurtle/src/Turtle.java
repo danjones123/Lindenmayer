@@ -1,8 +1,9 @@
+import java.awt.Color;
 import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.awt.Color;
+
 
 /**
  * Abstract class for the Turtle which draws the L-Systems.
@@ -35,7 +36,16 @@ public class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
-  private String prevWord = "";
+  Color turtleColor;
+
+  public Turtle() {
+    turtleColor = Color.BLACK;
+  }
+
+  public Turtle(Color turtleColor) {
+    this.turtleColor = turtleColor;
+  }
+
 
   /**
    * Sets the word of the turtle.
@@ -75,13 +85,6 @@ public class Turtle {
     this.coordY = y;
   }
 
-  public void setPrevWord(String prevWord) {
-    this.prevWord = prevWord;
-  }
-
-  public String getPrevWord() {
-    return prevWord;
-  }
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -170,7 +173,7 @@ public class Turtle {
       char current = word.charAt(i);
       switch (current) {
         case 'X', 'Y' -> { }
-        case 'F' -> draw(length, Color.BLACK);
+        case 'F' -> draw(length, turtleColor);
         case 'G' -> move(length);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
@@ -278,8 +281,8 @@ public class Turtle {
     double middleX = (highestCoordX + lowestCoordX) / 2;
     double middleY = (highestCoordY + lowestCoordY) / 2;
 
-    double frameMidX = (double) Display.frameWidth / 2;
-    double frameMidY = (double) Display.frameHeight / 2;
+    double frameMidX = (double) Initialise.frameWidth / 2;
+    double frameMidY = (double) Initialise.frameHeight / 2;
 
     double offsetFromStartToMidX = startingCoordX - middleX;
     double offsetFromStartToMidY = startingCoordY - middleY;

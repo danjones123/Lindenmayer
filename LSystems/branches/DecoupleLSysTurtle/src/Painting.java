@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
@@ -24,7 +22,7 @@ public class Painting extends JPanel {
    */
   public Painting() {
     setBackground(Color.WHITE);
-    setPreferredSize(new Dimension(Display.frameWidth, Display.frameHeight));
+    setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     drawCentre();
   }
 
@@ -44,8 +42,8 @@ public class Painting extends JPanel {
 
     if (drawCentreLines) {
       g.setColor(Color.RED);
-      g.drawLine(0, Display.frameHeight / 2, Display.frameWidth, Display.frameHeight / 2);
-      g.drawLine(Display.frameWidth / 2, 0, Display.frameWidth / 2, Display.frameHeight);
+      g.drawLine(0, Initialise.frameHeight / 2, Initialise.frameWidth, Initialise.frameHeight / 2);
+      g.drawLine(Initialise.frameWidth / 2, 0, Initialise.frameWidth / 2, Initialise.frameHeight);
     }
 
 

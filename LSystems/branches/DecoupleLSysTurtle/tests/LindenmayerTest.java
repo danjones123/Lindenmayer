@@ -310,16 +310,4 @@ public class LindenmayerTest {
     assertEquals(50, turtle.getLength(), 1e-10);
   }
 
-  @Test
-  public void testIfCharacterIsOriginalOrFromProduction() {
-    turtle.setWord("FG");
-    lSysDet.setDrawRules(new String[]{"FGXY"});
-    lSysDet.setMoveRules(new String[]{"GGGGGG"});
-
-    lSysDet.generate(1);
-
-    assertEquals("FG", turtle.getPrevWord());
-    assertEquals("FGXYGGGGGG", turtle.getWord());
-  }
-
 }
