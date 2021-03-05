@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
  */
 public class Buttons extends JPanel implements ActionListener {
   Turtle turtle;
+  Turtle previousTurtle = new Turtle(Color.BLUE);
   Lindenmayer linSys;
   String[] drawRules;
   String[] moveRules;
@@ -20,6 +22,7 @@ public class Buttons extends JPanel implements ActionListener {
   private final Painting painting;
   private int iterations = 1;
   TwoQueue tq = new TwoQueue();
+  boolean drawPrev = false;
 
 
   /**
@@ -32,7 +35,7 @@ public class Buttons extends JPanel implements ActionListener {
     add(createButton("Generate"));
     add(createButton("Undo"));
     add(createButton("Clear Drawing"));
-
+    add(createButton("Toggle Draw Previous"));
   }
 
   /**
@@ -49,6 +52,14 @@ public class Buttons extends JPanel implements ActionListener {
     rulesX = linSys.getRulesX();
     rulesY = linSys.getRulesY();
     tq.resetQueue();
+
+  }
+
+  public void updatePrevTurtle() {
+    previousTurtle.setWord(turtle.getWord());
+    previousTurtle.setLength(turtle.getLength());
+    previousTurtle.setAngle(turtle.getAngle());
+    previousTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
   }
 
   /**
@@ -86,14 +97,24 @@ public class Buttons extends JPanel implements ActionListener {
           turtle.reset();
           linSys.generate(iterations);
           turtle.pushTurtle();
-          draw();
+          if (drawPrev) {
+            doubleDraw(turtle, previousTurtle);
+          } else {
+            singleDraw(turtle);
+          }
+          updatePrevTurtle();
           iterations++;
           turtle.reset();
           linSys.generate(iterations);
         }
         default -> {
           turtle.pushTurtle();
-          draw();
+          if (drawPrev) {
+            doubleDraw(turtle, previousTurtle);
+          } else {
+            singleDraw(turtle);
+          }
+          updatePrevTurtle();
           iterations++;
           turtle.reset();
           linSys.generate(iterations);
@@ -107,12 +128,14 @@ public class Buttons extends JPanel implements ActionListener {
             iterations--;
             turtle.popTurtle();
             iterations--;
-            draw();
+            singleDraw(turtle);
+            updatePrevTurtle();
           }
           default -> {
             turtle.popTurtle();
             iterations--;
-            draw();
+            singleDraw(turtle);
+            updatePrevTurtle();
           }
         }
       } else {
@@ -124,23 +147,54 @@ public class Buttons extends JPanel implements ActionListener {
       iterations = 1;
       turtle.reset();
       painting.clear();
+    } else if ("Toggle Draw Previous".equals(e.getActionCommand())) {
+      drawPrev = !drawPrev;
     }
   }
 
   /**
-   * Method for drawing the turtle. Ensures that it is always drawn in the same direction
+   * Method for drawing the main turtle. Ensures that it is always drawn in the same direction
    * and that it is centred.
+   *
+   * @param thisTurtle is the turtle to be drawn.
    */
-  public void draw() {
-    turtle.resetHighLow();
-    turtle.resetBearing();
+  public void singleDraw(Turtle thisTurtle) {
+    thisTurtle.resetHighLow();
+    thisTurtle.resetBearing();
     painting.clear();
-    turtle.rules();
+    thisTurtle.rules();
     if (centreTurtle) {
-      turtle.resetBearing();
-      turtle.centre();
+      thisTurtle.resetBearing();
+      thisTurtle.centre();
+      thisTurtle.centre();
       painting.clear();
-      turtle.rules();
+      thisTurtle.rules();
+    }
+    painting.callPaint();
+  }
+
+  /**
+   * Method for drawing the main turtle and it's previous iteration.
+   *
+   * @param thisTurtle is the main turtle implementing an l-system.
+   * @param previousTurtle is the previous iteration of the main turtle.
+   */
+  public void doubleDraw(Turtle thisTurtle, Turtle previousTurtle) {
+    thisTurtle.resetHighLow();
+    thisTurtle.resetBearing();
+    previousTurtle.resetHighLow();
+    previousTurtle.resetBearing();
+    painting.clear();
+    thisTurtle.rules();
+    previousTurtle.rules();
+    if (centreTurtle) {
+      thisTurtle.resetBearing();
+      previousTurtle.resetBearing();
+      thisTurtle.centre();
+      thisTurtle.centre();
+      painting.clear();
+      thisTurtle.rules();
+      previousTurtle.rules();
     }
     painting.callPaint();
   }

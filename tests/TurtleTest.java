@@ -413,10 +413,10 @@ public class TurtleTest {
     turtle.centre();
     turtle.resetHighLow();
     turtle.rules();
-    assertEquals((double) ((Display.frameWidth)/2)-5, turtle.startingCoordX, 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) ((Initialise.frameWidth)/2)-5, turtle.startingCoordX, 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.startingCoordY, 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("+F");
@@ -426,10 +426,10 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) Display.frameWidth/2, turtle.startingCoordX, 1e-10);
-    assertEquals((double) ((Display.frameHeight)/2)-5, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) Initialise.frameWidth/2, turtle.startingCoordX, 1e-10);
+    assertEquals((double) ((Initialise.frameHeight)/2)-5, turtle.startingCoordY, 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("-F");
@@ -439,10 +439,10 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) ((Display.frameHeight)/2), turtle.startingCoordX, 1e-10);
-    assertEquals((double) ((Display.frameHeight)/2)+5, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) ((Initialise.frameHeight)/2), turtle.startingCoordX, 1e-10);
+    assertEquals((double) ((Initialise.frameHeight)/2)+5, turtle.startingCoordY, 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("--F");
@@ -452,10 +452,10 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) ((Display.frameHeight)/2)+5, turtle.startingCoordX, 1e-10);
-    assertEquals((double) (Display.frameHeight)/2, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) ((Initialise.frameHeight)/2)+5, turtle.startingCoordX, 1e-10);
+    assertEquals((double) (Initialise.frameHeight)/2, turtle.startingCoordY, 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("+F");
@@ -467,8 +467,8 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("-F");
@@ -478,8 +478,8 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("---F");
@@ -489,8 +489,8 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
 
     turtle.reset();
     turtle.setWord("+++F");
@@ -500,8 +500,8 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) (Display.frameWidth)/2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Display.frameHeight/2, turtle.getMiddleY(), 1e-10);
+    assertEquals((double) (Initialise.frameWidth)/2, turtle.getMiddleX(), 1e-10);
+    assertEquals((double) Initialise.frameHeight/2, turtle.getMiddleY(), 1e-10);
   }
 
   /**

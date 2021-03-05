@@ -13,6 +13,6 @@ public class Main {
    * @param args takes the argument for the method.
    */
   public static void main(String[] args) {
-    SwingUtilities.invokeLater(Display::createAndShowGui);
+    SwingUtilities.invokeLater(Initialise::createAndShowGui);
   }
 }

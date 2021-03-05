@@ -8,14 +8,14 @@ import javax.swing.JTabbedPane;
  *
  * @author Daniel Jones.
  */
-public class Display extends JFrame {
+public class Initialise extends JFrame {
   static int frameWidth = 800;
   static int frameHeight = 800;
   static Turtle turtle = new Turtle();
   static Lindenmayer linSys = new Lindenmayer(turtle);
   static SavedShapes shape = new SavedShapes();
 
-  public Display() {
+  public Initialise() {
 
   }
 
@@ -61,11 +61,6 @@ public class Display extends JFrame {
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
     turtle.setAngle(shape.getAngle());
-    //String[] drawRules = shape.getDrawRules();
-    //String[] moveRules = shape.getMoveRules();
-    //String[] rulesX = shape.getRulesX();
-    //String[] rulesY = shape.getRulesY();
-
 
     linSys.setDrawRules(shape.getDrawRules());
     linSys.setMoveRules(shape.getMoveRules());
