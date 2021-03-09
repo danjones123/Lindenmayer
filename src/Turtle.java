@@ -24,7 +24,6 @@ public class Turtle {
   double currAngle = 0;
   private double coordX = 0;
   private double coordY = 0;
-
   double oldX;
   double oldY;
   double lowestCoordX = 1 * 10e10;
@@ -37,6 +36,7 @@ public class Turtle {
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
   Color turtleColor;
+  private int screen = 0;
 
   public Turtle() {
     turtleColor = Color.BLACK;
@@ -44,6 +44,16 @@ public class Turtle {
 
   public Turtle(Color turtleColor) {
     this.turtleColor = turtleColor;
+  }
+
+  public Turtle(int screen) {
+    this.screen = screen;
+    turtleColor = Color.BLACK;
+  }
+
+  public Turtle(int screen, Color color) {
+    this.screen = screen;
+    turtleColor = color;
   }
 
 
@@ -174,7 +184,7 @@ public class Turtle {
       switch (current) {
         case 'X', 'Y' -> { }
         case 'F' -> draw(length, turtleColor);
-        case 'G' -> move(length);
+        case 'G' -> move(length, turtleColor);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
         case '[' -> pushCoords();
@@ -199,7 +209,12 @@ public class Turtle {
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
     Line l = new Line(oldX, oldY, coordX, coordY, color);
-    l.createLine();
+    if (screen == 0) {
+      l.createLine();
+    } else {
+      l.prodLine();
+    }
+
 
     calcHighLowCoord();
 
@@ -212,9 +227,16 @@ public class Turtle {
    *
    * @param length is the distance to move.
    */
-  public void move(double length) {
+  public void move(double length, Color color) {
+    oldX = Double.parseDouble(df.format(coordX));
+    oldY = Double.parseDouble(df.format(coordY));
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
+
+    if (screen == 2) {
+      Line l = new Line(oldX, oldY, coordX, coordY, color);
+      l.prodDashedLine();
+    }
   }
 
 

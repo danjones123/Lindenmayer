@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- * Class for the initialisation of the Display and turlte/L-system in the program.
+ * Class for the initialisation of the Display and turtle/L-system in the program.
  *
  * @author Daniel Jones.
  */
@@ -34,13 +34,22 @@ public class Initialise extends JFrame {
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
 
-    Settings settings = new Settings(turtle, linSys, shape, buttonPanel);
+    ProdPainter prodPaint = new ProdPainter();
+    Productions productions = new Productions(shape, prodPaint);
+    JPanel productionsTab = new JPanel(false);
+    productionsTab.add(productions);
+    productionsTab.add(prodPaint);
+
+    Settings settings = new Settings(turtle, linSys, shape, buttonPanel, productions);
     JPanel settingsTab = new JPanel(false);
     settingsTab.add(settings);
 
 
+
+
     JTabbedPane tabs = new JTabbedPane();
     tabs.addTab("Drawing", mainPanel);
+    tabs.addTab("Productions", productionsTab);
     tabs.addTab("Settings", settingsTab);
 
 
