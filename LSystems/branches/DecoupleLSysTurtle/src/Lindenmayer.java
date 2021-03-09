@@ -103,7 +103,7 @@ public class Lindenmayer {
   }
 
   /**
-   * Sets the length to the current length mulitplied by the length scalar.
+   * Sets the length to the current length multiplied by the length scalar.
    */
   public void changeRatio() {
     turtle.setLength(turtle.getLength() * lengthScaler);
@@ -218,9 +218,5 @@ public class Lindenmayer {
 
   public void setCurrentClass(int current) {
     this.currentClass = current;
-  }
-
-  public int getCurrentClass() {
-    return currentClass;
   }
 }

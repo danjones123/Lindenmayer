@@ -5,7 +5,16 @@ import java.awt.event.FocusEvent;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+
 
 /**
  * Class for creating the settings window and controlling what the buttons do.
@@ -17,10 +26,11 @@ public class Settings extends JPanel {
   Lindenmayer linSys;
   SavedShapes shapes;
   Buttons buttons;
+  Productions prod;
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
-  private boolean centreSetTurlte = true;
+  private boolean centreSetTurtle = true;
 
 
   /**
@@ -31,11 +41,13 @@ public class Settings extends JPanel {
    * @param shapes is the shapes class in use
    * @param buttons is the buttons class.
    */
-  public Settings(Turtle turtle, Lindenmayer linSys, SavedShapes shapes, Buttons buttons) {
+  public Settings(Turtle turtle, Lindenmayer linSys, SavedShapes shapes, Buttons buttons,
+                  Productions prod) {
     this.linSys = linSys;
     this.turtle = turtle;
     this.shapes = shapes;
     this.buttons = buttons;
+    this.prod = prod;
 
     setBackground(Color.WHITE);
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
@@ -92,6 +104,11 @@ public class Settings extends JPanel {
     add(presetLabel);
   }
 
+  /**
+   * Fills the presets array with the presets from savedShapes.
+   *
+   * @param stringToBeFilled is the array of names for the presetNames.
+   */
   public void fillPresets(String[] stringToBeFilled) {
     Scanner savedNames;
     savedNames = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
@@ -107,6 +124,12 @@ public class Settings extends JPanel {
     }
   }
 
+  /**
+   * Method that gives the number of presets that need to be displayed in the list to prevent lots
+   * of nulls from being displayed.
+   *
+   * @return returns the number of presets in the saved file.
+   */
   public int presetNumber() {
     Scanner savedCounter;
     savedCounter = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
@@ -126,7 +149,7 @@ public class Settings extends JPanel {
    * Method for creating the buttons for user input length ratio.
    */
   public void lengthRatioButtons() {
-    JTextField lengthRatio = new JTextField("Input length scaler", 10);
+    JTextField lengthRatio = new JTextField("Input length scalar", 10);
     JButton enterButton = new JButton("Enter Ratio");
     lengthRatio.setBounds((Initialise.frameWidth / 2) - 150, 150, 150, 25);
     enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
@@ -154,16 +177,17 @@ public class Settings extends JPanel {
     add(enterButton);
   }
 
+  /**
+   * Method for the user to input if they want stochastic angle growth.
+   */
   public void stochasticAngleButtons() {
     //Replace with checkbox
-
     JRadioButton stochAngleActivate = new JRadioButton("Use Stochastic Angle");
     JRadioButton stochAngleDeactivate = new JRadioButton("Do Not Use Stochastic Angle");
-    JTextField minAngle = new JTextField("Input minimum angle", 10);
-    JTextField maxAngle = new JTextField("Input minimum angle", 10);
-    JButton enterButton = new JButton("Enter Ratio");
     stochAngleActivate.setBounds((Initialise.frameWidth / 2) - 150, 425, 150, 25);
     stochAngleDeactivate.setBounds((Initialise.frameWidth / 2), 425, 150, 25);
+    JTextField minAngle = new JTextField("Input minimum angle", 10);
+    JTextField maxAngle = new JTextField("Input minimum angle", 10);
     maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 450, 150, 25);
     minAngle.setBounds((Initialise.frameWidth / 2), 450, 150, 25);
 
@@ -185,6 +209,7 @@ public class Settings extends JPanel {
       }
     });
 
+    JButton enterButton = new JButton("Enter Ratio");
     enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
 
     add(stochAngleActivate);
@@ -193,6 +218,9 @@ public class Settings extends JPanel {
     add(maxAngle);
   }
 
+  /**
+   * Method to toggle centring the turtle in the screen.
+   */
   public void centreTurtle() {
     JCheckBox centreTurtle = new JCheckBox();
     centreTurtle.setText("Centre turtle");
@@ -202,7 +230,7 @@ public class Settings extends JPanel {
     centreTurtle.setSelected(true);
     centreTurtle.addActionListener(e -> {
       if (e.getSource() == centreTurtle) {
-        centreSetTurlte = centreTurtle.isSelected();
+        centreSetTurtle = centreTurtle.isSelected();
       }
     });
     add(centreTurtle);
@@ -294,8 +322,9 @@ public class Settings extends JPanel {
 
       shapes.setPresetNo(presetNum);
       Initialise.initialiseTurtleLinden();
+      prod.update();
 
-      buttons.setCentreTurtle(centreSetTurlte);
+      buttons.setCentreTurtle(centreSetTurtle);
 
       buttons.externalReset();
 

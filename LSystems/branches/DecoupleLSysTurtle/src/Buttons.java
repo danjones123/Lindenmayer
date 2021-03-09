@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -35,7 +35,7 @@ public class Buttons extends JPanel implements ActionListener {
     add(createButton("Generate"));
     add(createButton("Undo"));
     add(createButton("Clear Drawing"));
-    add(createButton("Toggle Draw Previous"));
+    add(createButton("Toggle Show Previous"));
   }
 
   /**
@@ -55,6 +55,9 @@ public class Buttons extends JPanel implements ActionListener {
 
   }
 
+  /**
+   * Updates the previous turtle to equal what the current turtle is before it is generated.
+   */
   public void updatePrevTurtle() {
     previousTurtle.setWord(turtle.getWord());
     previousTurtle.setLength(turtle.getLength());
@@ -147,7 +150,7 @@ public class Buttons extends JPanel implements ActionListener {
       iterations = 1;
       turtle.reset();
       painting.clear();
-    } else if ("Toggle Draw Previous".equals(e.getActionCommand())) {
+    } else if ("Toggle Show Previous".equals(e.getActionCommand())) {
       drawPrev = !drawPrev;
     }
   }
@@ -165,7 +168,6 @@ public class Buttons extends JPanel implements ActionListener {
     thisTurtle.rules();
     if (centreTurtle) {
       thisTurtle.resetBearing();
-      thisTurtle.centre();
       thisTurtle.centre();
       painting.clear();
       thisTurtle.rules();
@@ -190,7 +192,6 @@ public class Buttons extends JPanel implements ActionListener {
     if (centreTurtle) {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
-      thisTurtle.centre();
       thisTurtle.centre();
       painting.clear();
       thisTurtle.rules();

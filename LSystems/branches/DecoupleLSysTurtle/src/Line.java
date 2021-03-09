@@ -14,6 +14,8 @@ public class Line {
 
 
   Painting painting = new Painting();
+  ProdPainter prod = new ProdPainter();
+
 
   /**
    * Constructor sets the x1, x2, y1 and y2 variables to those given.
@@ -22,6 +24,7 @@ public class Line {
    * @param y1 is the value for y1 to take.
    * @param x2 is the value for x2 to take.
    * @param y2 is the value for y2 to take.
+   * @param color is the Colour of the line to be drawn.
    */
   public Line(double x1, double y1, double x2, double y2, Color color) {
     this.x1 = x1;
@@ -36,5 +39,19 @@ public class Line {
    */
   public void createLine() {
     painting.addLine(x1, y1, x2, y2, color);
+  }
+
+  /**
+   * Add a line to the production class rather than to painting.
+   */
+  public void prodLine() {
+    prod.addLine(x1, y1, x2, y2, color);
+  }
+
+  /**
+   * Adds a line to production that is to be a dashed line.
+   */
+  public void prodDashedLine() {
+    prod.addDashedLine(x1, y1, x2, y2, color);
   }
 }

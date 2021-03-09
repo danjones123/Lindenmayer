@@ -1,6 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -31,7 +28,6 @@ public class SavedShapes {
    * SavedShapes to the current int.
    */
   public SavedShapes() {
-    //savedPresets();
     presetsFromFile();
 
     update();
@@ -61,7 +57,9 @@ public class SavedShapes {
     rulesY = shapeY;
   }
 
-
+  /**
+   * Pulls the presets from a file and adds them to shapes with the correct separation.
+   */
   public void presetsFromFile() {
     Scanner saver;
     saver = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
@@ -81,73 +79,18 @@ public class SavedShapes {
     saver.close();
   }
 
-  public String[] removeSpace(String[] arr) {
+  /**
+   * Removes the space from a given array.
+   *
+   * @param arr the array to have the spaces removed.
+   */
+  public void removeSpace(String[] arr) {
     for (int i = 0; i < arr.length; i++) {
       arr[i] = arr[i].replaceAll("\\s+", "");
     }
-    return arr;
+
   }
 
-
-
-  /**
-   * Initialises all of the 2D arrays and adds them to the shapes arrayList.
-
-  public void savedPresets() {
-    String[][] squares = {{"F-F-F-F", "5", "90"}, {"FF-FF"}, {""}, {""}, {""}}; //0
-    String[][] sierpinski = {{"F--F--F", "10", "60"}, {"F--F--F--G"}, {"GG"}, {""}, {""} }; //1
-    String[][] lakes = {{"F+F+F+F", "2", "90"}, {"F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF"},
-        {"GGGGGG"}, {""}, {""}}; //2
-    String[][] scaryTree = {{"F", "5", "25.7"}, {"FF+[+F-F-F]-[-F+F+F]"}, {"G"}, {""}, {""}}; //3
-    String[][] stochastic = {{"F", "10", "30"}, {"F[+F]F[-F]F", "F[+F]F", "F[-F]F"}, {"G"},
-        {""}, {""}}; //4
-    String[][] shuriken = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-F-F+F"}, {"G"}, {""}, {""}}; //5
-    String[][] moreSquares = {{"F-F-F-F", "5", "90"}, {"FF-F-F-F-FF"}, {"G"}, {""}, {""}}; //6
-    String[][] rectangles = {{"F-F-F-F", "5", "90"}, {"FF-F+F-F-FF"}, {"G"}, {""}, {""}}; //7
-    String[][] sparse = {{"F-F-F-F", "1", "90"}, {"FF-F--F-F"}, {"G"}, {""}, {""}}; //8
-    String[][] idk = {{"F-F-F-F", "5", "90"}, {"F-FF--F-F"}, {"G"}, {""}, {""}}; //9
-    String[][] idk2 = {{"F-F-F-F", "5", "90"}, {"F-F+F-F-F"}, {"G"}, {""}, {""}}; //10
-    String[][] kochIsland = {{"F-F-F-F", "5", "90"}, {"F-F+F+FF-F-F+F"}, {"G"}, {""}, {""}}; //11
-    String[][] kochSnowflake = {{"F++F++F", "5", "60"}, {"F-F++F-F"}, {"G"}, {""}, {""}}; //12
-    String[][] ecksAndWhy = {{"---YYY", "50", "30"}, {"FF"}, {"",
-        ""}, {"X[-FFF][+FFF]FX"}, {"YFX[+Y][-Y]"}}; //13
-    String[][] nonStochXy = {{"-----X", "50", "20"}, {"FF"}, {""}, {"F[+X]F[-X]+X"}, {"Y"}}; //14
-    String[][] nonStochXy2 = {{"----X", "50", "25.7"}, {"FF"}, {""}, {"F[+X][-X]FX"}, {""}}; //15
-    String[][] nonStochXy3 = {{"----X", "50", "22.5"}, {"FF"}, {""}, {"F-[[X]+X]+F[+FX]-X"},
-        {""}}; //16
-    String[][] hilbert = {{"X", "15", "90"}, {"F"}, {""}, {"+YF-XFX-FY+"}, {"-XF+YFY+FX-"}}; //17
-    String[][] turtletoynet = {{"X", "15", "22"}, {"F+[F]F[-F]F", "FF-[-F+F+F]+[+F-F-F]",
-        "FF+[+F-F-F]-[F+F+F]"}, {""}, {"F+[[X]-X]-F[-FX]+X"}, {"-XF+YFY+FX-"}}; //18
-    String[][] handDrawn = {{"X", "15", "90"}, {"XF+XF", "XF-XF", "XFXXX"}, {""}, {"XF"},
-        {""}}; //19
-    String[][] ecksAndWhyStochastic = {{"---YYY", "50", "30"}, {"F[+F]F[-F]F", "F[+F]F",
-        "F[-F]F"}, {""}, {"X[-FFF][+FFF]FX"}, {"YFX[+Y][-Y]"}}; //20
-
-
-
-    shapes.add(squares);
-    shapes.add(sierpinski);
-    shapes.add(lakes);
-    shapes.add(scaryTree);
-    shapes.add(stochastic);
-    shapes.add(shuriken);
-    shapes.add(moreSquares);
-    shapes.add(rectangles);
-    shapes.add(sparse);
-    shapes.add(idk);
-    shapes.add(idk2);
-    shapes.add(kochIsland);
-    shapes.add(kochSnowflake);
-    shapes.add(ecksAndWhy);
-    shapes.add(nonStochXy);
-    shapes.add(nonStochXy2);
-    shapes.add(nonStochXy3);
-    shapes.add(hilbert);
-    shapes.add(turtletoynet);
-    shapes.add(handDrawn);
-    shapes.add(ecksAndWhyStochastic);
-  }
-*/
   /**
    * Gets the word for the turtle.
    *
