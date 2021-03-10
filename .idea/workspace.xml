@@ -2,20 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="487feec3-7dc1-43db-a0d3-73462d62cc46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DeterministicTurtle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/StochasticTurtle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TwoQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/ButtonsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/DeterministicTurtleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/SavedShapesTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/StochasticTurtleTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/TwoQueueTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Initialise.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Lindenmayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ProdPainter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Productions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SavedPresets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Trunk/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trunk/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Display.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DeterministicTurtle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Painting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Line.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StochasticTurtle.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/TurtleTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ButtonsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ButtonsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/DeterministicTurtleTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/StochasticTurtleTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +49,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/stdlib.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -61,6 +66,23 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Trunk" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in Trunk" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Trunk" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ButtonsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Trunk" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ButtonsTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -86,6 +108,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in Trunk" />
+        <item itemvalue="JUnit.ButtonsTest" />
         <item itemvalue="JUnit.LineTest" />
         <item itemvalue="JUnit.TurtleTest" />
       </list>
@@ -122,52 +146,74 @@
       <option name="presentableId" value="Default" />
       <updated>1606485685913</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merged the LSystemClasses branch into the trunk">
+      <created>1613483025468</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613483025468</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merged the LSystemClasses branch into the trunk" />
+    <MESSAGE value="Created new branch for decoupling the turtle code from  the LSystem code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created new branch for decoupling the turtle code from  the LSystem code" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="-1230" y="202" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613482815772">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="601" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615392599179">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="601" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1615392599179" />
+    <state x="690" y="293" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1615392765760">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1230" y="202" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482815772" />
-    <state x="-1254" y="196" key="FileChooserDialogImpl" timestamp="1606486268016">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="690" y="293" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1615392765760" />
+    <state x="614" y="107" width="1082" height="826" key="CommitChangelistDialog2" timestamp="1613483021412">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1254" y="196" key="FileChooserDialogImpl/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486268016" />
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom" timestamp="1606486282803">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="614" y="107" width="1082" height="826" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483021412" />
+    <state x="666" y="288" key="FileChooserDialogImpl" timestamp="1613483212828">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486282803" />
-    <state width="1877" height="321" key="GridCell.Tab.0.center" timestamp="1606486282803">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="666" y="288" key="FileChooserDialogImpl/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483212828" />
+    <state width="1877" height="327" key="GridCell.Tab.0.bottom" timestamp="1613484801190">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486282803" />
-    <state width="1877" height="321" key="GridCell.Tab.0.left" timestamp="1606486282803">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state width="1892" height="327" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
+    <state width="1877" height="327" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
+    <state width="1877" height="327" key="GridCell.Tab.0.center" timestamp="1613484801190">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486282803" />
-    <state width="1877" height="321" key="GridCell.Tab.0.right" timestamp="1606486282803">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state width="1892" height="327" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
+    <state width="1877" height="327" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
+    <state width="1877" height="327" key="GridCell.Tab.0.left" timestamp="1613484801190">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486282803" />
-    <state x="-1480" y="29" key="SettingsEditor" timestamp="1606486089856">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state width="1892" height="327" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
+    <state width="1877" height="327" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
+    <state width="1877" height="327" key="GridCell.Tab.0.right" timestamp="1613484801190">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1480" y="29" key="SettingsEditor/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486089856" />
-    <state x="-1255" y="346" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1606486207608">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
-    </state>
-    <state x="-1255" y="346" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486207608" />
+    <state width="1892" height="327" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
+    <state width="1877" height="327" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
     <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1613482614688">
       <screen x="-1920" y="-125" width="1920" height="1160" />
     </state>
     <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482614688" />
-    <state x="-1323" y="75" key="new project wizard" timestamp="1606485971505">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="783" y="423" key="svn.upgradeDialog" timestamp="1613483214788">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1323" y="75" key="new project wizard/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606485971505" />
-    <state x="-1130" y="246" key="svn.repositoryBrowser" timestamp="1606486269257">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
+    <state x="783" y="423" key="svn.upgradeDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483214788" />
+    <state x="670" y="374" key="svn4idea.checkout.options" timestamp="1613483213900">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1130" y="246" key="svn.repositoryBrowser/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1606486269257" />
+    <state x="670" y="374" key="svn4idea.checkout.options/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483213900" />
+    <state x="672" y="333" width="626" height="374" key="svn4idea.mkdir.options" timestamp="1613483150986">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="672" y="333" width="626" height="374" key="svn4idea.mkdir.options/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483150986" />
   </component>
 </project>

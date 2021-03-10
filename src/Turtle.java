@@ -1,14 +1,16 @@
+import java.awt.Color;
 import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
+
 
 /**
  * Abstract class for the Turtle which draws the L-Systems.
  *
  * @author Daniel Jones
  */
-public abstract class Turtle {
+public class Turtle {
 
   private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
@@ -22,8 +24,6 @@ public abstract class Turtle {
   double currAngle = 0;
   private double coordX = 0;
   private double coordY = 0;
-  private String[] drawRules;
-  private String[] moveRules;
   double oldX;
   double oldY;
   double lowestCoordX = 1 * 10e10;
@@ -35,6 +35,27 @@ public abstract class Turtle {
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
+  Color turtleColor;
+  private int screen = 0;
+
+  public Turtle() {
+    turtleColor = Color.BLACK;
+  }
+
+  public Turtle(Color turtleColor) {
+    this.turtleColor = turtleColor;
+  }
+
+  public Turtle(int screen) {
+    this.screen = screen;
+    turtleColor = Color.BLACK;
+  }
+
+  public Turtle(int screen, Color color) {
+    this.screen = screen;
+    turtleColor = color;
+  }
+
 
   /**
    * Sets the word of the turtle.
@@ -74,23 +95,6 @@ public abstract class Turtle {
     this.coordY = y;
   }
 
-  /**
-   * Sets the drawing rules for the generation of new L-Systems.
-   *
-   * @param drawRules is the String array of rules for how the L-System should draw.
-   */
-  public void setDrawRules(String[] drawRules) {
-    this.drawRules = drawRules;
-  }
-
-  /**
-   * Sets the moving rules for the generation of new L-Systems.
-   *
-   * @param moveRules is the String array of rules for how the L-System should move.
-   */
-  public void setMoveRules(String[] moveRules) {
-    this.moveRules = moveRules;
-  }
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -166,23 +170,7 @@ public abstract class Turtle {
     return (highestCoordY + lowestCoordY) / 2;
   }
 
-  /**
-   * Getter for the array of drawing rules.
-   *
-   * @return returns the String array of drawing rules.
-   */
-  public String[] getDrawRules() {
-    return drawRules;
-  }
 
-  /**
-   * Getter for the array of moving rules.
-   *
-   * @return returns the String array of moving rules.
-   */
-  public String[] getMoveRules() {
-    return moveRules;
-  }
 
   /**
    * Rules class to iterate through the String and tell the program what to do at each character.
@@ -194,8 +182,9 @@ public abstract class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
-        case 'F' -> draw(length);
-        case 'G' -> move(length);
+        case 'X', 'Y' -> { }
+        case 'F' -> draw(length, turtleColor);
+        case 'G' -> move(length, turtleColor);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
         case '[' -> pushCoords();
@@ -212,19 +201,25 @@ public abstract class Turtle {
    *
    * @param length is the length for the coordinates to move.
    */
-  public void draw(double length) {
+  public void draw(double length, Color color) {
     calcHighLowCoord();
 
     oldX = Double.parseDouble(df.format(coordX));
     oldY = Double.parseDouble(df.format(coordY));
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
-    Line l = new Line(oldX, oldY, coordX, coordY);
-    l.createLine();
+    Line l = new Line(oldX, oldY, coordX, coordY, color);
+    if (screen == 0) {
+      l.createLine();
+    } else {
+      l.prodLine();
+    }
+
 
     calcHighLowCoord();
 
   }
+
 
   /**
    * Moves the coordinates by the given length multiplied by the given angle but does not draw
@@ -232,10 +227,22 @@ public abstract class Turtle {
    *
    * @param length is the distance to move.
    */
-  public void move(double length) {
+  public void move(double length, Color color) {
+    calcHighLowCoord();
+
+    oldX = Double.parseDouble(df.format(coordX));
+    oldY = Double.parseDouble(df.format(coordY));
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
     coordY += Double.parseDouble(df.format(length * Math.sin(currAngle)));
+
+    if (screen == 2) {
+      Line l = new Line(oldX, oldY, coordX, coordY, color);
+      l.prodDashedLine();
+    }
+
+    calcHighLowCoord();
   }
+
 
   /**
    * Changes the current angle of the line by adding the radian version of the given angle.
@@ -268,8 +275,6 @@ public abstract class Turtle {
     currAngle = angleStack.pop();
   }
 
-  abstract void generate(int iterations, String[] drawRules, String[] moveRules);
-
   /**
    * Resets the turtle back to the original inputs.
    */
@@ -298,12 +303,12 @@ public abstract class Turtle {
    * from the starting co-ordinate to the midpoint and the offset from
    * the midpoint of the drawing to the midpoint of the frame.
    */
-  public void centre() {
+  public void centre(double frameWidth, double frameHeight) {
     double middleX = (highestCoordX + lowestCoordX) / 2;
     double middleY = (highestCoordY + lowestCoordY) / 2;
 
-    double frameMidX = (double) Main.frameWidth / 2;
-    double frameMidY = (double) Main.frameHeight / 2;
+    double frameMidX = frameWidth / 2;
+    double frameMidY = frameHeight / 2;
 
     double offsetFromStartToMidX = startingCoordX - middleX;
     double offsetFromStartToMidY = startingCoordY - middleY;
@@ -364,6 +369,10 @@ public abstract class Turtle {
     coordY = Double.parseDouble(popTurtle[4]);
   }
 
+  public void resetStack() {
+    turtleStack.clear();
+  }
+
   /**
    * Calculates the highest and lowest co-ordinates in the current drawing.
    */
@@ -381,4 +390,6 @@ public abstract class Turtle {
       lowestCoordY = coordY;
     }
   }
+
+
 }

@@ -12,7 +12,9 @@ public class SavedShapesTest {
    */
   @Test
   public void initialise() {
-    SavedShapes shape = new SavedShapes(3);
+    SavedShapes shape = new SavedShapes();
+    shape.setPresetNo(3);
+    shape.update();
 
     assertEquals("F", shape.getWord());
     assertEquals(5, shape.getLength(), 1e-10);
@@ -21,5 +23,9 @@ public class SavedShapesTest {
     assertEquals("FF+[+F-F-F]-[-F+F+F]", draw[0]);
     String[] move = shape.getMoveRules();
     assertEquals("G", move[0]);
+    String[] rulesX = shape.getRulesX();
+    assertEquals("", rulesX[0]);
+    String[] rulesY = shape.getRulesY();
+    assertEquals("", rulesY[0]);
   }
 }

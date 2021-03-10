@@ -1,23 +1,29 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+
 
 /**
  * The Display class to create the display.
  *
  * @author Daniel Jones.
  */
-public class Display extends JPanel {
+public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
+  boolean drawCentreLines;
 
   /**
    * Constructor for display sets the background color to white.
    */
-  public Display() {
+  public Painting() {
     setBackground(Color.WHITE);
+    setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
+    drawCentre();
   }
 
   /**
@@ -31,17 +37,21 @@ public class Display extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    g.setColor(Color.RED);
-    g.drawLine(0, Main.frameHeight / 2, Main.frameWidth, Main.frameHeight / 2);
-    g.drawLine(Main.frameWidth / 2, 0, Main.frameWidth / 2, Main.frameHeight);
 
+
+
+    if (drawCentreLines) {
+      g.setColor(Color.RED);
+      g.drawLine(0, Initialise.frameHeight / 2, Initialise.frameWidth, Initialise.frameHeight / 2);
+      g.drawLine(Initialise.frameWidth / 2, 0, Initialise.frameWidth / 2, Initialise.frameHeight);
+    }
 
 
     g.setColor(Color.BLACK);
-    g.drawString("Press generate to draw Lindenmayer System!", 40, 15);
 
     for (Line line : lines) {
       if (line != null) {
+        g2d.setColor(line.color);
         g2d.draw(new Line2D.Double(line.x1, line.y1, line.x2, line.y2));
       }
     }
@@ -55,9 +65,26 @@ public class Display extends JPanel {
    * @param x2 is the ending x co-ordinate.
    * @param y2 is the ending x co-ordinate.
    */
-  public void addLine(double x1, double y1, double x2, double y2) {
-    Line line = new Line(x1, y1, x2, y2);
+  public void addLine(double x1, double y1, double x2, double y2, Color color) {
+    Line line = new Line(x1, y1, x2, y2, color);
     lines.add(line);
+  }
+
+  /**
+   * Method for checking if the user would like the centre lines drawn.
+   */
+  public void drawCentre() {
+    JCheckBox centreLineCheckBox = new JCheckBox();
+    centreLineCheckBox.setText("Show centre lines");
+    centreLineCheckBox.setFocusable(false);
+    centreLineCheckBox.setBounds(370, 300, 130, 40);
+
+    centreLineCheckBox.addActionListener(e -> {
+      if (e.getSource() == centreLineCheckBox) {
+        drawCentreLines = centreLineCheckBox.isSelected();
+      }
+    });
+    add(centreLineCheckBox);
   }
 
   /**
