@@ -149,6 +149,7 @@ public class Buttons extends JPanel implements ActionListener {
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
       iterations = 1;
       turtle.reset();
+      updatePrevTurtle();
       painting.clear();
     } else if ("Toggle Show Previous".equals(e.getActionCommand())) {
       drawPrev = !drawPrev;
@@ -193,6 +194,7 @@ public class Buttons extends JPanel implements ActionListener {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
       thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
+      previousTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
       painting.clear();
       thisTurtle.rules();
       previousTurtle.rules();
@@ -207,6 +209,9 @@ public class Buttons extends JPanel implements ActionListener {
     iterations = 1;
     turtle.reset();
     turtle.resetStack();
+    previousTurtle.reset();
+    previousTurtle.resetStack();
+    updatePrevTurtle();
     painting.clear();
   }
 
