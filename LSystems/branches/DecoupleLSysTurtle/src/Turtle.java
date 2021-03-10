@@ -228,6 +228,8 @@ public class Turtle {
    * @param length is the distance to move.
    */
   public void move(double length, Color color) {
+    calcHighLowCoord();
+
     oldX = Double.parseDouble(df.format(coordX));
     oldY = Double.parseDouble(df.format(coordY));
     coordX += Double.parseDouble(df.format(length * Math.cos(currAngle)));
@@ -237,6 +239,8 @@ public class Turtle {
       Line l = new Line(oldX, oldY, coordX, coordY, color);
       l.prodDashedLine();
     }
+
+    calcHighLowCoord();
   }
 
 
@@ -299,12 +303,12 @@ public class Turtle {
    * from the starting co-ordinate to the midpoint and the offset from
    * the midpoint of the drawing to the midpoint of the frame.
    */
-  public void centre() {
+  public void centre(double frameWidth, double frameHeight) {
     double middleX = (highestCoordX + lowestCoordX) / 2;
     double middleY = (highestCoordY + lowestCoordY) / 2;
 
-    double frameMidX = (double) Initialise.frameWidth / 2;
-    double frameMidY = (double) Initialise.frameHeight / 2;
+    double frameMidX = frameWidth / 2;
+    double frameMidY = frameHeight / 2;
 
     double offsetFromStartToMidX = startingCoordX - middleX;
     double offsetFromStartToMidY = startingCoordY - middleY;
