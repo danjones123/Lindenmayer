@@ -70,6 +70,34 @@ public class Lindenmayer {
   }
 
   /**
+   * Generate method for a stochastic turtle, can have different sets of drawing rules.
+   */
+  public void stochGenerate() {
+    String nextWord = turtle.getWord();
+    StringBuilder next = new StringBuilder();
+    for (int j = 0; j < iterations; j++) {
+      for (int i = 0; i < nextWord.length(); i++) {
+        char c = nextWord.charAt(i);
+        switch (c) {
+          case 'F' -> next.append(randomChar(drawRules));
+          case 'G' -> next.append(randomChar(moveRules));
+          case 'X' -> next.append(randomChar(rulesX));
+          case 'Y' -> next.append(randomChar(rulesY));
+          case '+', '-' -> {
+            angleVariance();
+            next.append(c);
+          }
+          default -> next.append(c);
+        }
+      }
+      nextWord = next.toString();
+      next.setLength(0);
+      changeRatio();
+    }
+    turtle.setWord(nextWord);
+  }
+
+  /**
    * Class for taking a user-defined range of angles for the lines to be drawn at.
    *
    * @param apply boolean to check if the user wants to use stochastic angles.
@@ -109,33 +137,6 @@ public class Lindenmayer {
     turtle.setLength(turtle.getLength() * lengthScaler);
   }
 
-  /**
-   * Generate method for a stochastic turtle, can have different sets of drawing rules.
-   */
-  public void stochGenerate() {
-    String nextWord = turtle.getWord();
-    StringBuilder next = new StringBuilder();
-    for (int j = 0; j < iterations; j++) {
-      for (int i = 0; i < nextWord.length(); i++) {
-        char c = nextWord.charAt(i);
-        switch (c) {
-          case 'F' -> next.append(randomChar(drawRules));
-          case 'G' -> next.append(randomChar(moveRules));
-          case 'X' -> next.append(randomChar(rulesX));
-          case 'Y' -> next.append(randomChar(rulesY));
-          case '+', '-' -> {
-            angleVariance();
-            next.append(c);
-          }
-          default -> next.append(c);
-        }
-      }
-      nextWord = next.toString();
-      next.setLength(0);
-      changeRatio();
-    }
-    turtle.setWord(nextWord);
-  }
 
   /**
    * Class for returning random char form a given array.

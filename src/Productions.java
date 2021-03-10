@@ -12,8 +12,18 @@ import javax.swing.JPanel;
  * @author Daniel Jones.
  */
 public class Productions extends JPanel {
-  Turtle startTurtle;
-  Turtle prodTurtle;
+  Turtle startTurtleF;
+  Turtle prodTurtleF;
+  Turtle startTurtleG;
+  Turtle prodTurtleG;
+  Turtle startTurtleX;
+  Turtle prodTurtleX;
+  Turtle startTurtleY;
+  Turtle prodTurtleY;
+
+  //Turtle startTurtle;
+  //Turtle prodTurtle;
+
   SavedShapes shapes;
   private final ProdPainter prodPaint;
   Queue<String> drawQueue = new LinkedList<>();
@@ -37,8 +47,9 @@ public class Productions extends JPanel {
     movingPanel(shapes.getMoveRules(), shapes.getAngle());
     panelX(shapes.getRulesX(), shapes.getAngle());
     panelY(shapes.getRulesY(), shapes.getAngle());
-
+    showProductions();
     generateButton();
+
   }
 
   /**
@@ -48,28 +59,19 @@ public class Productions extends JPanel {
    * @param angle the angle for the rules to rotate
    */
   public void drawingPanel(String[] drawRules, double angle) {
-    startTurtle = new Turtle(1, Color.RED);
-    startTurtle.setWord("F");
-    startTurtle.setLength(30);
-    startTurtle.setAngle(angle);
+    startTurtleF = new Turtle(1, Color.RED);
 
-    startTurtle.setCoords(((double) Initialise.frameWidth / 4),
-        ((double) Initialise.frameHeight / 4) - 150);
+    double startFirstX = ((double) Initialise.frameWidth / 4) - 15;
+    double startFirstY = ((double) Initialise.frameHeight / 4) - 150;
 
-    startTurtle.rules();
+    setStartTurtle(startTurtleF, "F", 30, angle, startFirstX, startFirstY);
 
-    prodTurtle = new Turtle(1);
-    prodTurtle.setWord("F");
-    prodTurtle.setLength(30);
-    prodTurtle.setAngle(angle);
-    prodQueue(drawRules, drawQueue);
-    prodTurtle.setWord(nextQueue(drawQueue));
-    prodTurtle.setCoords(((double) Initialise.frameWidth / 4 - 75),
-        ((double) Initialise.frameHeight / 4));
+    prodTurtleF = new Turtle(1);
 
-    prodTurtle.rules();
+    double startLastX = ((double) Initialise.frameWidth / 4);
+    double startLastY = ((double) Initialise.frameHeight / 4);
 
-    prodPaint.callPaint();
+    setProdTurtle(prodTurtleF, "F", 30, angle, startLastX, startLastY, drawRules, drawQueue, 1);
   }
 
   /**
@@ -79,28 +81,20 @@ public class Productions extends JPanel {
    * @param angle the angle for the rules to rotate
    */
   public void movingPanel(String[] moveRules, double angle) {
-    startTurtle = new Turtle(2, Color.RED);
-    startTurtle.setWord("G");
-    startTurtle.setLength(30);
-    startTurtle.setAngle(angle);
+    startTurtleG = new Turtle(2, Color.RED);
 
-    startTurtle.setCoords(((double) 3 * Initialise.frameWidth / 4),
-        ((double) Initialise.frameHeight / 4) - 150);
+    double startX = ((double) 3 * Initialise.frameWidth / 4) - 15;
+    double startY = ((double) Initialise.frameHeight / 4) - 150;
 
-    startTurtle.rules();
+    setStartTurtle(startTurtleG, "G", 30, angle, startX, startY);
 
-    prodTurtle = new Turtle(2);
-    prodTurtle.setWord("G");
-    prodTurtle.setLength(30);
-    prodTurtle.setAngle(angle);
-    prodQueue(moveRules, moveQueue);
-    prodTurtle.setWord(nextQueue(moveQueue));
-    prodTurtle.setCoords(((double) 3 * Initialise.frameWidth / 4),
-        ((double) Initialise.frameHeight / 4));
+    prodTurtleG = new Turtle(2);
 
-    prodTurtle.rules();
 
-    prodPaint.callPaint();
+    double startLastX = ((double) 3 * Initialise.frameWidth / 4);
+    double startLastY = ((double) Initialise.frameHeight / 4);
+
+    setProdTurtle(prodTurtleG, "G", 30, angle, startLastX, startLastY, moveRules, moveQueue, 3);
   }
 
   /**
@@ -110,28 +104,19 @@ public class Productions extends JPanel {
    * @param angle the angle for the rules to rotate
    */
   public void panelX(String[] rulesX, double angle) {
-    startTurtle = new Turtle(2, Color.RED);
-    startTurtle.setWord("X");
-    startTurtle.setLength(30);
-    startTurtle.setAngle(angle);
+    startTurtleX = new Turtle(1, Color.RED);
 
-    startTurtle.setCoords(((double) Initialise.frameWidth / 4),
-        ((double) 3 * Initialise.frameHeight / 4) - 150);
+    double startX = (double) Initialise.frameWidth / 4;
+    double startY = ((double) 3 * Initialise.frameHeight / 4) - 150;
 
-    startTurtle.rules();
+    setStartTurtle(startTurtleX, "X", 30, angle, startX, startY);
 
-    prodTurtle = new Turtle(2);
-    prodTurtle.setWord("X");
-    prodTurtle.setLength(30);
-    prodTurtle.setAngle(angle);
-    prodQueue(rulesX, queueX);
-    prodTurtle.setWord(nextQueue(queueX));
-    prodTurtle.setCoords(((double) Initialise.frameWidth / 4),
-        ((double) 3 * Initialise.frameHeight / 4));
+    prodTurtleX = new Turtle(1);
 
-    prodTurtle.rules();
+    double startLastX = ((double) Initialise.frameWidth / 4);
+    double startLastY = ((double) 3 * Initialise.frameHeight / 4);
 
-    prodPaint.callPaint();
+    setProdTurtle(prodTurtleX, "X", 30, angle, startLastX, startLastY, rulesX, queueX, 1);
   }
 
   /**
@@ -141,30 +126,71 @@ public class Productions extends JPanel {
    * @param angle the angle for the rules to rotate
    */
   public void panelY(String[] rulesY, double angle) {
-    startTurtle = new Turtle(2, Color.RED);
-    startTurtle.setWord("Y");
-    startTurtle.setLength(30);
-    startTurtle.setAngle(angle);
+    startTurtleY = new Turtle(1, Color.RED);
 
-    startTurtle.setCoords(((double) 3 * Initialise.frameWidth / 4),
-        ((double) 3 * Initialise.frameHeight / 4) - 150);
+    double startX = ((double) 3 * Initialise.frameWidth / 4);
+    double startY = ((double) 3 * Initialise.frameHeight / 4) - 150;
 
-    startTurtle.rules();
+    setStartTurtle(startTurtleY, "Y", 30, angle, startX, startY);
 
-    prodTurtle = new Turtle(2);
-    prodTurtle.setWord("Y");
-    prodTurtle.setLength(30);
-    prodTurtle.setAngle(angle);
-    prodQueue(rulesY, queueY);
-    prodTurtle.setWord(nextQueue(queueY));
-    prodTurtle.setCoords(((double) 3 * Initialise.frameWidth / 4),
-        ((double) 3 * Initialise.frameHeight / 4));
+    prodTurtleY = new Turtle(1);
 
-    prodTurtle.rules();
 
-    prodPaint.callPaint();
+    double startLastX = ((double) 3 * Initialise.frameWidth / 4);
+    double startLastY = ((double) 3 * Initialise.frameHeight / 4);
 
+    setProdTurtle(prodTurtleY, "Y", 30, angle, startLastX, startLastY, rulesY, queueY, 3);
   }
+
+
+  /**
+   * Sets the parameters to the starting turtle which just shows a single character.
+   *
+   * @param turtle is the turtle to be initialised.
+   * @param word is the word to give the turtle.
+   * @param length is the length of the line.
+   * @param angle is the angle of the turtle.
+   * @param startX is the starting X co-ordinate
+   * @param startY is the starting Y co-ordinate
+   */
+  public void setStartTurtle(Turtle turtle, String word, double length, double angle,
+                             double startX, double startY) {
+    turtle.setWord(word);
+    turtle.setLength(length);
+    turtle.setAngle(angle);
+    turtle.setCoords(startX, startY);
+  }
+
+  /**
+   * Initialises the production turtle which shows the result of applying one production rule.
+   *
+   * @param turtle is the tutle to be initialised.
+   * @param word is the word which the production character is being applied to.
+   * @param length is the length of the lines.
+   * @param angle is the angle between the lines.
+   * @param startX is the starting X co-ordinate (this will be overwritten by centre)
+   * @param startY is the starting Y co-ordinate (this will be overwritten by centre)
+   * @param rules is the array of production rules to be applied.
+   * @param queue is the queue that will hold and cycle through the production rules.
+   * @param side set to 1 if on the left of centre and 3 if on the right.
+   */
+  public void setProdTurtle(Turtle turtle, String word, double length, double angle,
+                            double startX, double startY, String[] rules, Queue<String> queue,
+                            int side) {
+    turtle.setWord(word);
+    turtle.setLength(length);
+    turtle.setAngle(angle);
+    prodQueue(rules, queue);
+    turtle.setWord(nextQueue(queue));
+    turtle.setCoords(startX, startY);
+
+    turtle.rules();
+    turtle.centre(((double) side * Initialise.frameWidth / 2),
+        ((double) Initialise.frameHeight / 2));
+    prodPaint.clear();
+  }
+
+
 
   /**
    * Calls shapes.update to check what the current selected shape is and then sets the panels to
@@ -172,26 +198,35 @@ public class Productions extends JPanel {
    */
   public void update() {
     shapes.update();
-    prodPaint.clear();
-
-    drawingPanel(shapes.getDrawRules(), shapes.getAngle());
-    movingPanel(shapes.getMoveRules(), shapes.getAngle());
-    panelX(shapes.getRulesX(), shapes.getAngle());
-    panelY(shapes.getRulesY(), shapes.getAngle());
-
     resetQueue();
+    showProductions();
+
+
   }
 
+
   /**
-   * A local update that calls the drawing panels without resetting the queues.
+   * Clears the screen before calling the methods to initialise all the turtles and draw the
+   * productions.
    */
-  public void smallUpdate() {
+  public void showProductions() {
     prodPaint.clear();
 
     drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     movingPanel(shapes.getMoveRules(), shapes.getAngle());
     panelX(shapes.getRulesX(), shapes.getAngle());
     panelY(shapes.getRulesY(), shapes.getAngle());
+
+    startTurtleF.rules();
+    prodTurtleF.rules();
+    startTurtleG.rules();
+    prodTurtleG.rules();
+    startTurtleX.rules();
+    prodTurtleX.rules();
+    startTurtleY.rules();
+    prodTurtleY.rules();
+
+    prodPaint.callPaint();
   }
 
 
@@ -232,7 +267,7 @@ public class Productions extends JPanel {
   public void generateButton() {
     JButton nextProd = new JButton("Show next production");
 
-    nextProd.addActionListener(e -> smallUpdate());
+    nextProd.addActionListener(e -> showProductions());
     add(nextProd);
   }
 

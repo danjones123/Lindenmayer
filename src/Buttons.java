@@ -168,7 +168,7 @@ public class Buttons extends JPanel implements ActionListener {
     thisTurtle.rules();
     if (centreTurtle) {
       thisTurtle.resetBearing();
-      thisTurtle.centre();
+      thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
       painting.clear();
       thisTurtle.rules();
     }
@@ -192,7 +192,7 @@ public class Buttons extends JPanel implements ActionListener {
     if (centreTurtle) {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
-      thisTurtle.centre();
+      thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
       painting.clear();
       thisTurtle.rules();
       previousTurtle.rules();

@@ -70,7 +70,7 @@ public class TurtleTest {
     turtle.setAngle(90);
     turtle.setCoords(20, 20);
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     assertEquals(25, turtle.getMiddleX(), 1e-10);
     assertEquals(25, turtle.getMiddleY(), 1e-10);
   }
@@ -410,7 +410,7 @@ public class TurtleTest {
     turtle.setCoords(400,400);
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.rules();
     assertEquals((double) ((Initialise.frameWidth)/2)-5, turtle.startingCoordX, 1e-10);
@@ -422,7 +422,7 @@ public class TurtleTest {
     turtle.setWord("+F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -435,7 +435,7 @@ public class TurtleTest {
     turtle.setWord("-F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -448,7 +448,7 @@ public class TurtleTest {
     turtle.setWord("--F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -463,7 +463,7 @@ public class TurtleTest {
     turtle.setAngle(45);
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -474,7 +474,7 @@ public class TurtleTest {
     turtle.setWord("-F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -485,7 +485,7 @@ public class TurtleTest {
     turtle.setWord("---F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
@@ -496,7 +496,7 @@ public class TurtleTest {
     turtle.setWord("+++F");
     turtle.saveStartingTurtle();
     turtle.rules();
-    turtle.centre();
+    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
