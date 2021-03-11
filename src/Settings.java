@@ -1,5 +1,4 @@
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
@@ -22,36 +21,34 @@ import javax.swing.JTextField;
  * @author Daniel Jones.
  */
 public class Settings extends JPanel {
-  Turtle turtle;
-  Lindenmayer linSys;
-  SavedShapes shapes;
-  Buttons buttons;
-  Productions prod;
+  SettingsController setCont;
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
   private boolean centreSetTurtle = true;
+  String word;
+  double length;
+  double angle;
+  double coordX;
+  double coordY;
+  String[] drawRules;
+  String[] moveRules;
+  String[] rulesX;
+  String[] rulesY;
+
 
 
   /**
    * Method for making the settings window and adding to it all of the buttons.
-   *
-   * @param turtle is the turtle in use.
-   * @param linSys is the l-system in use.
-   * @param shapes is the shapes class in use
-   * @param buttons is the buttons class.
    */
-  public Settings(Turtle turtle, Lindenmayer linSys, SavedShapes shapes, Buttons buttons,
-                  Productions prod) {
-    this.linSys = linSys;
-    this.turtle = turtle;
-    this.shapes = shapes;
-    this.buttons = buttons;
-    this.prod = prod;
+  public Settings(SettingsController setCont) {
+    this.setCont = setCont;
 
     setBackground(Color.WHITE);
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     setLayout(null);
+
+    updateAxioms();
     linClassButtons();
     presetBox();
     lengthRatioButtons();
@@ -241,47 +238,47 @@ public class Settings extends JPanel {
    * l-system.
    */
   public void axiomBoxes() {
-    JTextField axiomString = new JTextField(turtle.getWord(), 15);
+    JTextField axiomString = new JTextField(word, 15);
     JLabel axiomStringLabel = new JLabel("Starting Axiom");
     axiomString.setBounds((Initialise.frameWidth / 2), 200, 300, 25);
     axiomStringLabel.setBounds((Initialise.frameWidth / 2) - 100, 200, 150, 25);
 
-    JTextField axiomLength = new JTextField(Double.toString(turtle.getLength()), 15);
+    JTextField axiomLength = new JTextField(Double.toString(length), 15);
     JLabel axiomLengthLabel = new JLabel("Starting Length");
     axiomLength.setBounds((Initialise.frameWidth / 2), 225, 300, 25);
     axiomLengthLabel.setBounds((Initialise.frameWidth / 2) - 100, 225, 150, 25);
 
-    JTextField axiomAngle = new JTextField(Double.toString(turtle.getAngle()), 15);
+    JTextField axiomAngle = new JTextField(Double.toString(angle), 15);
     JLabel axiomAngleLabel = new JLabel("Starting Angle");
     axiomAngle.setBounds((Initialise.frameWidth / 2), 250, 300, 25);
     axiomAngleLabel.setBounds((Initialise.frameWidth / 2) - 100, 250, 150, 25);
 
-    JTextField startingCoordX = new JTextField(Double.toString(turtle.getCoordX()), 15);
+    JTextField startingCoordX = new JTextField(Double.toString(coordX), 15);
     JLabel startingCoordLabelX = new JLabel("Starting X Co-ordinate");
     startingCoordX.setBounds((Initialise.frameWidth / 2), 275, 300, 25);
     startingCoordLabelX.setBounds((Initialise.frameWidth / 2) - 100, 275, 150, 25);
 
-    JTextField startingCoordY = new JTextField(Double.toString(turtle.getCoordY()), 15);
+    JTextField startingCoordY = new JTextField(Double.toString(coordY), 15);
     JLabel startingCoordLabelY = new JLabel("Starting Y Co-ordinate");
     startingCoordY.setBounds((Initialise.frameWidth / 2), 300, 300, 25);
     startingCoordLabelY.setBounds((Initialise.frameWidth / 2) - 100, 300, 150, 25);
 
-    JTextField drawRules = new JTextField(Arrays.toString(linSys.getDrawRules()), 15);
+    JTextField drawRules = new JTextField(Arrays.toString(this.drawRules), 15);
     JLabel drawRulesLabel = new JLabel("Drawing Rules");
     drawRules.setBounds((Initialise.frameWidth / 2), 325, 300, 25);
     drawRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 325, 150, 25);
 
-    JTextField moveRules = new JTextField(Arrays.toString(linSys.getMoveRules()), 15);
+    JTextField moveRules = new JTextField(Arrays.toString(this.moveRules), 15);
     JLabel moveRulesLabel = new JLabel("Moving Rules");
     moveRules.setBounds((Initialise.frameWidth / 2), 350, 300, 25);
     moveRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 350, 150, 25);
 
-    JTextField rulesX = new JTextField(Arrays.toString(linSys.getRulesX()), 15);
+    JTextField rulesX = new JTextField(Arrays.toString(this.rulesX), 15);
     JLabel rulesLabelX = new JLabel("X Rules");
     rulesX.setBounds((Initialise.frameWidth / 2), 375, 300, 25);
     rulesLabelX.setBounds((Initialise.frameWidth / 2) - 100, 375, 150, 25);
 
-    JTextField rulesY = new JTextField(Arrays.toString(linSys.getRulesY()), 15);
+    JTextField rulesY = new JTextField(Arrays.toString(this.rulesY), 15);
     JLabel rulesLabelY = new JLabel("Y Rules");
     rulesY.setBounds((Initialise.frameWidth / 2), 400, 300, 25);
     rulesLabelY.setBounds((Initialise.frameWidth / 2) - 100, 400, 150, 25);
@@ -306,6 +303,18 @@ public class Settings extends JPanel {
     add(rulesLabelY);
   }
 
+  public void updateAxioms() {
+    word = setCont.getWord();
+    length = setCont.getLength();
+    angle = setCont.getAngle();
+    coordX = setCont.getCoordX();
+    coordY = setCont.getCoordY();
+    drawRules = setCont.getDrawRules();
+    moveRules = setCont.getMoveRules();
+    rulesX = setCont.getRulesX();
+    rulesY = setCont.getRulesY();
+  }
+
   /**
    * Updates the l-sys and turtle for any changes that have been made in the settings page.
    */
@@ -313,22 +322,12 @@ public class Settings extends JPanel {
     JButton save = new JButton("Save Changes");
     save.setBounds((Initialise.frameWidth / 2) - 75, 750, 150, 50);
     save.addActionListener(e -> {
-      linSys.setCurrentClass(currentClass);
 
-      linSys.setLengthRatio(newRatio);
-      //buttons.externalReset();
-
-      //add starting co-ordinates
-
-      shapes.setPresetNo(presetNum);
-      Initialise.initialiseTurtleLinden();
-      prod.update();
-
-      buttons.setCentreTurtle(centreSetTurtle);
-
-      buttons.externalReset();
-
+      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle);
+      setCont.init();
+      updateAxioms();
       axiomBoxes();
+
     });
     add(save);
   }

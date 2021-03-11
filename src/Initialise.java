@@ -25,8 +25,9 @@ public class Initialise extends JFrame {
   public static void createAndShowGui() {
     initialiseTurtleLinden();
     Painting painting = new Painting();
-    Buttons buttonPanel = new Buttons(painting);
-    buttonPanel.turtleInit(turtle, linSys);
+    ButtonsController buttonsController = new ButtonsController(painting);
+    Buttons buttonPanel = new Buttons(buttonsController);
+    buttonsController.turtleInit(turtle, linSys);
 
 
     JPanel mainPanel = new JPanel(false);
@@ -35,12 +36,15 @@ public class Initialise extends JFrame {
 
 
     ProdPainter prodPaint = new ProdPainter();
-    Productions productions = new Productions(shape, prodPaint);
+    ProductionsController productionsController = new ProductionsController(shape, prodPaint);
+    Productions productions = new Productions(productionsController);
     JPanel productionsTab = new JPanel(false);
     productionsTab.add(productions);
     productionsTab.add(prodPaint);
 
-    Settings settings = new Settings(turtle, linSys, shape, buttonPanel, productions);
+    SettingsController settingsController = new SettingsController(turtle, linSys, shape, buttonsController, productionsController);
+    settingsController.init();
+    Settings settings = new Settings(settingsController);
     JPanel settingsTab = new JPanel(false);
     settingsTab.add(settings);
 
