@@ -287,7 +287,7 @@ public class Turtle {
     this.currAngle = 0;
     resetHighLow();
     resetBearing();
-    turtleStack.clear();
+    //turtleStack.clear();
   }
 
   /**
