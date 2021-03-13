@@ -217,6 +217,11 @@ public class Lindenmayer {
     return rulesY;
   }
 
+  /**
+   * Sets the current class of the L-System.
+   *
+   * @param current is the number that the current class should be set to.
+   */
   public void setCurrentClass(int current) {
     this.currentClass = current;
   }

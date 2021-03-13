@@ -1,12 +1,12 @@
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 /**
- * The Buttons class creates the button panel and assigns the action to be performed when a
- * given button is pressed.
+ * The Buttons class creates the button panel and calls the ButtonController when a given button
+ * is pressed.
  *
  * @author Daniel Jones
  */
@@ -16,7 +16,7 @@ public class Buttons extends JPanel implements ActionListener {
 
 
   /**
-   * Constructor for Button which takes the display as a parameter.
+   * Constructor for Button which takes the ButtonController as a parameter.
    * Calls createButton to create buttons.
    */
   public Buttons(ButtonsController butCont) {
@@ -29,7 +29,9 @@ public class Buttons extends JPanel implements ActionListener {
     add(createButton("Toggle Show Previous"));
   }
 
-
+  /**
+   * Resets the TwoQueue.
+   */
   public void resetQueue() {
     tq.resetQueue();
   }
@@ -48,15 +50,7 @@ public class Buttons extends JPanel implements ActionListener {
   }
 
   /**
-   * Checks which button was pressed and calls the correct methods for that button.
-   * "Generate" generates through the L-System.
-   * "Undo" undoes the previous generation.
-   * "Clear Drawing" removes the drawing from the screen.
-   *
-   * <p>
-   * Generate and undo check what to do using a queue that always holds two values of the last
-   * two buttons that were pressed.
-   * </p>
+   * Checks which button was pressed and calls the ButtonController for that button.
    *
    * @param e is the ActionEvent, meaning the button was pressed.
    */
@@ -72,5 +66,4 @@ public class Buttons extends JPanel implements ActionListener {
       butCont.buttonPressed(3, "");
     }
   }
-
 }

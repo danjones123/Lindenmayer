@@ -6,12 +6,11 @@ import java.util.Deque;
 
 
 /**
- * Abstract class for the Turtle which draws the L-Systems.
+ * Class for the Turtle which follow the Turtle rules to draw the L-Systems.
  *
  * @author Daniel Jones
  */
 public class Turtle {
-
   private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
   private double initialLength;
@@ -38,19 +37,38 @@ public class Turtle {
   Color turtleColor;
   private int screen = 0;
 
+  /**
+   * Constructor for Turtle which sets the turtleColor to black by default.
+   */
   public Turtle() {
     turtleColor = Color.BLACK;
   }
 
+  /**
+   * Constructor for Turtle which sets the turtleColor to the given colour.
+   *
+   * @param turtleColor is the colour for turtleColor to be set to.
+   */
   public Turtle(Color turtleColor) {
     this.turtleColor = turtleColor;
   }
 
+  /**
+   * Constructor for Turtle which specifies which "screen" to use.
+   *
+   * @param screen is the int corresponding to the screen number.
+   */
   public Turtle(int screen) {
     this.screen = screen;
     turtleColor = Color.BLACK;
   }
 
+  /**
+   * Constructor for Turtle which species screen number and colour.
+   *
+   * @param screen int corresponding to screen number.
+   * @param color the colour for the lines to be drawn.
+   */
   public Turtle(int screen, Color color) {
     this.screen = screen;
     turtleColor = color;
@@ -94,7 +112,6 @@ public class Turtle {
     this.coordX = x;
     this.coordY = y;
   }
-
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -215,9 +232,7 @@ public class Turtle {
       l.prodLine();
     }
 
-
     calcHighLowCoord();
-
   }
 
 
@@ -287,7 +302,6 @@ public class Turtle {
     this.currAngle = 0;
     resetHighLow();
     resetBearing();
-    //turtleStack.clear();
   }
 
   /**
@@ -391,6 +405,4 @@ public class Turtle {
       lowestCoordY = coordY;
     }
   }
-
-
 }

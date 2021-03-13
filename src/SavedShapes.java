@@ -154,11 +154,49 @@ public class SavedShapes {
     return rulesY;
   }
 
+  /**
+   * Sets the preset Number.
+   *
+   * @param presetNo is the number which presetNumber is set to.
+   */
   public void setPresetNo(int presetNo) {
     this.presetNo = presetNo;
   }
 
+  /**
+   * Returns the preset number.
+   *
+   * @return returns presetNo
+   */
   public int getPresetNo() {
     return presetNo;
+  }
+
+  public void setWord(String word) {
+    this.word = word;
+  }
+
+  public void setLength(double length) {
+    this.length = length;
+  }
+
+  public void setAngle(double angle) {
+    this.angle = angle;
+  }
+
+  public void setDrawRules(String[] drawRules) {
+    this.drawRules = drawRules;
+  }
+
+  public void setMoveRules(String[] moveRules) {
+    this.moveRules = moveRules;
+  }
+
+  public void setRulesX (String[] rulesX) {
+    this.rulesX = rulesX;
+  }
+
+  public void setRulesY (String[] rulesY) {
+    this.rulesY = rulesY;
   }
 }

@@ -1,4 +1,7 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
@@ -12,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 
 
 /**
@@ -35,6 +37,25 @@ public class Settings extends JPanel {
   String[] moveRules;
   String[] rulesX;
   String[] rulesY;
+  String newWord;
+  double newLength;
+  double newAngle;
+  double newCoordX;
+  double newCoordY;
+  String[] newDrawRules;
+  String[] newMoveRules;
+  String[] newRulesX;
+  String[] newRulesY;
+  JTextField wordAxiom;
+  JTextField lengthAxiom;
+  JTextField angleAxiom;
+  JTextField coordAxiomX;
+  JTextField coordAxiomY;
+  JTextField drawRulesText;
+  JTextField moveRulesText;
+  JTextField rulesTextX;
+  JTextField rulesTextY;
+
 
 
 
@@ -48,11 +69,12 @@ public class Settings extends JPanel {
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     setLayout(null);
 
-    updateAxioms();
+    initialiseParams();
     linClassButtons();
     presetBox();
     lengthRatioButtons();
     axiomBoxes();
+    updateAxioms();
     saveChanges();
     stochasticAngleButtons();
     centreTurtle();
@@ -94,6 +116,7 @@ public class Settings extends JPanel {
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
+        updateNewValues();
         System.out.println(presets.getSelectedIndex());
       }
     });
@@ -163,8 +186,6 @@ public class Settings extends JPanel {
     enterButton.addActionListener(e -> {
       try {
         newRatio = Double.parseDouble(lengthRatio.getText());
-        //linSys.setLengthRatio(newRatio);
-        //buttons.externalReset();
       } catch (NumberFormatException c) {
         System.out.println("Not a number");
       }
@@ -238,72 +259,102 @@ public class Settings extends JPanel {
    * l-system.
    */
   public void axiomBoxes() {
-    JTextField axiomString = new JTextField(word, 15);
-    JLabel axiomStringLabel = new JLabel("Starting Axiom");
-    axiomString.setBounds((Initialise.frameWidth / 2), 200, 300, 25);
-    axiomStringLabel.setBounds((Initialise.frameWidth / 2) - 100, 200, 150, 25);
+    int boundX = Initialise.frameWidth / 2;
+    int boundY = 200;
 
-    JTextField axiomLength = new JTextField(Double.toString(length), 15);
-    JLabel axiomLengthLabel = new JLabel("Starting Length");
-    axiomLength.setBounds((Initialise.frameWidth / 2), 225, 300, 25);
-    axiomLengthLabel.setBounds((Initialise.frameWidth / 2) - 100, 225, 150, 25);
 
-    JTextField axiomAngle = new JTextField(Double.toString(angle), 15);
-    JLabel axiomAngleLabel = new JLabel("Starting Angle");
-    axiomAngle.setBounds((Initialise.frameWidth / 2), 250, 300, 25);
-    axiomAngleLabel.setBounds((Initialise.frameWidth / 2) - 100, 250, 150, 25);
+    wordAxiom = createParamText(word, boundX, boundY);
+    newWord = wordAxiom.getText();
+    add(wordAxiom);
 
-    JTextField startingCoordX = new JTextField(Double.toString(coordX), 15);
-    JLabel startingCoordLabelX = new JLabel("Starting X Co-ordinate");
-    startingCoordX.setBounds((Initialise.frameWidth / 2), 275, 300, 25);
-    startingCoordLabelX.setBounds((Initialise.frameWidth / 2) - 100, 275, 150, 25);
+    lengthAxiom = createParamText(Double.toString(length), boundX, boundY + 25);
+    newLength = Double.parseDouble(lengthAxiom.getText());
+    add(lengthAxiom);
 
-    JTextField startingCoordY = new JTextField(Double.toString(coordY), 15);
-    JLabel startingCoordLabelY = new JLabel("Starting Y Co-ordinate");
-    startingCoordY.setBounds((Initialise.frameWidth / 2), 300, 300, 25);
-    startingCoordLabelY.setBounds((Initialise.frameWidth / 2) - 100, 300, 150, 25);
+    angleAxiom = createParamText(Double.toString(angle), boundX, boundY + 50);
+    newAngle = Double.parseDouble(angleAxiom.getText());
+    add(angleAxiom);
 
-    JTextField drawRules = new JTextField(Arrays.toString(this.drawRules), 15);
-    JLabel drawRulesLabel = new JLabel("Drawing Rules");
-    drawRules.setBounds((Initialise.frameWidth / 2), 325, 300, 25);
-    drawRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 325, 150, 25);
+    coordAxiomX = createParamText(Double.toString(coordX), boundX, boundY + 75);
+    newCoordX = Double.parseDouble(coordAxiomX.getText());
+    add(coordAxiomX);
 
-    JTextField moveRules = new JTextField(Arrays.toString(this.moveRules), 15);
-    JLabel moveRulesLabel = new JLabel("Moving Rules");
-    moveRules.setBounds((Initialise.frameWidth / 2), 350, 300, 25);
-    moveRulesLabel.setBounds((Initialise.frameWidth / 2) - 100, 350, 150, 25);
+    coordAxiomY = createParamText(Double.toString(coordY), boundX, boundY + 100);
+    newCoordY = Double.parseDouble(coordAxiomY.getText());
+    add(coordAxiomY);
 
-    JTextField rulesX = new JTextField(Arrays.toString(this.rulesX), 15);
-    JLabel rulesLabelX = new JLabel("X Rules");
-    rulesX.setBounds((Initialise.frameWidth / 2), 375, 300, 25);
-    rulesLabelX.setBounds((Initialise.frameWidth / 2) - 100, 375, 150, 25);
+    drawRulesText =  createParamText((Arrays.toString(this.drawRules)), boundX,
+        boundY + 125);
+    newDrawRules = drawRulesText.getText().split(",");
+    add(drawRulesText);
 
-    JTextField rulesY = new JTextField(Arrays.toString(this.rulesY), 15);
-    JLabel rulesLabelY = new JLabel("Y Rules");
-    rulesY.setBounds((Initialise.frameWidth / 2), 400, 300, 25);
-    rulesLabelY.setBounds((Initialise.frameWidth / 2) - 100, 400, 150, 25);
+    moveRulesText = createParamText((Arrays.toString(this.moveRules)), boundX,
+        boundY + 150);
+    newMoveRules = moveRulesText.getText().split(",");
+    add(moveRulesText);
 
-    add(axiomString);
-    add(axiomStringLabel);
-    add(axiomLength);
-    add(axiomLengthLabel);
-    add(axiomAngle);
-    add(axiomAngleLabel);
-    add(startingCoordX);
-    add(startingCoordLabelX);
-    add(startingCoordY);
-    add(startingCoordLabelY);
-    add(drawRules);
-    add(drawRulesLabel);
-    add(moveRules);
-    add(moveRulesLabel);
-    add(rulesX);
-    add(rulesLabelX);
-    add(rulesY);
-    add(rulesLabelY);
+    rulesTextX = createParamText((Arrays.toString(this.rulesX)), boundX, boundY + 175);
+    newRulesX = rulesTextX.getText().split(",");
+    add(rulesTextX);
+
+    rulesTextY = createParamText((Arrays.toString(this.rulesY)), boundX, boundY + 200);
+    newRulesY = rulesTextY.getText().split(",");
+    add(rulesTextY);
+
+
+
+    add(createParamLabel("Starting Axiom", boundX, boundY));
+    add(createParamLabel("Starting Length", boundX, boundY + 25));
+    add(createParamLabel("Starting Angle", boundX, boundY + 50));
+    add(createParamLabel("Starting X Co-ordinate", boundX, boundY + 75));
+    add(createParamLabel("Starting Y co-ordinate", boundX, boundY + 100));
+    add(createParamLabel("Drawing Rules", boundX, boundY + 125));
+    add(createParamLabel("Moving Rules", boundX, boundY + 150));
+    add(createParamLabel("X Rules", boundX, boundY + 175));
+    add(createParamLabel("Y Rules", boundX, boundY + 200));
+
+    JButton updateButton = new JButton("Update");
+    updateButton.addActionListener(e -> {
+      try {
+        newWord = wordAxiom.getText();
+        newLength = Double.parseDouble(lengthAxiom.getText());
+        newAngle = Double.parseDouble(angleAxiom.getText());
+        newCoordX = Double.parseDouble(coordAxiomX.getText());
+        newCoordY = Double.parseDouble(coordAxiomY.getText());
+        newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1).split(",");
+        newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1).split(",");
+        newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
+        newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
+      } catch (Exception c) {
+        System.out.println("Invalid Entry");
+      }
+    });
+
+    updateButton.setBounds(boundX, boundY + 400, 100, 30);
+    add(updateButton);
   }
 
-  public void updateAxioms() {
+
+  public JTextField createParamText(String values, int boundX, int boundY) {
+    JTextField axiomString = new JTextField(values, 15);
+
+    axiomString.setBounds(boundX, boundY, 300, 25);
+
+    return axiomString;
+  }
+
+  public JLabel createParamLabel(String label, int boundX, int boundY) {
+    JLabel axiomStringLabel = new JLabel(label);
+    axiomStringLabel.setBounds(boundX - 100, boundY, 150, 25);
+
+    return axiomStringLabel;
+  }
+
+  public void updateNewValues() {
+
+  }
+
+  public void initialiseParams() {
     word = setCont.getWord();
     length = setCont.getLength();
     angle = setCont.getAngle();
@@ -316,17 +367,63 @@ public class Settings extends JPanel {
   }
 
   /**
-   * Updates the l-sys and turtle for any changes that have been made in the settings page.
+   * Calls SettingsController to update the local parameters.
+   */
+  public void updateAxioms() {
+    word = setCont.getWord();
+    length = setCont.getLength();
+    angle = setCont.getAngle();
+    coordX = setCont.getCoordX();
+    coordY = setCont.getCoordY();
+    drawRules = setCont.getDrawRules();
+    moveRules = setCont.getMoveRules();
+    rulesX = setCont.getRulesX();
+    rulesY = setCont.getRulesY();
+    wordAxiom.setText(word);
+    lengthAxiom.setText(Double.toString(length));
+    angleAxiom.setText(Double.toString(angle));
+    coordAxiomX.setText(Double.toString(coordX));
+    coordAxiomY.setText(Double.toString(coordY));
+    drawRulesText.setText(Arrays.toString(drawRules));
+    moveRulesText.setText(Arrays.toString(moveRules));
+    rulesTextX.setText(Arrays.toString(rulesX));
+    rulesTextY.setText(Arrays.toString(rulesY));
+    newWord = wordAxiom.getText();
+    newLength = Double.parseDouble(lengthAxiom.getText());
+    newAngle = Double.parseDouble(angleAxiom.getText());
+    newCoordX = Double.parseDouble(coordAxiomX.getText());
+    newCoordY = Double.parseDouble(coordAxiomY.getText());
+    newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1).split(",");
+    newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1).split(",");
+    newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
+    newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
+
+  }
+
+  /**
+   * Updates the l-sys and turtle for any changes that have been made in the settings page to
+   * SettingsController.
    */
   public void saveChanges() {
     JButton save = new JButton("Save Changes");
     save.setBounds((Initialise.frameWidth / 2) - 75, 750, 150, 50);
     save.addActionListener(e -> {
 
-      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle);
+      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
+
+
+      if ((!newWord.equals(word) || newLength != length
+          || newAngle != angle || newCoordX != coordX
+          || newCoordY != coordY) || !Arrays.equals(newDrawRules, drawRules)
+          || !Arrays.equals(newMoveRules, moveRules)
+          || !Arrays.equals(newRulesX, rulesX)
+          || !Arrays.equals(newRulesY, rulesY)) {
+        setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
+            newMoveRules, newRulesX, newRulesY);
+      }
       setCont.init();
       updateAxioms();
-      axiomBoxes();
+      //axiomBoxes();
 
     });
     add(save);
