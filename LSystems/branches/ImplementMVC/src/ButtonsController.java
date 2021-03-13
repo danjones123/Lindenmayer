@@ -1,7 +1,10 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.Color;
 
+/**
+ * Controller for the buttons that can be pressed on the main drawing screen.
+ *
+ * @author Daniel Jones
+ */
 public class ButtonsController {
   Turtle turtle;
   Turtle previousTurtle = new Turtle(Color.BLUE);
@@ -18,17 +21,21 @@ public class ButtonsController {
   boolean drawPrev = false;
 
 
-
+  /**
+   * Initialises the ButtonController with painting.
+   *
+   * @param painting is the painting to be called when buttons have been pressed.
+   */
   public ButtonsController(Painting painting) {
     this.painting = painting;
-
   }
 
   /**
    * Initialises the local turtle as the turtle from main and the generation rules as those from
-   * main as well. Also initialises the queue.
+   * main as well.
    *
    * @param turtle is the turtle that is initialised in main.
+   * @param linSys is the Lindenmayer system to apply the growth rules to the turtle.
    */
   public void turtleInit(Turtle turtle, Lindenmayer linSys) {
     this.turtle = turtle;
@@ -50,8 +57,13 @@ public class ButtonsController {
     previousTurtle.setCoords(turtle.getCoordX(), turtle.getCoordY());
   }
 
-
-
+  /**
+   * Calls different methods depending on which button is pressed.
+   *
+   * @param buttonKey is a key for which button was pressed, eg if "Generate" was pressed,
+   *                  buttonkey = 0.
+   * @param lastTwo is the last two characters in the TwoQueue.
+   */
   public void buttonPressed(int buttonKey, String lastTwo) {
     if (buttonKey == 0) { //Generate
       switch (lastTwo) {
@@ -61,6 +73,7 @@ public class ButtonsController {
           turtle.reset();
           linSys.generate(iterations);
           turtle.pushTurtle();
+
           if (drawPrev) {
             doubleDraw(turtle, previousTurtle);
           } else {
@@ -104,13 +117,17 @@ public class ButtonsController {
         }
       } else {
         turtle.reset();
+        previousTurtle.reset();
         turtle.resetStack();
+        previousTurtle.resetStack();
         painting.clear();
       }
     } else if (buttonKey == 2) { //Clear Drawing
       iterations = 1;
       turtle.reset();
+      previousTurtle.reset();
       turtle.resetStack();
+      previousTurtle.resetStack();
       updatePrevTurtle();
       painting.clear();
     } else if (buttonKey == 3) { //Toggle Previous
@@ -159,7 +176,6 @@ public class ButtonsController {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
       thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-      //previousTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
       previousTurtle.setCoords(prevStartingCoordX, prevStartingCoordY);
       prevStartingCoordX = thisTurtle.getCoordX();
       prevStartingCoordY = thisTurtle.getCoordY();
@@ -171,7 +187,7 @@ public class ButtonsController {
   }
 
   /**
-   * Used to reset the turtle and sets iterations to 1 from outside of the Buttons class.
+   * Used to reset the turtle and sets iterations to 1 from outside of the ButtonsController class.
    */
   public void externalReset() {
     iterations = 1;

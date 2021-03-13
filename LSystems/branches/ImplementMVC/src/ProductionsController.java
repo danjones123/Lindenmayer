@@ -5,7 +5,7 @@ import java.util.Queue;
 
 
 /**
- * Class that shows what each production rule returns.
+ * Controller class for showing what each production rule returns.
  *
  * @author Daniel Jones.
  */
@@ -143,7 +143,7 @@ public class ProductionsController {
   /**
    * Initialises the production turtle which shows the result of applying one production rule.
    *
-   * @param turtle is the tutle to be initialised.
+   * @param turtle is the turtle to be initialised.
    * @param word is the word which the production character is being applied to.
    * @param length is the length of the lines.
    * @param angle is the angle between the lines.
@@ -179,8 +179,6 @@ public class ProductionsController {
     shapes.update();
     resetQueue();
     showProductions();
-
-
   }
 
 
@@ -238,8 +236,6 @@ public class ProductionsController {
     }
     return currentProd;
   }
-
-
 
   /**
    * Resets all of the queue's.

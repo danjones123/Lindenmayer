@@ -8,8 +8,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 
+
 /**
- * The Display class to create the display.
+ * The Painting class to create the display of the Drawing class.
  *
  * @author Daniel Jones.
  */
@@ -37,15 +38,11 @@ public class Painting extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-
-
-
     if (drawCentreLines) {
       g.setColor(Color.RED);
       g.drawLine(0, Initialise.frameHeight / 2, Initialise.frameWidth, Initialise.frameHeight / 2);
       g.drawLine(Initialise.frameWidth / 2, 0, Initialise.frameWidth / 2, Initialise.frameHeight);
     }
-
 
     g.setColor(Color.BLACK);
 

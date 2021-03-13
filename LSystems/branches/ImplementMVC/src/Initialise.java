@@ -23,7 +23,7 @@ public class Initialise extends JFrame {
    * Method to initialise the Display and create the frame.
    */
   public static void createAndShowGui() {
-    initialiseTurtleLinden();
+    initialiseShapeTurtleLinden();
     Painting painting = new Painting();
     ButtonsController buttonsController = new ButtonsController(painting);
     Buttons buttonPanel = new Buttons(buttonsController);
@@ -42,7 +42,8 @@ public class Initialise extends JFrame {
     productionsTab.add(productions);
     productionsTab.add(prodPaint);
 
-    SettingsController settingsController = new SettingsController(turtle, linSys, shape, buttonsController, productionsController);
+    SettingsController settingsController = new SettingsController(turtle, linSys, shape,
+        buttonsController, productionsController);
     settingsController.init();
     Settings settings = new Settings(settingsController);
     JPanel settingsTab = new JPanel(false);
@@ -69,7 +70,7 @@ public class Initialise extends JFrame {
   /**
    * Class for initialising the turtle and L-system implementation.
    */
-  public static void initialiseTurtleLinden() {
+  public static void initialiseShapeTurtleLinden() {
     shape.update();
     turtle.setWord(shape.getWord());
     turtle.setLength(shape.getLength());
@@ -77,8 +78,47 @@ public class Initialise extends JFrame {
 
     linSys.setDrawRules(shape.getDrawRules());
     linSys.setMoveRules(shape.getMoveRules());
-    linSys.setRulesX(shape.rulesX);
-    linSys.setRulesY(shape.rulesY);
+    linSys.setRulesX(shape.getRulesX());
+    linSys.setRulesY(shape.getRulesY());
+    linSys.stochAngle(false, 0, 0);
+
+
+    turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
+    turtle.saveStartingTurtle();
+  }
+
+
+  /*public static void initialiseNewTurtleLinden(String word, double length, double angle,
+                                               double coordX, double coordY, String[] drawRules,
+                                               String[] moveRules, String[] rulesX,
+                                               String[] rulesY) {
+    shape.update();
+    turtle.setWord(word);
+    turtle.setLength(length);
+    turtle.setAngle(angle);
+
+    linSys.setDrawRules(drawRules);
+    linSys.setMoveRules(moveRules);
+    linSys.setRulesX(rulesX);
+    linSys.setRulesY(rulesY);
+    linSys.stochAngle(false, 0, 0);
+
+
+    turtle.setCoords(coordX, coordY);
+    turtle.saveStartingTurtle();
+  }
+
+   */
+
+  public static void initialiseNewerTurtleLinden(SavedShapes localShape, double startX, double startY) {
+    turtle.setWord(localShape.getWord());
+    turtle.setLength(localShape.getLength());
+    turtle.setAngle(localShape.getAngle());
+
+    linSys.setDrawRules(localShape.getDrawRules());
+    linSys.setMoveRules(localShape.getMoveRules());
+    linSys.setRulesX(localShape.getRulesX());
+    linSys.setRulesY(localShape.getRulesY());
     linSys.stochAngle(false, 0, 0);
 
 
