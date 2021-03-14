@@ -39,7 +39,7 @@ public class SettingsController {
   }
 
   /**
-   * Initiliases the local variables to those taken from the Turtle and Lindenmayer System.
+   * Initialises the local variables to those taken from the Turtle and Lindenmayer System.
    */
   public void init() {
     word = turtle.getWord();
@@ -74,13 +74,23 @@ public class SettingsController {
     butCont.externalReset();
   }
 
-
+  /**
+   * Changes the turtle axioms and Lindenmayer rules to those given by the user to Settings.
+   *
+   * @param newWord is the new word to replace word.
+   * @param newLength is the new length to replace length.
+   * @param newAngle is the new angle to replace angle.
+   * @param newCoordX is the new coordX to replace coordX.
+   * @param newCoordY is the new coordYto replace coordY.
+   * @param newDrawRules are the new drawRules to replace drawRules.
+   * @param newMoveRules are the new moveRules to replace moveRules.
+   * @param newRulesX are the new X Rules to replace X Rules.
+   * @param newRulesY are the new Y Rules to replace Y Rules.
+   */
   public void changeTurtleLin(String newWord, double newLength,
                               double newAngle, double newCoordX, double newCoordY,
                               String[] newDrawRules, String[] newMoveRules, String[] newRulesX,
                               String[] newRulesY) {
-    //Put changes to axioms in here instead
-    //Call saveShapes to update and then put the values into the correct boxes.
     shapes.update();
 
     if (!shapes.getWord().equals(newWord)) {
@@ -106,6 +116,7 @@ public class SettingsController {
     }
     Initialise.initialiseNewerTurtleLinden(shapes, newCoordX, newCoordY);
 
+    prod.customUpdate(shapes);
   }
 
   /**

@@ -41,7 +41,7 @@ public class ProductionsControllerTest {
    */
   @Test
   public void panelX() {
-    shapes.setPresetNo(12);
+    shapes.setPresetNo(13);
     shapes.update();
     prodTest.update();
     prodTest.panelX(shapes.getRulesX(), shapes.getAngle());
@@ -53,7 +53,7 @@ public class ProductionsControllerTest {
    */
   @Test
   public void panelY() {
-    shapes.setPresetNo(12);
+    shapes.setPresetNo(13);
     shapes.update();
     prodTest.update();
     prodTest.panelY(shapes.getRulesY(), shapes.getAngle());
@@ -95,7 +95,7 @@ public class ProductionsControllerTest {
    */
   @Test
   public void prodQueue() {
-    shapes.setPresetNo(18);
+    shapes.setPresetNo(19);
     shapes.update();
     prodTest.update();
     prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
@@ -171,7 +171,7 @@ public class ProductionsControllerTest {
    */
   @Test
   public void nextQueue() {
-    shapes.setPresetNo(18);
+    shapes.setPresetNo(19);
     shapes.update();
     prodTest.update();
     prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());

@@ -192,11 +192,11 @@ public class SavedShapes {
     this.moveRules = moveRules;
   }
 
-  public void setRulesX (String[] rulesX) {
+  public void setRulesX(String[] rulesX) {
     this.rulesX = rulesX;
   }
 
-  public void setRulesY (String[] rulesY) {
+  public void setRulesY(String[] rulesY) {
     this.rulesY = rulesY;
   }
 }

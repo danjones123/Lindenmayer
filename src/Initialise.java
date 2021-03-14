@@ -87,30 +87,15 @@ public class Initialise extends JFrame {
     turtle.saveStartingTurtle();
   }
 
-
-  /*public static void initialiseNewTurtleLinden(String word, double length, double angle,
-                                               double coordX, double coordY, String[] drawRules,
-                                               String[] moveRules, String[] rulesX,
-                                               String[] rulesY) {
-    shape.update();
-    turtle.setWord(word);
-    turtle.setLength(length);
-    turtle.setAngle(angle);
-
-    linSys.setDrawRules(drawRules);
-    linSys.setMoveRules(moveRules);
-    linSys.setRulesX(rulesX);
-    linSys.setRulesY(rulesY);
-    linSys.stochAngle(false, 0, 0);
-
-
-    turtle.setCoords(coordX, coordY);
-    turtle.saveStartingTurtle();
-  }
-
+  /**
+   * Initialises a Turtle with customised shape values.
+   *
+   * @param localShape is the shape that has had its values changed.
+   * @param startX is the starting X co-ordinate
+   * @param startY is the starting Y co-ordinate
    */
-
-  public static void initialiseNewerTurtleLinden(SavedShapes localShape, double startX, double startY) {
+  public static void initialiseNewerTurtleLinden(SavedShapes localShape, double startX,
+                                                 double startY) {
     turtle.setWord(localShape.getWord());
     turtle.setLength(localShape.getLength());
     turtle.setAngle(localShape.getAngle());
