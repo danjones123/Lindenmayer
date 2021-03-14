@@ -181,6 +181,17 @@ public class ProductionsController {
     showProductions();
   }
 
+  /**
+   * Updates the shapes with customised values.
+   *
+   * @param shapes is the SavedShapes object that has been customised by the user.
+   */
+  public void customUpdate(SavedShapes shapes) {
+    this.shapes = shapes;
+    resetQueue();
+    showProductions();
+  }
+
 
   /**
    * Clears the screen before calling the methods to initialise all the turtles and draw the

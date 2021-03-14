@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Arrays;
@@ -27,6 +25,7 @@ public class Settings extends JPanel {
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
+  JComboBox<String> presets;
   private boolean centreSetTurtle = true;
   String word;
   double length;
@@ -42,19 +41,20 @@ public class Settings extends JPanel {
   double newAngle;
   double newCoordX;
   double newCoordY;
-  String[] newDrawRules;
-  String[] newMoveRules;
-  String[] newRulesX;
-  String[] newRulesY;
-  JTextField wordAxiom;
-  JTextField lengthAxiom;
-  JTextField angleAxiom;
-  JTextField coordAxiomX;
-  JTextField coordAxiomY;
-  JTextField drawRulesText;
-  JTextField moveRulesText;
-  JTextField rulesTextX;
-  JTextField rulesTextY;
+  private String[] newDrawRules;
+  private String[] newMoveRules;
+  private String[] newRulesX;
+  private String[] newRulesY;
+  private JTextField wordAxiom;
+  private JTextField lengthAxiom;
+  private JTextField angleAxiom;
+  private JTextField coordAxiomX;
+  private JTextField coordAxiomY;
+  private JTextField drawRulesText;
+  private JTextField moveRulesText;
+  private JTextField rulesTextX;
+  private JTextField rulesTextY;
+  private JTextField lengthRatio;
 
 
 
@@ -78,6 +78,7 @@ public class Settings extends JPanel {
     saveChanges();
     stochasticAngleButtons();
     centreTurtle();
+    restoreDefault();
   }
 
   /**
@@ -109,14 +110,13 @@ public class Settings extends JPanel {
     fillPresets(presetNames);
 
     JLabel presetLabel = new JLabel("Choose Preset");
-    JComboBox<String> presets = new JComboBox<>(presetNames);
+    presets = new JComboBox<>(presetNames);
     presets.setBounds((Initialise.frameWidth / 2) - 50, 100, 150, 30);
-    presetLabel.setBounds((Initialise.frameWidth / 2) - 100, 100, 150, 30);
+    presetLabel.setBounds((Initialise.frameWidth / 2) - 150, 100, 150, 30);
 
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
-        updateNewValues();
         System.out.println(presets.getSelectedIndex());
       }
     });
@@ -169,11 +169,8 @@ public class Settings extends JPanel {
    * Method for creating the buttons for user input length ratio.
    */
   public void lengthRatioButtons() {
-    JTextField lengthRatio = new JTextField("Input length scalar", 10);
-    JButton enterButton = new JButton("Enter Ratio");
-    lengthRatio.setBounds((Initialise.frameWidth / 2) - 150, 150, 150, 25);
-    enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
-
+    lengthRatio = new JTextField("Input length scalar", 10);
+    lengthRatio.setBounds((Initialise.frameWidth / 2) - 75, 150, 150, 25);
     lengthRatio.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {
@@ -182,17 +179,7 @@ public class Settings extends JPanel {
         source.removeFocusListener(this);
       }
     });
-
-    enterButton.addActionListener(e -> {
-      try {
-        newRatio = Double.parseDouble(lengthRatio.getText());
-      } catch (NumberFormatException c) {
-        System.out.println("Not a number");
-      }
-    });
-
     add(lengthRatio);
-    add(enterButton);
   }
 
   /**
@@ -202,12 +189,12 @@ public class Settings extends JPanel {
     //Replace with checkbox
     JRadioButton stochAngleActivate = new JRadioButton("Use Stochastic Angle");
     JRadioButton stochAngleDeactivate = new JRadioButton("Do Not Use Stochastic Angle");
-    stochAngleActivate.setBounds((Initialise.frameWidth / 2) - 150, 425, 150, 25);
-    stochAngleDeactivate.setBounds((Initialise.frameWidth / 2), 425, 150, 25);
+    stochAngleActivate.setBounds((Initialise.frameWidth / 2) - 150, 625, 150, 25);
+    stochAngleDeactivate.setBounds((Initialise.frameWidth / 2), 625, 150, 25);
     JTextField minAngle = new JTextField("Input minimum angle", 10);
     JTextField maxAngle = new JTextField("Input minimum angle", 10);
-    maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 450, 150, 25);
-    minAngle.setBounds((Initialise.frameWidth / 2), 450, 150, 25);
+    maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 650, 150, 25);
+    minAngle.setBounds((Initialise.frameWidth / 2), 650, 150, 25);
 
     maxAngle.addFocusListener(new FocusAdapter() {
       @Override
@@ -306,35 +293,23 @@ public class Settings extends JPanel {
     add(createParamLabel("Starting Axiom", boundX, boundY));
     add(createParamLabel("Starting Length", boundX, boundY + 25));
     add(createParamLabel("Starting Angle", boundX, boundY + 50));
-    add(createParamLabel("Starting X Co-ordinate", boundX, boundY + 75));
+    add(createParamLabel("Starting X co-ordinate", boundX, boundY + 75));
     add(createParamLabel("Starting Y co-ordinate", boundX, boundY + 100));
     add(createParamLabel("Drawing Rules", boundX, boundY + 125));
     add(createParamLabel("Moving Rules", boundX, boundY + 150));
     add(createParamLabel("X Rules", boundX, boundY + 175));
     add(createParamLabel("Y Rules", boundX, boundY + 200));
-
-    JButton updateButton = new JButton("Update");
-    updateButton.addActionListener(e -> {
-      try {
-        newWord = wordAxiom.getText();
-        newLength = Double.parseDouble(lengthAxiom.getText());
-        newAngle = Double.parseDouble(angleAxiom.getText());
-        newCoordX = Double.parseDouble(coordAxiomX.getText());
-        newCoordY = Double.parseDouble(coordAxiomY.getText());
-        newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1).split(",");
-        newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1).split(",");
-        newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
-        newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
-      } catch (Exception c) {
-        System.out.println("Invalid Entry");
-      }
-    });
-
-    updateButton.setBounds(boundX, boundY + 400, 100, 30);
-    add(updateButton);
   }
 
 
+  /**
+   * Creates a JTextField with a given String and bounds.
+   *
+   * @param values is the value to be displayed by the TextField
+   * @param boundX is the X co-ordinate
+   * @param boundY is the Y co-ordinate
+   * @return returns the created JTextField
+   */
   public JTextField createParamText(String values, int boundX, int boundY) {
     JTextField axiomString = new JTextField(values, 15);
 
@@ -343,17 +318,24 @@ public class Settings extends JPanel {
     return axiomString;
   }
 
+  /**
+   * Creates a JLabel with a given label.
+   *
+   * @param label is the String to be displayed
+   * @param boundX is the x co-ordinate of the label
+   * @param boundY is the y co-ordinate of the label
+   * @return returns the JLabel.
+   */
   public JLabel createParamLabel(String label, int boundX, int boundY) {
     JLabel axiomStringLabel = new JLabel(label);
-    axiomStringLabel.setBounds(boundX - 100, boundY, 150, 25);
+    axiomStringLabel.setBounds(boundX - 130, boundY, 150, 25);
 
     return axiomStringLabel;
   }
 
-  public void updateNewValues() {
-
-  }
-
+  /**
+   * Initialises the parameters to the default preset values.
+   */
   public void initialiseParams() {
     word = setCont.getWord();
     length = setCont.getLength();
@@ -393,8 +375,10 @@ public class Settings extends JPanel {
     newAngle = Double.parseDouble(angleAxiom.getText());
     newCoordX = Double.parseDouble(coordAxiomX.getText());
     newCoordY = Double.parseDouble(coordAxiomY.getText());
-    newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1).split(",");
-    newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1).split(",");
+    newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1)
+        .split(",");
+    newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1)
+        .split(",");
     newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
     newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
 
@@ -406,8 +390,32 @@ public class Settings extends JPanel {
    */
   public void saveChanges() {
     JButton save = new JButton("Save Changes");
-    save.setBounds((Initialise.frameWidth / 2) - 75, 750, 150, 50);
+    save.setBounds((Initialise.frameWidth / 2) - 150, 750, 150, 50);
     save.addActionListener(e -> {
+      try {
+        newRatio = Double.parseDouble(lengthRatio.getText());
+      } catch (NumberFormatException c) {
+        newRatio = 1;
+      }
+
+      try {
+        newWord = wordAxiom.getText();
+        newLength = Double.parseDouble(lengthAxiom.getText());
+        newAngle = Double.parseDouble(angleAxiom.getText());
+        newCoordX = Double.parseDouble(coordAxiomX.getText());
+        newCoordY = Double.parseDouble(coordAxiomY.getText());
+        newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1)
+            .split(",");
+        newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1)
+            .split(",");
+        newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
+        newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
+      } catch (Exception c) {
+        System.out.println("Invalid Entry");
+      }
+
+
+
 
       setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
 
@@ -423,9 +431,33 @@ public class Settings extends JPanel {
       }
       setCont.init();
       updateAxioms();
-      //axiomBoxes();
 
     });
     add(save);
+  }
+
+  /**
+   * Restores the values within settings to their default values.
+   */
+  public void restoreDefault() {
+    JButton restoreDefault = new JButton("Restore Default");
+    restoreDefault.setBounds((Initialise.frameWidth / 2), 750, 150, 50);
+    restoreDefault.addActionListener(e -> {
+      newRatio = 1;
+      currentClass = 1;
+      presetNum = 0;
+      centreSetTurtle = true;
+      presets.setSelectedIndex(0);
+      initialiseParams();
+      updateAxioms();
+
+      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
+      initialiseParams();
+      setCont.init();
+
+      updateAxioms();
+
+    });
+    add(restoreDefault);
   }
 }
