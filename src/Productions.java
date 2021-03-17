@@ -25,6 +25,7 @@ public class Productions extends JPanel {
    * A JButton which calls ProductionController to update the drawing.
    */
   public void generateButton() {
+
     JButton nextProd = new JButton("Show next production");
 
     nextProd.addActionListener(e -> prodCont.showProductions());

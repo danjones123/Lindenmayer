@@ -1,0 +1,27 @@
+sierpinski/ F--F--F, 10, 60/ F--F--F--G/ GG/ / /
+squares/ F-F-F-F, 5, 90/ FF-FF/ / / /
+lakes/ F+F+F+F, 2, 90/ F+G-FF+F+FF+FG+FF-G+FF-F-FF-FG-FFF/ GGGGGG/ / /
+scary Tree/ F, 5, 25.7/ FF+[+F-F-F]-[-F+F+F]/ G/ / /
+shuriken/ F-F-F-F, 5, 90/ FF-F-F-F-F-F+F/ G/ / /
+more Squares/ F-F-F-F, 5, 90/ FF-F-F-F-FF/ G/ / /
+rectangles/ F-F-F-F, 5, 90/ FF-F+F-F-FF/ G/ / /
+sparse/ F-F-F-F, 1, 90/ FF-F--F-F/ G/ / /
+idk/ F-F-F-F, 5, 90/ F-FF--F-F/ G/ / /
+idk2/ F-F-F-F, 5, 90/ F-F+F-F-F/ G/ / /
+koch Island/ F-F-F-F, 5, 90/ F-F+F+FF-F-F+F/ G/ / /
+koch Snowflake/ F++F++F, 5, 60/ F-F++F-F/ G/ / /
+Hello/ [+F--FF]F[+F--FF]GG[+F-F][-F+F]FGG[-F][+F-F]GG[-F][+F-F]GG[+F-F-FF-F-F], 10, 90 / F/ G/ / /
+ecks And Why/ ---YYY, 15, 30/ FF/ / X[-FFF][+FFF]FX/ YFX[+Y][-Y]/
+non Stoch Xy/ -----X, 15, 20/ FF/ / F[+X]F[-X]+X/ Y/
+non Stoch Xy2/ ----X, 15, 25.7/ FF/ / F[+X][-X]FX/ /
+non Stoch Xy3/ ----X, 15, 22.5/ FF/ / F-[[X]+X]+F[+FX]-X/ /
+hilbert/ X, 15, 90/ F/ / +YF-XFX-FY+/ -XF+YFY+FX-/
+G Does Something/ F--F--F, 10, 60/ F--F--F--G/ GFG/ / /
+stochastic/ F, 10, 30/ F[+F]F[-F]F, F[+F]F, F[-F]F/ G/ / /
+turtletoynet/ X, 15, 22/ F+[F]F[-F]F, FF-[-F+F+F]+[+F-F-F], FF+[+F-F-F]-[F+F+F]/ / F+[[X]-X]-F[-FX]+X/ -XF+YFY+FX-/
+handDrawn/ X, 15, 90/ XF+XF, XF-XF, XFXXX/ / XF/ /
+ecks And Why Stochastic/ ---YYY, 50, 30/ F[+F]F[-F]F, F[+F]F, F[-F]F/ / X[-FFF][+FFF]FX/ YFX[+Y][-Y]/
+Multiple Rules/ F+F+F+F, 10, 90/ FF, F--F, F++F-F/ GFG, GGGFFFGGG, GG/ X[-FFF][+FFF]FX, F[+X][-X]FX, F+[[X]-X]-F[-FX]+X/ -XF+YFY+FX-, YFX[+Y][-Y]/
+octobocto/ F+F+F+F+F+F+F+F, 10.0, 45.0/ FF+FF/ GG/ / /
+improved Sparse/ F-F-F-F, 1.0, 90.0/ FF-F--FF-F/ G/ / /
+big ting/ F+F, 10.0, 60.0/ F--F--F--G/ GG/ / /

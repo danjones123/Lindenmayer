@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -23,13 +25,14 @@ public class SavedShapes {
   String[] shapeY;
   private int presetNo = 0;
 
+
   /**
    * Constructor for saved shapes which initialises the arrayList and sets the values in
    * SavedShapes to the current int.
    */
   public SavedShapes() {
-    presetsFromFile();
 
+    presetsFromFile();
     update();
   }
 
@@ -61,8 +64,72 @@ public class SavedShapes {
    * Pulls the presets from a file and adds them to shapes with the correct separation.
    */
   public void presetsFromFile() {
-    Scanner saver;
-    saver = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+    try {
+      Scanner saver = new Scanner(new File("src\\SavedPresets")); //new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+      //.getResourceAsStream("SavedPresets")));
+
+      while (saver.hasNextLine()) {
+        String data = saver.nextLine();
+        String[] tokens = data.split("/");
+        removeSpace(tokens);
+        String[] axiomSplit = tokens[1].split(",");
+        String[] splitF = tokens[2].split(",");
+        String[] splitG = tokens[3].split(",");
+        String[] splitX = tokens[4].split(",");
+        String[] splitY = tokens[5].split(",");
+        String[][] newPreset = {axiomSplit, splitF, splitG, splitX, splitY};
+        shapes.add(newPreset);
+        System.out.println(tokens[0]);
+      }
+      saver.close();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
+
+    }
+  }
+  /**
+   * Removes the space from a given array.
+   *
+   * @param arr the array to have the spaces removed.
+   */
+  public void removeSpace(String[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = arr[i].replaceAll("\\s+", "");
+    }
+  }
+
+  public void addPreset(String name, String word,  double length, double angle,
+                        String[] drawRules, String[] moveRules, String[] rulesX, String[] rulesY) {
+    String draw = Arrays.toString(drawRules);
+    draw = draw.substring(1, draw.length() - 1);
+    String move = Arrays.toString(moveRules);
+    move = move.substring(1, move.length() - 1);
+    String presetX = Arrays.toString(rulesX);
+    presetX = presetX.substring(1, presetX.length() - 1);
+    String presetY = Arrays.toString(rulesY);
+    presetY = presetY.substring(1, presetY.length() - 1);
+
+    if (!testDuplicate(word, angle, drawRules, moveRules, rulesX, rulesY)) {
+      try {
+        String newPreset = ("\n" + name + "/ " + word + ", " + length + ", " + angle + "/ "
+            + draw + "/ " + move + "/ " + presetX + "/ " + presetY + "/ ");
+        String filename = "src\\SavedPresets";
+        FileWriter fw = new FileWriter(filename, true);
+        fw.write(newPreset);
+        fw.flush();
+        fw.close();
+      } catch (IOException ioe) {
+        System.err.println("IOException: " + ioe.getMessage());
+      }
+    } else {
+      System.out.println("Duplicate");
+    }
+    presetsFromFile();
+    update();
+  }
+
+  public boolean testDuplicate(String word, double angle, String[] draw, String[] move, String[] rulesX, String[] rulesY) {
+    Scanner saver = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
         .getResourceAsStream("SavedPresets")));
     while (saver.hasNextLine()) {
       String data = saver.nextLine();
@@ -73,22 +140,12 @@ public class SavedShapes {
       String[] splitG =  tokens[3].split(",");
       String[] splitX =  tokens[4].split(",");
       String[] splitY =  tokens[5].split(",");
-      String[][] newPreset = {axiomSplit, splitF, splitG, splitX, splitY};
-      shapes.add(newPreset);
+      if (word.equals(axiomSplit[0]) && Arrays.equals(splitF, draw) && Arrays.equals(splitG, move)
+          && Arrays.equals(splitX, rulesX) && Arrays.equals(splitY, rulesY)) {
+        return true;
+      }
     }
-    saver.close();
-  }
-
-  /**
-   * Removes the space from a given array.
-   *
-   * @param arr the array to have the spaces removed.
-   */
-  public void removeSpace(String[] arr) {
-    for (int i = 0; i < arr.length; i++) {
-      arr[i] = arr[i].replaceAll("\\s+", "");
-    }
-
+    return false;
   }
 
   /**
@@ -99,6 +156,7 @@ public class SavedShapes {
   public String getWord() {
     return word;
   }
+
 
   /**
    * Gets the length for the turtle.
