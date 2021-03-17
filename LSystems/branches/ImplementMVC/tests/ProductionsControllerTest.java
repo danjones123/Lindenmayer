@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
@@ -179,5 +180,4 @@ public class ProductionsControllerTest {
     assertEquals("F[+F]F[-F]F", prodTest.nextQueue(prodTest.drawQueue));
     assertEquals("F[+F]F", prodTest.nextQueue(prodTest.drawQueue));
   }
-
 }

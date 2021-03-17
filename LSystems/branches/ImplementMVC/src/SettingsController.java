@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -117,6 +118,13 @@ public class SettingsController {
     Initialise.initialiseNewerTurtleLinden(shapes, newCoordX, newCoordY);
 
     prod.customUpdate(shapes);
+  }
+
+  public void newPreset(String name) throws IOException {
+
+    shapes.addPreset(name, word, length, angle, drawRules, moveRules, rulesX, rulesY);
+
+    shapes.update();
   }
 
   /**

@@ -1,18 +1,17 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.desktop.SystemSleepEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 /**
@@ -79,6 +78,8 @@ public class Settings extends JPanel {
     stochasticAngleButtons();
     centreTurtle();
     restoreDefault();
+    saveNewPreset();
+    saveChangesButton();
   }
 
   /**
@@ -131,16 +132,19 @@ public class Settings extends JPanel {
    */
   public void fillPresets(String[] stringToBeFilled) {
     Scanner savedNames;
-    savedNames = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
-        .getResourceAsStream("SavedPresets")));
-    int i = 0;
+    try {
+      savedNames = new Scanner(new File("src\\SavedPresets"));
+      int i = 0;
 
-    savedNames.reset();
-    while (savedNames.hasNextLine()) {
-      String data = savedNames.nextLine();
-      String[] tokens = data.split("/");
-      stringToBeFilled[i] = tokens[0];
-      i++;
+      savedNames.reset();
+      while (savedNames.hasNextLine()) {
+        String data = savedNames.nextLine();
+        String[] tokens = data.split("/");
+        stringToBeFilled[i] = tokens[0];
+        i++;
+      }
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
     }
   }
 
@@ -152,15 +156,18 @@ public class Settings extends JPanel {
    */
   public int presetNumber() {
     Scanner savedCounter;
-    savedCounter = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
-        .getResourceAsStream("SavedPresets")));
     int presetCount = 0;
-    while (savedCounter.hasNextLine()) {
-      String data = savedCounter.nextLine();
-      String[] tokens = data.split("/");
-      if (tokens[0] != null) {
-        presetCount++;
+    try {
+      savedCounter = new Scanner(new File("src\\SavedPresets"));
+      while (savedCounter.hasNextLine()) {
+        String data = savedCounter.nextLine();
+        String[] tokens = data.split("/");
+        if (tokens[0] != null) {
+          presetCount++;
+        }
       }
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
     }
     return presetCount;
   }
@@ -375,13 +382,49 @@ public class Settings extends JPanel {
     newAngle = Double.parseDouble(angleAxiom.getText());
     newCoordX = Double.parseDouble(coordAxiomX.getText());
     newCoordY = Double.parseDouble(coordAxiomY.getText());
-    newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1)
-        .split(",");
-    newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1)
-        .split(",");
-    newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
-    newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
+    newDrawRules = getNewRules(drawRulesText);
+    newMoveRules = getNewRules(moveRulesText);
+    newRulesX = getNewRules(rulesTextX);
+    newRulesY = getNewRules(rulesTextY);
+  }
 
+  /**
+   * Method to retrieve an array from the JTextField split by , and without whitespace.
+   *
+   * @param rules is the JTextField of rules to be converted to a String array.
+   * @return returns the new array.
+   */
+  public String[] getNewRules(JTextField rules) {
+    String[] newRules = rules.getText().substring(1, rules.getText().length() - 1).split(",");
+    for (int i = 0; i < newRules.length; i++) {
+      newRules[i] = newRules[i].replaceAll("\\s+", "");
+    }
+    return newRules;
+  }
+
+  public void saveNewPreset() {
+    JButton saveNew = new JButton("Save New Preset");
+    saveNew.setBounds(400, 700, 150, 25);
+    saveNew.addActionListener(e -> {
+      saveChanges();
+      String name = JOptionPane.showInputDialog("Input preset name", null);
+      try {
+        setCont.newPreset(name);
+      } catch (IOException ioException) {
+        ioException.printStackTrace();
+      }
+    });
+    add(saveNew);
+  }
+
+
+  public void saveChangesButton() {
+    JButton save = new JButton("Save Changes");
+    save.setBounds((Initialise.frameWidth / 2) - 150, 750, 150, 50);
+    save.addActionListener(e -> {
+      saveChanges();
+    });
+    add(save);
   }
 
   /**
@@ -389,51 +432,40 @@ public class Settings extends JPanel {
    * SettingsController.
    */
   public void saveChanges() {
-    JButton save = new JButton("Save Changes");
-    save.setBounds((Initialise.frameWidth / 2) - 150, 750, 150, 50);
-    save.addActionListener(e -> {
-      try {
-        newRatio = Double.parseDouble(lengthRatio.getText());
-      } catch (NumberFormatException c) {
-        newRatio = 1;
-      }
+    try {
+      newRatio = Double.parseDouble(lengthRatio.getText());
+    } catch (NumberFormatException c) {
+      newRatio = 1;
+    }
 
-      try {
-        newWord = wordAxiom.getText();
-        newLength = Double.parseDouble(lengthAxiom.getText());
-        newAngle = Double.parseDouble(angleAxiom.getText());
-        newCoordX = Double.parseDouble(coordAxiomX.getText());
-        newCoordY = Double.parseDouble(coordAxiomY.getText());
-        newDrawRules = drawRulesText.getText().substring(1, drawRulesText.getText().length() - 1)
-            .split(",");
-        newMoveRules = moveRulesText.getText().substring(1, moveRulesText.getText().length() - 1)
-            .split(",");
-        newRulesX = rulesTextX.getText().substring(1, rulesTextX.getText().length() - 1).split(",");
-        newRulesY = rulesTextY.getText().substring(1, rulesTextY.getText().length() - 1).split(",");
-      } catch (Exception c) {
-        System.out.println("Invalid Entry");
-      }
+    try {
+      newWord = wordAxiom.getText();
+      newLength = Double.parseDouble(lengthAxiom.getText());
+      newAngle = Double.parseDouble(angleAxiom.getText());
+      newCoordX = Double.parseDouble(coordAxiomX.getText());
+      newCoordY = Double.parseDouble(coordAxiomY.getText());
+      newDrawRules = getNewRules(drawRulesText);
+      newMoveRules = getNewRules(moveRulesText);
+      newRulesX = getNewRules(rulesTextX);
+      newRulesY = getNewRules(rulesTextY);
+    } catch (Exception c) {
+      System.out.println("Invalid Entry");
+    }
+
+    setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
 
 
-
-
-      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
-
-
-      if ((!newWord.equals(word) || newLength != length
-          || newAngle != angle || newCoordX != coordX
-          || newCoordY != coordY) || !Arrays.equals(newDrawRules, drawRules)
-          || !Arrays.equals(newMoveRules, moveRules)
-          || !Arrays.equals(newRulesX, rulesX)
-          || !Arrays.equals(newRulesY, rulesY)) {
-        setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
-            newMoveRules, newRulesX, newRulesY);
-      }
-      setCont.init();
-      updateAxioms();
-
-    });
-    add(save);
+    if ((!newWord.equals(word) || newLength != length
+        || newAngle != angle || newCoordX != coordX
+        || newCoordY != coordY) || !Arrays.equals(newDrawRules, drawRules)
+        || !Arrays.equals(newMoveRules, moveRules)
+        || !Arrays.equals(newRulesX, rulesX)
+        || !Arrays.equals(newRulesY, rulesY)) {
+      setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
+          newMoveRules, newRulesX, newRulesY);
+    }
+    setCont.init();
+    updateAxioms();
   }
 
   /**
