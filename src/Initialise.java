@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 
 /**
  * Class for the initialisation of the Display and turtle/L-system in the program.
@@ -13,16 +11,21 @@ public class Initialise extends JFrame {
   static int frameHeight = 800;
   static Turtle turtle = new Turtle();
   static Lindenmayer linSys = new Lindenmayer(turtle);
-  static SavedShapes shape = new SavedShapes();
+  static SavedShapes shape;
 
   public Initialise() {
 
+  }
+
+  public static void updateShapes() {
+    shape = new SavedShapes();
   }
 
   /**
    * Method to initialise the Display and create the frame.
    */
   public static void createAndShowGui() {
+    updateShapes();
     initialiseShapeTurtleLinden();
     Painting painting = new Painting();
     ButtonsController buttonsController = new ButtonsController(painting);
@@ -64,6 +67,7 @@ public class Initialise extends JFrame {
     frame.add(tabs);
     frame.setLocationRelativeTo(null);
     frame.setVisible(true);
+
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
@@ -110,4 +114,6 @@ public class Initialise extends JFrame {
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
     turtle.saveStartingTurtle();
   }
+
+
 }

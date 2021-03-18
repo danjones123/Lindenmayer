@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -120,12 +119,25 @@ public class SettingsController {
     prod.customUpdate(shapes);
   }
 
-  public void newPreset(String name) throws IOException {
-
-    shapes.addPreset(name, word, length, angle, drawRules, moveRules, rulesX, rulesY);
-
-    shapes.update();
+  /**
+   * Saves a new preset with the given name into the shapes class.
+   *
+   * @param name is the name of the new preset.
+   */
+  public boolean newPreset(String name) {
+    if (shapes.addPreset(name, word, length, angle, drawRules, moveRules, rulesX, rulesY)) {
+      shapes.update();
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  /*public void deletePreset(String name) {
+    shapes.deleteEntry(name);
+  }
+
+   */
 
   /**
    * Returns the word variable.
