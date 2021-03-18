@@ -54,7 +54,8 @@ public class Settings extends JPanel {
   private JTextField rulesTextX;
   private JTextField rulesTextY;
   private JTextField lengthRatio;
-
+  private int presetArrLength = 0;
+  String[] presetNames;
 
 
 
@@ -74,12 +75,13 @@ public class Settings extends JPanel {
     lengthRatioButtons();
     axiomBoxes();
     updateAxioms();
-    saveChanges();
+    //saveChanges();
     stochasticAngleButtons();
     centreTurtle();
     restoreDefault();
     saveNewPreset();
     saveChangesButton();
+    //deleteCurrent();
   }
 
   /**
@@ -107,7 +109,8 @@ public class Settings extends JPanel {
    * Method that creates a dropdown list of the possible presets for the user to choose from.
    */
   public void presetBox() {
-    String[] presetNames = new String[presetNumber()];
+    presetArrLength = presetNumber();
+    presetNames = new String[presetArrLength];
     fillPresets(presetNames);
 
     JLabel presetLabel = new JLabel("Choose Preset");
@@ -118,7 +121,7 @@ public class Settings extends JPanel {
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
-        System.out.println(presets.getSelectedIndex());
+        //System.out.println(presets.getSelectedIndex());
       }
     });
     add(presets);
@@ -142,6 +145,7 @@ public class Settings extends JPanel {
         String[] tokens = data.split("/");
         stringToBeFilled[i] = tokens[0];
         i++;
+        //System.out.println(i);
       }
     } catch (FileNotFoundException c) {
       System.out.println("File not found");
@@ -402,22 +406,57 @@ public class Settings extends JPanel {
     return newRules;
   }
 
+  /**
+   * Saves a new preset with the given name and adds it to the presets combobox.
+   */
   public void saveNewPreset() {
     JButton saveNew = new JButton("Save New Preset");
-    saveNew.setBounds(400, 700, 150, 25);
+    saveNew.setBounds(325, 425, 150, 25);
     saveNew.addActionListener(e -> {
       saveChanges();
       String name = JOptionPane.showInputDialog("Input preset name", null);
-      try {
-        setCont.newPreset(name);
-      } catch (IOException ioException) {
-        ioException.printStackTrace();
+      if (name != null) {
+        if (setCont.newPreset(name)) {
+          presets.addItem(name);
+          presets.setSelectedIndex(presetArrLength);
+          saveChanges();
+        } else {
+          JOptionPane.showConfirmDialog(null, "This preset already exists",
+              "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        }
+
       }
     });
     add(saveNew);
   }
 
+  /*public void deleteCurrent() {
+    JButton deletePreset = new JButton("Delete Selected Preset");
+    deletePreset.setBounds(475, 425, 175, 25);
+    deletePreset.addActionListener(e -> {
+      saveChanges();
+      int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete");
+      System.out.println(option);
+      if (option == 0) {
+        setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
+      }
+      /*try {
+        //setCont.newPreset(name);
+        //presets.addItem(name);
+        //presets.setSelectedIndex(presetArrLength);
+        saveChanges();
+      } catch (IOException ioException) {
+        ioException.printStackTrace();
+      }
+    });
+    add(deletePreset);
+  }
+    */
 
+
+  /**
+   * Button for calling the methods in save changes.
+   */
   public void saveChangesButton() {
     JButton save = new JButton("Save Changes");
     save.setBounds((Initialise.frameWidth / 2) - 150, 750, 150, 50);
@@ -478,6 +517,7 @@ public class Settings extends JPanel {
       newRatio = 1;
       currentClass = 1;
       presetNum = 0;
+      //presetBox();
       centreSetTurtle = true;
       presets.setSelectedIndex(0);
       initialiseParams();

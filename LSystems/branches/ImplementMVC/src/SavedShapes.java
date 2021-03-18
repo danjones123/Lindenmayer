@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -65,7 +68,8 @@ public class SavedShapes {
    */
   public void presetsFromFile() {
     try {
-      Scanner saver = new Scanner(new File("src\\SavedPresets")); //new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
+      Scanner saver = new Scanner(new File("src\\SavedPresets"));
+      //new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
       //.getResourceAsStream("SavedPresets")));
 
       while (saver.hasNextLine()) {
@@ -87,6 +91,7 @@ public class SavedShapes {
 
     }
   }
+
   /**
    * Removes the space from a given array.
    *
@@ -98,7 +103,20 @@ public class SavedShapes {
     }
   }
 
-  public void addPreset(String name, String word,  double length, double angle,
+  /**
+   * Method to test if the given preset is a duplicate and if not to add it to the SavedPresets
+   * file.
+   *
+   * @param name is the name of the new preset.
+   * @param word is the word axiom
+   * @param length is the length of the lines
+   * @param angle is the angle between the lines
+   * @param drawRules is the array of drawing rules
+   * @param moveRules is the array of moving rules
+   * @param rulesX is the array of rules for X
+   * @param rulesY is the array of rules for Y
+   */
+  public boolean addPreset(String name, String word,  double length, double angle,
                         String[] drawRules, String[] moveRules, String[] rulesX, String[] rulesY) {
     String draw = Arrays.toString(drawRules);
     draw = draw.substring(1, draw.length() - 1);
@@ -109,7 +127,7 @@ public class SavedShapes {
     String presetY = Arrays.toString(rulesY);
     presetY = presetY.substring(1, presetY.length() - 1);
 
-    if (!testDuplicate(word, angle, drawRules, moveRules, rulesX, rulesY)) {
+    if (!testDuplicate(word, drawRules, moveRules, rulesX, rulesY)) {
       try {
         String newPreset = ("\n" + name + "/ " + word + ", " + length + ", " + angle + "/ "
             + draw + "/ " + move + "/ " + presetX + "/ " + presetY + "/ ");
@@ -120,15 +138,30 @@ public class SavedShapes {
         fw.close();
       } catch (IOException ioe) {
         System.err.println("IOException: " + ioe.getMessage());
+        return false;
       }
+
+      shapes.clear();
+      presetsFromFile();
+      update();
+      return true;
     } else {
-      System.out.println("Duplicate");
+      return false;
     }
-    presetsFromFile();
-    update();
   }
 
-  public boolean testDuplicate(String word, double angle, String[] draw, String[] move, String[] rulesX, String[] rulesY) {
+  /**
+   * Method to test if the current preset is a duplicate.
+   *
+   * @param word is the new preset word to be checked
+   * @param draw is the array of drawing rules to be checked
+   * @param move is the array of moving rules to be checked
+   * @param rulesX is the array of X rules to be checked
+   * @param rulesY is the array of Y rules to be checked
+   * @return returns true if the new preset is a duplicate.
+   */
+  public boolean testDuplicate(String word, String[] draw, String[] move, String[] rulesX,
+                               String[] rulesY) {
     Scanner saver = new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
         .getResourceAsStream("SavedPresets")));
     while (saver.hasNextLine()) {
@@ -147,6 +180,35 @@ public class SavedShapes {
     }
     return false;
   }
+
+  /*public void deleteEntry(String name) {
+    try {
+      File original = new File("src\\SavedShapes");
+      File tempFile = new File(original.getAbsolutePath() + ".tmp");
+
+      BufferedReader reader = new BufferedReader(new FileReader(original));
+      PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
+
+      String line;
+
+      while ((line = reader.readLine()) != null) {
+        if(!line.equals(name)) {
+          writer.println(line);
+          writer.flush();
+        }
+      }
+      reader.close();
+      writer.close();
+
+      //original.delete();
+      //tempFile.renameTo(original);
+    } catch (Exception c) {
+      System.out.println("ERROR");
+    }
+
+  }
+
+   */
 
   /**
    * Gets the word for the turtle.
