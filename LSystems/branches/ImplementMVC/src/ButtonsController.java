@@ -67,8 +67,7 @@ public class ButtonsController {
    */
   public void buttonPressed(int buttonKey, String lastTwo) {
     if (buttonKey == 0) { //Generate
-      System.out.println("Start");
-      painting.loadingGif();
+      //painting.loadingGif();
       switch (lastTwo) {
         case ("uu"), ("gu") -> {
           iterations++;
@@ -100,8 +99,7 @@ public class ButtonsController {
           linSys.generate(iterations);
         }
       }
-      System.out.println("Finish");
-      painting.loadingGif();
+      //painting.loadingGif();
     } else if (buttonKey == 1) { //Undo
       if (iterations > 1) {
         switch (lastTwo) {

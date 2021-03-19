@@ -65,5 +65,6 @@ public class Buttons extends JPanel implements ActionListener {
     } else if ("Toggle Show Previous".equals(e.getActionCommand())) {
       butCont.buttonPressed(3, "");
     }
+    System.out.println("Finish");
   }
 }

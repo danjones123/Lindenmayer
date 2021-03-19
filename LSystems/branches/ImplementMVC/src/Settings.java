@@ -1,15 +1,10 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.desktop.SystemSleepEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 import javax.swing.*;
 
@@ -26,6 +21,7 @@ public class Settings extends JPanel {
   private int presetNum = 0;
   JComboBox<String> presets;
   private boolean centreSetTurtle = true;
+  boolean useStochAngles = false;
   String word;
   double length;
   double angle;
@@ -56,7 +52,11 @@ public class Settings extends JPanel {
   private JTextField lengthRatio;
   private int presetArrLength = 0;
   String[] presetNames;
-
+  JCheckBox stochAngle;
+  JTextField minAngle;
+  JTextField maxAngle;
+  double minStochAngle = newAngle;
+  double maxStochAngle = newAngle;
 
 
   /**
@@ -76,7 +76,8 @@ public class Settings extends JPanel {
     axiomBoxes();
     updateAxioms();
     //saveChanges();
-    stochasticAngleButtons();
+    stochAngleCheckBox();
+    stochasticAngleMinMax();
     centreTurtle();
     restoreDefault();
     saveNewPreset();
@@ -98,8 +99,16 @@ public class Settings extends JPanel {
     ButtonGroup linClasses = new ButtonGroup();
     linClasses.add(deterministic);
     linClasses.add(stochastic);
-    deterministic.addActionListener(e -> currentClass = 1);
-    stochastic.addActionListener(e -> currentClass = 2);
+    deterministic.addActionListener(e -> {
+      currentClass = 1;
+      stochAngle.setEnabled(false);
+      minAngle.setEnabled(false);
+      maxAngle.setEnabled(false);
+    });
+    stochastic.addActionListener(e -> {
+      currentClass = 2;
+      stochAngle.setEnabled(true);
+    });
 
     add(deterministic);
     add(stochastic);
@@ -121,7 +130,6 @@ public class Settings extends JPanel {
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
-        //System.out.println(presets.getSelectedIndex());
       }
     });
     add(presets);
@@ -145,7 +153,6 @@ public class Settings extends JPanel {
         String[] tokens = data.split("/");
         stringToBeFilled[i] = tokens[0];
         i++;
-        //System.out.println(i);
       }
     } catch (FileNotFoundException c) {
       System.out.println("File not found");
@@ -193,19 +200,33 @@ public class Settings extends JPanel {
     add(lengthRatio);
   }
 
+  public void stochAngleCheckBox() {
+    stochAngle = new JCheckBox();
+    stochAngle.setText("Use Stochastic angles");
+    stochAngle.setFocusable(false);
+    stochAngle.setBounds((Initialise.frameWidth / 2) - 150, 625, 300, 25);
+    stochAngle.setEnabled(false);
+
+    stochAngle.addActionListener(e -> {
+      if (e.getSource() == stochAngle) {
+        useStochAngles = stochAngle.isSelected();
+        minAngle.setEnabled(useStochAngles);
+        maxAngle.setEnabled(useStochAngles);
+      }
+    });
+    add(stochAngle);
+  }
+
   /**
    * Method for the user to input if they want stochastic angle growth.
    */
-  public void stochasticAngleButtons() {
-    //Replace with checkbox
-    JRadioButton stochAngleActivate = new JRadioButton("Use Stochastic Angle");
-    JRadioButton stochAngleDeactivate = new JRadioButton("Do Not Use Stochastic Angle");
-    stochAngleActivate.setBounds((Initialise.frameWidth / 2) - 150, 625, 150, 25);
-    stochAngleDeactivate.setBounds((Initialise.frameWidth / 2), 625, 150, 25);
-    JTextField minAngle = new JTextField("Input minimum angle", 10);
-    JTextField maxAngle = new JTextField("Input minimum angle", 10);
+  public void stochasticAngleMinMax() {
+    minAngle = new JTextField("Input minimum angle", 10);
+    maxAngle = new JTextField("Input minimum angle", 10);
     maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 650, 150, 25);
     minAngle.setBounds((Initialise.frameWidth / 2), 650, 150, 25);
+    minAngle.setEnabled(false);
+    maxAngle.setEnabled(false);
 
     maxAngle.addFocusListener(new FocusAdapter() {
       @Override
@@ -225,11 +246,8 @@ public class Settings extends JPanel {
       }
     });
 
-    JButton enterButton = new JButton("Enter Ratio");
-    enterButton.setBounds((Initialise.frameWidth / 2), 150, 100, 25);
 
-    add(stochAngleActivate);
-    add(stochAngleDeactivate);
+
     add(minAngle);
     add(maxAngle);
   }
@@ -257,9 +275,8 @@ public class Settings extends JPanel {
    * l-system.
    */
   public void axiomBoxes() {
-    int boundX = Initialise.frameWidth / 2;
+    int boundX = (Initialise.frameWidth / 2) - 50;
     int boundY = 200;
-
 
     wordAxiom = createParamText(word, boundX, boundY);
     newWord = wordAxiom.getText();
@@ -363,15 +380,7 @@ public class Settings extends JPanel {
    * Calls SettingsController to update the local parameters.
    */
   public void updateAxioms() {
-    word = setCont.getWord();
-    length = setCont.getLength();
-    angle = setCont.getAngle();
-    coordX = setCont.getCoordX();
-    coordY = setCont.getCoordY();
-    drawRules = setCont.getDrawRules();
-    moveRules = setCont.getMoveRules();
-    rulesX = setCont.getRulesX();
-    rulesY = setCont.getRulesY();
+    initialiseParams();
     wordAxiom.setText(word);
     lengthAxiom.setText(Double.toString(length));
     angleAxiom.setText(Double.toString(angle));
@@ -424,7 +433,6 @@ public class Settings extends JPanel {
           JOptionPane.showConfirmDialog(null, "This preset already exists",
               "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
-
       }
     });
     add(saveNew);
@@ -478,6 +486,14 @@ public class Settings extends JPanel {
     }
 
     try {
+      minStochAngle = Double.parseDouble(minAngle.getText());
+      maxStochAngle = Double.parseDouble(maxAngle.getText());
+    }  catch (NumberFormatException c) {
+      minStochAngle = newAngle;
+      maxStochAngle = newAngle;
+    }
+
+    try {
       newWord = wordAxiom.getText();
       newLength = Double.parseDouble(lengthAxiom.getText());
       newAngle = Double.parseDouble(angleAxiom.getText());
@@ -491,7 +507,8 @@ public class Settings extends JPanel {
       System.out.println("Invalid Entry");
     }
 
-    setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
+    setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY,
+        useStochAngles, minStochAngle, maxStochAngle);
 
 
     if ((!newWord.equals(word) || newLength != length
@@ -517,13 +534,17 @@ public class Settings extends JPanel {
       newRatio = 1;
       currentClass = 1;
       presetNum = 0;
-      //presetBox();
       centreSetTurtle = true;
+      useStochAngles = false;
       presets.setSelectedIndex(0);
+      stochAngle.setEnabled(false);
+      minAngle.setEnabled(false);
+      maxAngle.setEnabled(false);
       initialiseParams();
       updateAxioms();
 
-      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY);
+      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY,
+          useStochAngles, minStochAngle, maxStochAngle);
       initialiseParams();
       setCont.init();
 
