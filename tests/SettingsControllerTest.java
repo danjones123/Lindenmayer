@@ -54,7 +54,7 @@ public class SettingsControllerTest {
     butCont.setCentreTurtle(true);
 
     SettingsController s = new SettingsController(turtle, linSys, shapes, butCont, prod);
-    s.saveChanges(1, 0.5, 5, false, 400, 400);
+    s.saveChanges(1, 0.5, 5, false, 400, 400, false, 90, 90);
 
     assertEquals(1, linSys.currentClass);
     assertEquals(0.5, linSys.lengthScaler, 1e-10);

@@ -84,7 +84,7 @@ public class Initialise extends JFrame {
     linSys.setMoveRules(shape.getMoveRules());
     linSys.setRulesX(shape.getRulesX());
     linSys.setRulesY(shape.getRulesY());
-    linSys.stochAngle(false, 0, 0);
+    //linSys.stochAngle(false, 0, 0);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
@@ -108,7 +108,7 @@ public class Initialise extends JFrame {
     linSys.setMoveRules(localShape.getMoveRules());
     linSys.setRulesX(localShape.getRulesX());
     linSys.setRulesY(localShape.getRulesY());
-    linSys.stochAngle(false, 0, 0);
+    //linSys.stochAngle(false, 0, 0);
 
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);

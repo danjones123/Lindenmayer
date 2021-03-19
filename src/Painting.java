@@ -24,7 +24,7 @@ public class Painting extends JPanel {
     setBackground(Color.WHITE);
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     drawCentre();
-    loadingGif();
+    //loadingGif();
   }
 
   /**
@@ -99,9 +99,12 @@ public class Painting extends JPanel {
     repaint();
   }
 
+  /*
   public void loadingGif() {
     ImageIcon loading = new ImageIcon("ajax-loader.gif");
     add(new JLabel("loading... ", loading, JLabel.CENTER));
   }
+
+   */
 }
 

@@ -57,20 +57,21 @@ public class SettingsController {
    * Updates the l-sys and turtle for any changes that have been made in the settings page.
    */
   public void saveChanges(int currentClass, double newRatio, int presetNum,
-                          boolean centreSetTurtle, double newCoordX, double newCoordY) {
+                          boolean centreSetTurtle, double newCoordX, double newCoordY,
+                          boolean useStochAngle, double minAngle, double maxAngle) {
     linSys.setCurrentClass(currentClass);
-
+    linSys.stochAngle(useStochAngle, minAngle, maxAngle);
     linSys.setLengthRatio(newRatio);
-    shapes.setPresetNo(presetNum);
 
+
+    shapes.setPresetNo(presetNum);
     shapes.update();
+
     Initialise.initialiseNewerTurtleLinden(shapes, newCoordX, newCoordY);
 
-
     prod.update();
+
     butCont.setCentreTurtle(centreSetTurtle);
-
-
     butCont.externalReset();
   }
 
