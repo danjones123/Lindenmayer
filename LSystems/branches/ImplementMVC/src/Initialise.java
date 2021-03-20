@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * Class for the initialisation of the Display and turtle/L-system in the program.
@@ -13,10 +15,16 @@ public class Initialise extends JFrame {
   static Lindenmayer linSys = new Lindenmayer(turtle);
   static SavedShapes shape;
 
+  /**
+   * Simple constructor for Initialise.
+   */
   public Initialise() {
 
   }
 
+  /**
+   * Updates savedShapes.
+   */
   public static void updateShapes() {
     shape = new SavedShapes();
   }
@@ -84,8 +92,6 @@ public class Initialise extends JFrame {
     linSys.setMoveRules(shape.getMoveRules());
     linSys.setRulesX(shape.getRulesX());
     linSys.setRulesY(shape.getRulesY());
-    //linSys.stochAngle(false, 0, 0);
-
 
     turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
     turtle.saveStartingTurtle();
@@ -108,10 +114,9 @@ public class Initialise extends JFrame {
     linSys.setMoveRules(localShape.getMoveRules());
     linSys.setRulesX(localShape.getRulesX());
     linSys.setRulesY(localShape.getRulesY());
-    //linSys.stochAngle(false, 0, 0);
 
 
-    turtle.setCoords((double) frameWidth / 2, (double) frameHeight / 2);
+    turtle.setCoords(startX, startY);
     turtle.saveStartingTurtle();
   }
 

@@ -235,7 +235,6 @@ public class Turtle {
     calcHighLowCoord();
   }
 
-
   /**
    * Moves the coordinates by the given length multiplied by the given angle but does not draw
    * anything.
@@ -257,7 +256,6 @@ public class Turtle {
 
     calcHighLowCoord();
   }
-
 
   /**
    * Changes the current angle of the line by adding the radian version of the given angle.
@@ -384,6 +382,9 @@ public class Turtle {
     coordY = Double.parseDouble(popTurtle[4]);
   }
 
+  /**
+   * Resets the turtle stack.
+   */
   public void resetStack() {
     turtleStack.clear();
   }

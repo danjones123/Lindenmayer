@@ -27,3 +27,5 @@ improved Sparse/ F-F-F-F, 1.0, 90.0/ FF-F--FF-F/ G/ / /
 big ting/ F+F, 10.0, 60.0/ F--F--F--G/ GG/ / /
 da/ F--F--F, 10.0, 60.0/ F--F--F--G, FAF/ GG/ / / 
 bada/ F--F--FF, 10.0, 60.0/ F--F--F--G/ GG/ / /
+Simple Stoch/ F, 10.0, 60.0/ FFF, F+F, F-F/ GG/ / / 
+testingRuleProbs/ FFFFGGGGXXXXYYYY, 10.0, 90.0/ A, B, C, D/ E, H, I, J/ K, L, M, N/ Q, R, S, T/ 

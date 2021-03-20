@@ -4,9 +4,18 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 
 /**
@@ -57,6 +66,14 @@ public class Settings extends JPanel {
   JTextField maxAngle;
   double minStochAngle = newAngle;
   double maxStochAngle = newAngle;
+  JCheckBox changeDrawRulesProb = new JCheckBox();
+  JCheckBox changeMoveRulesProb = new JCheckBox();
+  JCheckBox changeEcksRulesProb = new JCheckBox();
+  JCheckBox changeWhyRulesProb = new JCheckBox();
+  JTextField drawRulesProbs = new JTextField();
+  JTextField moveRulesProbs = new JTextField();
+  JTextField ecksRulesProbs = new JTextField();
+  JTextField whyRulesProbs = new JTextField();
 
 
   /**
@@ -83,6 +100,15 @@ public class Settings extends JPanel {
     saveNewPreset();
     saveChangesButton();
     //deleteCurrent();
+    changeStochRulesButton(changeDrawRulesProb, drawRulesProbs, 325);
+    newProbabilities(drawRulesProbs, drawRulesText, 325, "draw");
+    changeStochRulesButton(changeMoveRulesProb, moveRulesProbs, 350);
+    newProbabilities(moveRulesProbs, moveRulesText, 350, "move");
+    changeStochRulesButton(changeEcksRulesProb, ecksRulesProbs, 375);
+    newProbabilities(ecksRulesProbs, rulesTextX, 375, "x");
+    changeStochRulesButton(changeWhyRulesProb, whyRulesProbs, 400);
+    newProbabilities(whyRulesProbs, rulesTextY, 400, "y");
+
   }
 
   /**
@@ -104,10 +130,18 @@ public class Settings extends JPanel {
       stochAngle.setEnabled(false);
       minAngle.setEnabled(false);
       maxAngle.setEnabled(false);
+      changeDrawRulesProb.setEnabled(false);
+      changeMoveRulesProb.setEnabled(false);
+      changeEcksRulesProb.setEnabled(false);
+      changeWhyRulesProb.setEnabled(false);
     });
     stochastic.addActionListener(e -> {
       currentClass = 2;
       stochAngle.setEnabled(true);
+      changeDrawRulesProb.setEnabled(true);
+      changeMoveRulesProb.setEnabled(true);
+      changeEcksRulesProb.setEnabled(true);
+      changeWhyRulesProb.setEnabled(true);
     });
 
     add(deterministic);
@@ -200,6 +234,9 @@ public class Settings extends JPanel {
     add(lengthRatio);
   }
 
+  /**
+   * Creates a checkbox that sets the min and max angle boxes to enabled if the box is ticked.
+   */
   public void stochAngleCheckBox() {
     stochAngle = new JCheckBox();
     stochAngle.setText("Use Stochastic angles");
@@ -218,7 +255,7 @@ public class Settings extends JPanel {
   }
 
   /**
-   * Method for the user to input if they want stochastic angle growth.
+   * Method for the user to input if they want stochastic angles.
    */
   public void stochasticAngleMinMax() {
     minAngle = new JTextField("Input minimum angle", 10);
@@ -245,8 +282,6 @@ public class Settings extends JPanel {
         source.removeFocusListener(this);
       }
     });
-
-
 
     add(minAngle);
     add(maxAngle);
@@ -275,7 +310,7 @@ public class Settings extends JPanel {
    * l-system.
    */
   public void axiomBoxes() {
-    int boundX = (Initialise.frameWidth / 2) - 50;
+    int boundX = (Initialise.frameWidth / 2) - 200;
     int boundY = 200;
 
     wordAxiom = createParamText(word, boundX, boundY);
@@ -319,7 +354,7 @@ public class Settings extends JPanel {
 
 
     add(createParamLabel("Starting Axiom", boundX, boundY));
-    add(createParamLabel("Starting Length", boundX, boundY + 25));
+    add(createParamLabel("Line Length", boundX, boundY + 25));
     add(createParamLabel("Starting Angle", boundX, boundY + 50));
     add(createParamLabel("Starting X co-ordinate", boundX, boundY + 75));
     add(createParamLabel("Starting Y co-ordinate", boundX, boundY + 100));
@@ -328,7 +363,6 @@ public class Settings extends JPanel {
     add(createParamLabel("X Rules", boundX, boundY + 175));
     add(createParamLabel("Y Rules", boundX, boundY + 200));
   }
-
 
   /**
    * Creates a JTextField with a given String and bounds.
@@ -359,6 +393,99 @@ public class Settings extends JPanel {
     axiomStringLabel.setBounds(boundX - 130, boundY, 150, 25);
 
     return axiomStringLabel;
+  }
+
+  /**
+   * Method to create checkboxes that enable TextFields if the user has ticked the box.
+   *
+   * @param changeRulesBox is the JCheckBox to be created.
+   * @param probsText is the TextField to be initialised if the box is ticked.
+   * @param valY is the y-coordinate for the box to be created on.
+   */
+  public void changeStochRulesButton(JCheckBox changeRulesBox, JTextField probsText, int valY) {
+    changeRulesBox.setFocusable(false);
+    changeRulesBox.setBounds((Initialise.frameWidth / 2) + 100, valY, 20, 25);
+    changeRulesBox.setEnabled(false);
+
+    changeRulesBox.addActionListener(e -> {
+      if (e.getSource() == changeRulesBox) {
+        probsText.setEnabled(changeRulesBox.isSelected());
+      }
+    });
+    add(changeRulesBox);
+  }
+
+  /**
+   * Method to call pollCustomRules if the user writes in the JTextField.
+   *
+   * @param rulesProbs is the TextField for the user to write into.
+   * @param rulesText is the TextField that contains the rules that the user types probabilities
+   *                  for.
+   * @param valY is the y co-ordinate for the JTextField to be initialised at.
+   * @param whichRule is the String which corresponds to the rule being changed.
+   */
+  public void newProbabilities(JTextField rulesProbs, JTextField rulesText, int valY,
+                               String whichRule) {
+    rulesProbs.setText("Input rule probabilities");
+    rulesProbs.setBounds((Initialise.frameWidth / 2) + 120, valY, 200, 25);
+    rulesProbs.setEnabled(false);
+    rulesProbs.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
+
+    rulesProbs.addActionListener(e -> pollCustomRules(rulesProbs, rulesText, whichRule));
+
+    add(rulesProbs);
+  }
+
+  /**
+   * Takes the custom rule probabilities assigned by the user and checks if they are valid, if they
+   * are it calls SettingsController to call Lindenmayer to apply the new rule probabilities.
+   *
+   * @param rulesProbs is the JTextField of rule probabilities
+   * @param rulesText is the JTextField of rules for the probabilities to be applied to.
+   * @param whichRule is the String of which rule is being used.
+   */
+  public void pollCustomRules(JTextField rulesProbs, JTextField rulesText, String whichRule) {
+    String[] ruleProbabilitiesString;
+    Double[] ruleProbabilitiesDub;
+    try {
+      ruleProbabilitiesString = rulesProbs.getText().split(",");
+      ruleProbabilitiesDub = new Double[ruleProbabilitiesString.length];
+      double totalNum = 0;
+      for (int i = 0; i < ruleProbabilitiesString.length; i++) {
+        ruleProbabilitiesDub[i] = Double.parseDouble(ruleProbabilitiesString[i]);
+        totalNum += ruleProbabilitiesDub[i];
+      }
+      try {
+        if (rulesProbs.getText().split(",").length != rulesText.getText().split(",").length) {
+          JOptionPane.showConfirmDialog(null, "You did not input one probability per rule",
+              "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        } else {
+          if (totalNum != 1) {
+            DecimalFormat df = new DecimalFormat("0.00");
+            df.format(totalNum);
+            for (Double formatDouble : ruleProbabilitiesDub) {
+              df.format(formatDouble);
+            }
+            for (int i = 0; i < ruleProbabilitiesDub.length; i++) {
+              ruleProbabilitiesDub[i] = ruleProbabilitiesDub[i] / totalNum;
+            }
+          }
+          setCont.linCustomRules(whichRule, rulesProbs.isEnabled(), ruleProbabilitiesDub);
+        }
+      } catch (NullPointerException c) {
+        System.out.println("NULL");
+      }
+    } catch (NumberFormatException c) {
+      System.out.println("NUMBER FORMAT");
+    }
+
   }
 
   /**
@@ -468,9 +595,7 @@ public class Settings extends JPanel {
   public void saveChangesButton() {
     JButton save = new JButton("Save Changes");
     save.setBounds((Initialise.frameWidth / 2) - 150, 750, 150, 50);
-    save.addActionListener(e -> {
-      saveChanges();
-    });
+    save.addActionListener(e -> saveChanges());
     add(save);
   }
 
@@ -507,9 +632,20 @@ public class Settings extends JPanel {
       System.out.println("Invalid Entry");
     }
 
-    setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY,
-        useStochAngles, minStochAngle, maxStochAngle);
+    pollCustomRules(drawRulesProbs, drawRulesText, "draw");
+    pollCustomRules(moveRulesProbs, moveRulesText, "move");
+    pollCustomRules(ecksRulesProbs, rulesTextX, "x");
+    pollCustomRules(whyRulesProbs, rulesTextY, "y");
 
+
+    if (centreSetTurtle) {
+      setCont.saveChanges(currentClass, newRatio, presetNum, true, (double)
+              Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2, useStochAngles,
+          minStochAngle, maxStochAngle);
+    } else {
+      setCont.saveChanges(currentClass, newRatio, presetNum, false, newCoordX, newCoordY,
+          useStochAngles, minStochAngle, maxStochAngle);
+    }
 
     if ((!newWord.equals(word) || newLength != length
         || newAngle != angle || newCoordX != coordX
@@ -517,8 +653,13 @@ public class Settings extends JPanel {
         || !Arrays.equals(newMoveRules, moveRules)
         || !Arrays.equals(newRulesX, rulesX)
         || !Arrays.equals(newRulesY, rulesY)) {
-      setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
-          newMoveRules, newRulesX, newRulesY);
+      if (centreSetTurtle) {
+        setCont.changeTurtleLin(newWord, newLength, newAngle, (double) Initialise.frameWidth / 2,
+            (double) Initialise.frameHeight / 2, newDrawRules, newMoveRules, newRulesX, newRulesY);
+      } else {
+        setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
+            newMoveRules, newRulesX, newRulesY);
+      }
     }
     setCont.init();
     updateAxioms();
@@ -543,8 +684,9 @@ public class Settings extends JPanel {
       initialiseParams();
       updateAxioms();
 
-      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle, newCoordX, newCoordY,
-          useStochAngles, minStochAngle, maxStochAngle);
+      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle,
+          (double) Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2, useStochAngles,
+          minStochAngle, maxStochAngle);
       initialiseParams();
       setCont.init();
 

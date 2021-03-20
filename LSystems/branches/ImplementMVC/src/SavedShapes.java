@@ -69,8 +69,6 @@ public class SavedShapes {
   public void presetsFromFile() {
     try {
       Scanner saver = new Scanner(new File("src\\SavedPresets"));
-      //new Scanner(Objects.requireNonNull(this.getClass().getClassLoader()
-      //.getResourceAsStream("SavedPresets")));
 
       while (saver.hasNextLine()) {
         String data = saver.nextLine();
@@ -292,30 +290,65 @@ public class SavedShapes {
     return presetNo;
   }
 
+  /**
+   * Sets the word to the given word.
+   *
+   * @param word is the word to be set to.
+   */
   public void setWord(String word) {
     this.word = word;
   }
 
+  /**
+   * Sets the length to the given length.
+   *
+   * @param length is the length to be set to.
+   */
   public void setLength(double length) {
     this.length = length;
   }
 
+  /**
+   * Sets the angle to the given angle.
+   *
+   * @param angle is the angle to be set to.
+   */
   public void setAngle(double angle) {
     this.angle = angle;
   }
 
+  /**
+   * Sets the drawRules to the given drawRules.
+   *
+   * @param drawRules is the drawRules to be set to.
+   */
   public void setDrawRules(String[] drawRules) {
     this.drawRules = drawRules;
   }
 
+  /**
+   * Sets the moveRules to the given moveRules.
+   *
+   * @param moveRules is the moveRules to be set to.
+   */
   public void setMoveRules(String[] moveRules) {
     this.moveRules = moveRules;
   }
 
+  /**
+   * Sets the rulesX to the given rulesX.
+   *
+   * @param rulesX is the rulesX to be set to.
+   */
   public void setRulesX(String[] rulesX) {
     this.rulesX = rulesX;
   }
 
+  /**
+   * Sets the rulesY to the given rulesY.
+   *
+   * @param rulesY is the rulesY to be set to.
+   */
   public void setRulesY(String[] rulesY) {
     this.rulesY = rulesY;
   }

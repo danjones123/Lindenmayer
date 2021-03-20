@@ -4,7 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 
 
 /**

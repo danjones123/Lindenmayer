@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 /**
  * Class for the SettingsController to call the Settings page.
+ *
+ * @author Daniel Jones.
  */
 public class SettingsController {
   Turtle turtle;
@@ -118,6 +120,19 @@ public class SettingsController {
     Initialise.initialiseNewerTurtleLinden(shapes, newCoordX, newCoordY);
 
     prod.customUpdate(shapes);
+  }
+
+  /**
+   * Method to take variables for giving custom production rules to Lindenmayer and passes them to
+   * Lindenmayer.
+   *
+   * @param ruleName is the rule array to be given custom values.
+   * @param enable is the boolean to say whether or not custom rules should be applied.
+   * @param newRatios is the double array of new ratios for the production rules.
+   */
+  public void linCustomRules(String ruleName, boolean enable, Double[] newRatios) {
+    linSys.setCustomRulesBool(enable);
+    linSys.customRuleProb(ruleName, newRatios);
   }
 
   /**
