@@ -12,11 +12,16 @@ public class Lindenmayer {
   private String[] moveRules;
   private String[] rulesX;
   private String[] rulesY;
+  private Double[] probDraw;
+  private Double[] probMove;
+  private Double[] probX;
+  private Double[] probY;
   boolean apply = false;
   double minAngle;
   double maxAngle;
   double lengthScaler = 1;
   Turtle turtle;
+  boolean customRulesBool = false;
 
 
   /**
@@ -78,22 +83,37 @@ public class Lindenmayer {
     for (int j = 0; j < iterations; j++) {
       for (int i = 0; i < nextWord.length(); i++) {
         char c = nextWord.charAt(i);
-        switch (c) {
-          case 'F' -> next.append(randomChar(drawRules));
-          case 'G' -> next.append(randomChar(moveRules));
-          case 'X' -> next.append(randomChar(rulesX));
-          case 'Y' -> next.append(randomChar(rulesY));
-          case '+', '-' -> {
-            angleVariance();
-            next.append(c);
+        if (customRulesBool) {
+          switch (c) {
+            case 'F' -> next.append(customRandChar(drawRules, probDraw));
+            case 'G' -> next.append(customRandChar(moveRules, probMove));
+            case 'X' -> next.append(customRandChar(rulesX, probX));
+            case 'Y' -> next.append(customRandChar(rulesY, probY));
+            case '+', '-' -> {
+              angleVariance();
+              next.append(c);
+            }
+            default -> next.append(c);
           }
-          default -> next.append(c);
+        } else {
+          switch (c) {
+            case 'F' -> next.append(randomChar(drawRules));
+            case 'G' -> next.append(randomChar(moveRules));
+            case 'X' -> next.append(randomChar(rulesX));
+            case 'Y' -> next.append(randomChar(rulesY));
+            case '+', '-' -> {
+              angleVariance();
+              next.append(c);
+            }
+            default -> next.append(c);
+          }
         }
       }
       nextWord = next.toString();
       next.setLength(0);
       changeRatio();
     }
+    System.out.println(nextWord);
     turtle.setWord(nextWord);
   }
 
@@ -150,6 +170,60 @@ public class Lindenmayer {
   }
 
   /**
+   * Takes the rule name and assigns the new rule probabilities to the local ones.
+   *
+   * @param ruleName is the name of the rule array being changed.
+   * @param newProbs is the new set of probabilities for the rules.
+   */
+  public void customRuleProb(String ruleName, Double[] newProbs) {
+    switch (ruleName) {
+      case "draw" -> probDraw = newProbs;
+      case "move" -> probMove = newProbs;
+      case "x" -> probX = newProbs;
+      case "y" -> probY = newProbs;
+      default -> System.out.println("Unknown rule");
+    }
+  }
+
+  /**
+   * Method that assigns a different rule to the L-system depending on the rule chances.
+   *
+   * @param rules is the string array of strings that can be chosen to replace the current
+   *              character.
+   * @param ruleProb is the probability that a given string is applied to character.
+   * @return returns the String that the current character will be appended by.
+   */
+  public String customRandChar(String[] rules, Double[] ruleProb) {
+    double cumulative = 0;
+    try {
+      if (ruleProb.length == rules.length) {
+        double randomPosition = Math.random();
+        for (int i = 0; i < ruleProb.length; i++) {
+
+          if (i == 0) {
+            if (randomPosition < ruleProb[0]) {
+              return rules[0];
+            }
+          } else if (i < ruleProb.length - 1) {
+            if (randomPosition > cumulative && randomPosition < ruleProb[i] + cumulative) {
+              return rules[i];
+            }
+          } else {
+            return rules[ruleProb.length - 1];
+          }
+          cumulative += ruleProb[i];
+        }
+      }
+    } catch (NullPointerException c) {
+      System.out.println("Null Pointer in CustomRandChar");
+      return randomChar(rules);
+    }
+    return randomChar(rules);
+  }
+
+
+
+  /**
    * Sets the drawing rules for the generation of new L-Systems.
    *
    * @param drawRules is the String array of rules for how the L-System should draw.
@@ -186,6 +260,24 @@ public class Lindenmayer {
   }
 
   /**
+   * Sets customRulesBool to true or false.
+   *
+   * @param bool is the boolean that customRulesBool is assigned to.
+   */
+  public void setCustomRulesBool(Boolean bool) {
+    this.customRulesBool = bool;
+  }
+
+  /**
+   * Sets the current class of the L-System.
+   *
+   * @param current is the number that the current class should be set to.
+   */
+  public void setCurrentClass(int current) {
+    this.currentClass = current;
+  }
+
+  /**
    * Getter for the array of drawing rules.
    *
    * @return returns the String array of drawing rules.
@@ -217,12 +309,5 @@ public class Lindenmayer {
     return rulesY;
   }
 
-  /**
-   * Sets the current class of the L-System.
-   *
-   * @param current is the number that the current class should be set to.
-   */
-  public void setCurrentClass(int current) {
-    this.currentClass = current;
-  }
+
 }
