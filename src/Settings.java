@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Scanner;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+
 
 
 /**
@@ -29,7 +32,6 @@ public class Settings extends JPanel {
   private int currentClass = 1;
   private int presetNum = 0;
   JComboBox<String> presets;
-  private boolean centreSetTurtle = true;
   boolean useStochAngles = false;
   String word;
   double length;
@@ -92,23 +94,43 @@ public class Settings extends JPanel {
     lengthRatioButtons();
     axiomBoxes();
     updateAxioms();
-    //saveChanges();
     stochAngleCheckBox();
     stochasticAngleMinMax();
-    centreTurtle();
     restoreDefault();
     saveNewPreset();
     saveChangesButton();
-    //deleteCurrent();
-    changeStochRulesButton(changeDrawRulesProb, drawRulesProbs, 325);
-    newProbabilities(drawRulesProbs, drawRulesText, 325, "draw");
-    changeStochRulesButton(changeMoveRulesProb, moveRulesProbs, 350);
-    newProbabilities(moveRulesProbs, moveRulesText, 350, "move");
-    changeStochRulesButton(changeEcksRulesProb, ecksRulesProbs, 375);
-    newProbabilities(ecksRulesProbs, rulesTextX, 375, "x");
-    changeStochRulesButton(changeWhyRulesProb, whyRulesProbs, 400);
-    newProbabilities(whyRulesProbs, rulesTextY, 400, "y");
+    deleteCurrent();
+    changeStochRulesButton(changeDrawRulesProb, drawRulesProbs, 350);
+    newProbabilities(drawRulesProbs, drawRulesText, 350, "draw");
+    changeStochRulesButton(changeMoveRulesProb, moveRulesProbs, 385);
+    newProbabilities(moveRulesProbs, moveRulesText, 385, "move");
+    changeStochRulesButton(changeEcksRulesProb, ecksRulesProbs, 420);
+    newProbabilities(ecksRulesProbs, rulesTextX, 420, "x");
+    changeStochRulesButton(changeWhyRulesProb, whyRulesProbs, 455);
+    newProbabilities(whyRulesProbs, rulesTextY, 455, "y");
+    createInfoBox("Customise the probabilities of each rule being applied by inputting a "
+        + "probability corresponding to each rule, separated by a comma. \n For example, '0.25, "
+        + "0.5, 0.25' for three rules where the middle one should have twice as much chance as the "
+        + "other two.", Initialise.frameWidth / 2 + 320, 465);
+  }
 
+  /**
+   * Class to create a popup infobox to explain what different buttons do.
+   *
+   * @param infoMessage Is the message to be displayed.
+   * @param valX is the x co-ordinates of the message box
+   * @param valY is the y co-ordinates of the message box
+   */
+  public void createInfoBox(String infoMessage, int valX, int valY) {
+    JButton infoButton = new JButton();
+    infoButton.setIcon(new ImageIcon("src\\redrawnQ.jpg"));
+    infoButton.setFocusable(false);
+    infoButton.setBounds(valX, valY, 18, 15);
+
+    infoButton.addActionListener(e -> JOptionPane.showMessageDialog(null, infoMessage, "INFO",
+        JOptionPane.INFORMATION_MESSAGE));
+
+    add(infoButton);
   }
 
   /**
@@ -144,6 +166,11 @@ public class Settings extends JPanel {
       changeWhyRulesProb.setEnabled(true);
     });
 
+    createInfoBox("Choose whether the current L-system will be deterministic or stochatic "
+        + "\n A deterministic class will always output the same end result"
+            + "\n A stochastic class can have randomness in the production rules or between the "
+            + "lines",
+        (Initialise.frameWidth / 2) + 150, 65);
     add(deterministic);
     add(stochastic);
   }
@@ -158,14 +185,16 @@ public class Settings extends JPanel {
 
     JLabel presetLabel = new JLabel("Choose Preset");
     presets = new JComboBox<>(presetNames);
-    presets.setBounds((Initialise.frameWidth / 2) - 50, 100, 150, 30);
-    presetLabel.setBounds((Initialise.frameWidth / 2) - 150, 100, 150, 30);
+    presets.setBounds((Initialise.frameWidth / 2) - 50, 125, 150, 30);
+    presetLabel.setBounds((Initialise.frameWidth / 2) - 150, 125, 150, 30);
 
     presets.addActionListener(e -> {
       if (e.getSource().equals(presets)) {
         presetNum = presets.getSelectedIndex();
       }
     });
+    createInfoBox("Choose from a variety of pre-made L-systems to autofill the required "
+        + "parameters.", (Initialise.frameWidth / 2) + 100, 140);
     add(presets);
     add(presetLabel);
   }
@@ -188,6 +217,7 @@ public class Settings extends JPanel {
         stringToBeFilled[i] = tokens[0];
         i++;
       }
+      savedNames.close();
     } catch (FileNotFoundException c) {
       System.out.println("File not found");
     }
@@ -211,6 +241,7 @@ public class Settings extends JPanel {
           presetCount++;
         }
       }
+      savedCounter.close();
     } catch (FileNotFoundException c) {
       System.out.println("File not found");
     }
@@ -221,8 +252,8 @@ public class Settings extends JPanel {
    * Method for creating the buttons for user input length ratio.
    */
   public void lengthRatioButtons() {
-    lengthRatio = new JTextField("Input length scalar", 10);
-    lengthRatio.setBounds((Initialise.frameWidth / 2) - 75, 150, 150, 25);
+    lengthRatio = new JTextField("Input length ratio", 10);
+    lengthRatio.setBounds((Initialise.frameWidth / 2) + 100, 210, 150, 25);
     lengthRatio.addFocusListener(new FocusAdapter() {
       @Override
       public void focusGained(FocusEvent e) {
@@ -231,6 +262,8 @@ public class Settings extends JPanel {
         source.removeFocusListener(this);
       }
     });
+    createInfoBox("Multiplies the length of the lines by the scalar so that the L-systems do not "
+        + "get too big for the screen.", (Initialise.frameWidth / 2) + 250, 219);
     add(lengthRatio);
   }
 
@@ -239,9 +272,8 @@ public class Settings extends JPanel {
    */
   public void stochAngleCheckBox() {
     stochAngle = new JCheckBox();
-    stochAngle.setText("Use Stochastic angles");
     stochAngle.setFocusable(false);
-    stochAngle.setBounds((Initialise.frameWidth / 2) - 150, 625, 300, 25);
+    stochAngle.setBounds((Initialise.frameWidth / 2) + 100, 245, 25, 25);
     stochAngle.setEnabled(false);
 
     stochAngle.addActionListener(e -> {
@@ -258,10 +290,10 @@ public class Settings extends JPanel {
    * Method for the user to input if they want stochastic angles.
    */
   public void stochasticAngleMinMax() {
-    minAngle = new JTextField("Input minimum angle", 10);
-    maxAngle = new JTextField("Input minimum angle", 10);
-    maxAngle.setBounds((Initialise.frameWidth / 2) - 150, 650, 150, 25);
-    minAngle.setBounds((Initialise.frameWidth / 2), 650, 150, 25);
+    minAngle = new JTextField("Min angle", 10);
+    maxAngle = new JTextField("Max angle", 10);
+    maxAngle.setBounds((Initialise.frameWidth / 2) + 225, 245, 100, 25);
+    minAngle.setBounds((Initialise.frameWidth / 2) + 125, 245, 100, 25);
     minAngle.setEnabled(false);
     maxAngle.setEnabled(false);
 
@@ -283,26 +315,10 @@ public class Settings extends JPanel {
       }
     });
 
+    createInfoBox("Input a minimum and maximum value for the angle that will be randomly chosen "
+        + "from between the min and max.", (Initialise.frameWidth / 2) + 325, 255);
     add(minAngle);
     add(maxAngle);
-  }
-
-  /**
-   * Method to toggle centring the turtle in the screen.
-   */
-  public void centreTurtle() {
-    JCheckBox centreTurtle = new JCheckBox();
-    centreTurtle.setText("Centre turtle");
-    centreTurtle.setFocusable(false);
-    centreTurtle.setBounds((Initialise.frameWidth / 2), 500, 150, 25);
-
-    centreTurtle.setSelected(true);
-    centreTurtle.addActionListener(e -> {
-      if (e.getSource() == centreTurtle) {
-        centreSetTurtle = centreTurtle.isSelected();
-      }
-    });
-    add(centreTurtle);
   }
 
   /**
@@ -311,57 +327,65 @@ public class Settings extends JPanel {
    */
   public void axiomBoxes() {
     int boundX = (Initialise.frameWidth / 2) - 200;
-    int boundY = 200;
+    int boundY = 175;
 
     wordAxiom = createParamText(word, boundX, boundY);
     newWord = wordAxiom.getText();
     add(wordAxiom);
 
-    lengthAxiom = createParamText(Double.toString(length), boundX, boundY + 25);
+    lengthAxiom = createParamText(Double.toString(length), boundX, boundY + 35);
     newLength = Double.parseDouble(lengthAxiom.getText());
     add(lengthAxiom);
 
-    angleAxiom = createParamText(Double.toString(angle), boundX, boundY + 50);
+    angleAxiom = createParamText(Double.toString(angle), boundX, boundY + 70);
     newAngle = Double.parseDouble(angleAxiom.getText());
     add(angleAxiom);
 
-    coordAxiomX = createParamText(Double.toString(coordX), boundX, boundY + 75);
+    coordAxiomX = createParamText(Double.toString(coordX), boundX, boundY + 105);
     newCoordX = Double.parseDouble(coordAxiomX.getText());
     add(coordAxiomX);
 
-    coordAxiomY = createParamText(Double.toString(coordY), boundX, boundY + 100);
+    coordAxiomY = createParamText(Double.toString(coordY), boundX, boundY + 140);
     newCoordY = Double.parseDouble(coordAxiomY.getText());
     add(coordAxiomY);
 
     drawRulesText =  createParamText((Arrays.toString(this.drawRules)), boundX,
-        boundY + 125);
+        boundY + 175);
     newDrawRules = drawRulesText.getText().split(",");
     add(drawRulesText);
 
     moveRulesText = createParamText((Arrays.toString(this.moveRules)), boundX,
-        boundY + 150);
+        boundY + 210);
     newMoveRules = moveRulesText.getText().split(",");
     add(moveRulesText);
 
-    rulesTextX = createParamText((Arrays.toString(this.rulesX)), boundX, boundY + 175);
+    rulesTextX = createParamText((Arrays.toString(this.rulesX)), boundX, boundY + 245);
     newRulesX = rulesTextX.getText().split(",");
     add(rulesTextX);
 
-    rulesTextY = createParamText((Arrays.toString(this.rulesY)), boundX, boundY + 200);
+    rulesTextY = createParamText((Arrays.toString(this.rulesY)), boundX, boundY + 280);
     newRulesY = rulesTextY.getText().split(",");
     add(rulesTextY);
 
-
+    createInfoBox("This program works by drawing fractals and Lindenmayer systems based on the "
+        + "words it is given. \nF tells the program to draw a line of the given length. \nG tells "
+        + "the program to move by the given length but not draw a line. \nX and Y create nodes for "
+        + "node rewriting.  \nThe starting axiom is the initial word and the rules rewrite the "
+        + "current words. \nLength is the length of the lines the program will draw. \nAngle "
+        + "is the angle between the lines being created.\n '+' and '-' correspond to a clockwise "
+            + "or anticlockwise application of the angle.\nDrawing rules replace the F character"
+        + " with the string they hold, as does moving rules with G, and x and y rules with X "
+        + "and Y.", boundX + 300, boundY + 9);
 
     add(createParamLabel("Starting Axiom", boundX, boundY));
-    add(createParamLabel("Line Length", boundX, boundY + 25));
-    add(createParamLabel("Starting Angle", boundX, boundY + 50));
-    add(createParamLabel("Starting X co-ordinate", boundX, boundY + 75));
-    add(createParamLabel("Starting Y co-ordinate", boundX, boundY + 100));
-    add(createParamLabel("Drawing Rules", boundX, boundY + 125));
-    add(createParamLabel("Moving Rules", boundX, boundY + 150));
-    add(createParamLabel("X Rules", boundX, boundY + 175));
-    add(createParamLabel("Y Rules", boundX, boundY + 200));
+    add(createParamLabel("Line Length", boundX, boundY + 35));
+    add(createParamLabel("Starting Angle", boundX, boundY + 75));
+    add(createParamLabel("Starting X co-ordinate", boundX, boundY + 105));
+    add(createParamLabel("Starting Y co-ordinate", boundX, boundY + 140));
+    add(createParamLabel("Drawing Rules", boundX, boundY + 175));
+    add(createParamLabel("Moving Rules", boundX, boundY + 210));
+    add(createParamLabel("X Rules", boundX, boundY + 245));
+    add(createParamLabel("Y Rules", boundX, boundY + 280));
   }
 
   /**
@@ -547,7 +571,7 @@ public class Settings extends JPanel {
    */
   public void saveNewPreset() {
     JButton saveNew = new JButton("Save New Preset");
-    saveNew.setBounds(325, 425, 150, 25);
+    saveNew.setBounds(310, 490, 180, 25);
     saveNew.addActionListener(e -> {
       saveChanges();
       String name = JOptionPane.showInputDialog("Input preset name", null);
@@ -555,6 +579,8 @@ public class Settings extends JPanel {
         if (setCont.newPreset(name)) {
           presets.addItem(name);
           presets.setSelectedIndex(presetArrLength);
+          addPresetName(name);
+          presetArrLength++;
           saveChanges();
         } else {
           JOptionPane.showConfirmDialog(null, "This preset already exists",
@@ -562,32 +588,68 @@ public class Settings extends JPanel {
         }
       }
     });
+    createInfoBox("Saves a new preset with the current parameters for future use.", 490, 500);
     add(saveNew);
   }
 
-  /*public void deleteCurrent() {
+  /**
+   * Increases the length of presetNames by 1 and adds the newName to the array.
+   *
+   * @param name is the newName to be added.
+   */
+  public void addPresetName(String name) {
+    String[] newName = Arrays.copyOf(presetNames, presetNames.length + 1);
+    newName[presetNames.length] = name;
+    presetNames = Arrays.copyOf(newName, newName.length);
+  }
+
+  /**
+   * Deletes the currently selected Preset.
+   */
+  public void deleteCurrent() {
     JButton deletePreset = new JButton("Delete Selected Preset");
-    deletePreset.setBounds(475, 425, 175, 25);
+    deletePreset.setBounds(310, 515, 180, 25);
     deletePreset.addActionListener(e -> {
       saveChanges();
-      int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete");
+      int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently "
+          + "delete " + presetNames[presets.getSelectedIndex()] + "? \nThis action cannot be "
+          + "undone.");
       System.out.println(option);
       if (option == 0) {
-        setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
-      }
-      /*try {
-        //setCont.newPreset(name);
-        //presets.addItem(name);
-        //presets.setSelectedIndex(presetArrLength);
-        saveChanges();
-      } catch (IOException ioException) {
-        ioException.printStackTrace();
+        try {
+          System.out.println(presets.getSelectedIndex());
+          String name = presetNames[presets.getSelectedIndex()];
+          setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
+          presets.removeItem(name);
+          removePresetName(name);
+          presets.setSelectedIndex(0);
+          presetArrLength--;
+          restoreDefault();
+          saveChanges();
+        } catch (IndexOutOfBoundsException c) {
+          JOptionPane.showConfirmDialog(null, "There was an error finding this preset.",
+              "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        }
       }
     });
+    createInfoBox("Permanently deletes the selected preset from the preset list", 490, 525);
     add(deletePreset);
   }
-    */
 
+  /**
+   * Removes the current name from the presetNames array and decreases its length by 1.
+   *
+   * @param name Is the name to be removed from the array.
+   */
+  public void removePresetName(String name) {
+    String[] removeName = new String[presetNames.length - 1];
+    for (int i = 0, j = 0; i < presetNames.length; i++) {
+      if (!presetNames[i].equals(name)) {
+        removeName[j++] = presetNames[i];
+      }
+    }
+    presetNames = Arrays.copyOf(removeName, removeName.length);
+  }
 
   /**
    * Button for calling the methods in save changes.
@@ -614,6 +676,7 @@ public class Settings extends JPanel {
       minStochAngle = Double.parseDouble(minAngle.getText());
       maxStochAngle = Double.parseDouble(maxAngle.getText());
     }  catch (NumberFormatException c) {
+      useStochAngles = false;
       minStochAngle = newAngle;
       maxStochAngle = newAngle;
     }
@@ -637,15 +700,9 @@ public class Settings extends JPanel {
     pollCustomRules(ecksRulesProbs, rulesTextX, "x");
     pollCustomRules(whyRulesProbs, rulesTextY, "y");
 
+    setCont.saveChanges(currentClass, newRatio, presetNum, newCoordX, newCoordY,
+        useStochAngles, minStochAngle, maxStochAngle);
 
-    if (centreSetTurtle) {
-      setCont.saveChanges(currentClass, newRatio, presetNum, true, (double)
-              Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2, useStochAngles,
-          minStochAngle, maxStochAngle);
-    } else {
-      setCont.saveChanges(currentClass, newRatio, presetNum, false, newCoordX, newCoordY,
-          useStochAngles, minStochAngle, maxStochAngle);
-    }
 
     if ((!newWord.equals(word) || newLength != length
         || newAngle != angle || newCoordX != coordX
@@ -653,13 +710,8 @@ public class Settings extends JPanel {
         || !Arrays.equals(newMoveRules, moveRules)
         || !Arrays.equals(newRulesX, rulesX)
         || !Arrays.equals(newRulesY, rulesY)) {
-      if (centreSetTurtle) {
-        setCont.changeTurtleLin(newWord, newLength, newAngle, (double) Initialise.frameWidth / 2,
-            (double) Initialise.frameHeight / 2, newDrawRules, newMoveRules, newRulesX, newRulesY);
-      } else {
-        setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
-            newMoveRules, newRulesX, newRulesY);
-      }
+      setCont.changeTurtleLin(newWord, newLength, newAngle, newCoordX, newCoordY, newDrawRules,
+          newMoveRules, newRulesX, newRulesY);
     }
     setCont.init();
     updateAxioms();
@@ -673,18 +725,40 @@ public class Settings extends JPanel {
     restoreDefault.setBounds((Initialise.frameWidth / 2), 750, 150, 50);
     restoreDefault.addActionListener(e -> {
       newRatio = 1;
+      lengthRatio.setText("Input length ratio");
       currentClass = 1;
       presetNum = 0;
-      centreSetTurtle = true;
       useStochAngles = false;
       presets.setSelectedIndex(0);
+
       stochAngle.setEnabled(false);
+      stochAngle.setSelected(false);
       minAngle.setEnabled(false);
       maxAngle.setEnabled(false);
+      minAngle.setText("Min angle");
+      maxAngle.setText("Max angle");
+
+      changeDrawRulesProb.setEnabled(false);
+      changeDrawRulesProb.setSelected(false);
+      changeMoveRulesProb.setEnabled(false);
+      changeMoveRulesProb.setSelected(false);
+      changeEcksRulesProb.setEnabled(false);
+      changeEcksRulesProb.setSelected(false);
+      changeWhyRulesProb.setEnabled(false);
+      changeWhyRulesProb.setSelected(false);
+      drawRulesProbs.setText("Input rule probabilities");
+      drawRulesProbs.setEnabled(false);
+      moveRulesProbs.setText("Input rule probabilities");
+      moveRulesProbs.setEnabled(false);
+      ecksRulesProbs.setText("Input rule probabilities");
+      ecksRulesProbs.setEnabled(false);
+      whyRulesProbs.setText("Input rule probabilities");
+      whyRulesProbs.setEnabled(false);
+
       initialiseParams();
       updateAxioms();
 
-      setCont.saveChanges(currentClass, newRatio, presetNum, centreSetTurtle,
+      setCont.saveChanges(currentClass, newRatio, presetNum,
           (double) Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2, useStochAngles,
           minStochAngle, maxStochAngle);
       initialiseParams();

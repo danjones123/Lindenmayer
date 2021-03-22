@@ -58,9 +58,9 @@ public class SettingsController {
   /**
    * Updates the l-sys and turtle for any changes that have been made in the settings page.
    */
-  public void saveChanges(int currentClass, double newRatio, int presetNum,
-                          boolean centreSetTurtle, double newCoordX, double newCoordY,
-                          boolean useStochAngle, double minAngle, double maxAngle) {
+  public void saveChanges(int currentClass, double newRatio, int presetNum, double newCoordX,
+                          double newCoordY, boolean useStochAngle, double minAngle,
+                          double maxAngle) {
     linSys.setCurrentClass(currentClass);
     linSys.stochAngle(useStochAngle, minAngle, maxAngle);
     linSys.setLengthRatio(newRatio);
@@ -73,7 +73,6 @@ public class SettingsController {
 
     prod.update();
 
-    butCont.setCentreTurtle(centreSetTurtle);
     butCont.externalReset();
   }
 
@@ -149,11 +148,15 @@ public class SettingsController {
     }
   }
 
-  /*public void deletePreset(String name) {
+  /**
+   * Calls shapes with a given name to delete the entry with that name.
+   *
+   * @param name is the name to be deleted.
+   */
+  public void deletePreset(String name) {
     shapes.deleteEntry(name);
   }
 
-   */
 
   /**
    * Returns the word variable.
