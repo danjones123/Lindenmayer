@@ -69,7 +69,7 @@ public class Lindenmayer {
       nextWord = next.toString();
       System.out.println(nextWord);
       next.setLength(0);
-      changeRatio();
+      changeLengthRatio();
     }
     turtle.setWord(nextWord);
   }
@@ -111,7 +111,7 @@ public class Lindenmayer {
       }
       nextWord = next.toString();
       next.setLength(0);
-      changeRatio();
+      changeLengthRatio();
     }
     System.out.println(nextWord);
     turtle.setWord(nextWord);
@@ -153,13 +153,13 @@ public class Lindenmayer {
   /**
    * Sets the length to the current length multiplied by the length scalar.
    */
-  public void changeRatio() {
+  public void changeLengthRatio() {
     turtle.setLength(turtle.getLength() * lengthScaler);
   }
 
 
   /**
-   * Class for returning random char form a given array.
+   * Class for returning random char from a given array.
    *
    * @param rules is the array of rules given
    * @return returns a random element from the array.
@@ -215,7 +215,6 @@ public class Lindenmayer {
         }
       }
     } catch (NullPointerException c) {
-      System.out.println("Null Pointer in CustomRandChar");
       return randomChar(rules);
     }
     return randomChar(rules);

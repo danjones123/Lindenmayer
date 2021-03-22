@@ -24,4 +24,5 @@ ecks And Why Stochastic/ ---YYY, 50, 30/ F[+F]F[-F]F, F[+F]F, F[-F]F/ / X[-FFF][
 Multiple Rules/ F+F+F+F, 10, 90/ FF, F--F, F++F-F/ GFG, GGGFFFGGG, GG/ X[-FFF][+FFF]FX, F[+X][-X]FX, F+[[X]-X]-F[-FX]+X/ -XF+YFY+FX-, YFX[+Y][-Y]/
 octobocto/ F+F+F+F+F+F+F+F, 10.0, 45.0/ FF+FF/ GG/ / /
 improved Sparse/ F-F-F-F, 1.0, 90.0/ FF-F--FF-F/ G/ / /
-big ting/ F+F, 10.0, 60.0/ F--F--F--G/ GG/ / /
+Opposing sierpinski/ F+F, 10.0, 60.0/ F--F--F--G/ GG/ / /
+Simple Stoch/ F, 10.0, 60.0/ FFF, F+F, F-F/ GG/ / /

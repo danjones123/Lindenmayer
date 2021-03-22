@@ -144,11 +144,14 @@ public class ButtonsController {
    * @param thisTurtle is the turtle to be drawn.
    */
   public void singleDraw(Turtle thisTurtle) {
+    if (painting.centreSetTurtle) {
+      thisTurtle.setCoords((double) Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2);
+    }
     thisTurtle.resetHighLow();
     thisTurtle.resetBearing();
     painting.clear();
     thisTurtle.rules();
-    if (centreTurtle) {
+    if (painting.centreSetTurtle) {
       thisTurtle.resetBearing();
       thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
       previousTurtle.setCoords(prevStartingCoordX, prevStartingCoordY);
@@ -167,6 +170,9 @@ public class ButtonsController {
    * @param previousTurtle is the previous iteration of the main turtle.
    */
   public void doubleDraw(Turtle thisTurtle, Turtle previousTurtle) {
+    if (painting.centreSetTurtle) {
+      thisTurtle.setCoords((double) Initialise.frameWidth / 2, (double) Initialise.frameHeight / 2);
+    }
     thisTurtle.resetHighLow();
     thisTurtle.resetBearing();
     previousTurtle.resetHighLow();
@@ -174,7 +180,7 @@ public class ButtonsController {
     painting.clear();
     thisTurtle.rules();
     previousTurtle.rules();
-    if (centreTurtle) {
+    if (painting.centreSetTurtle) {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
       thisTurtle.centre(Initialise.frameWidth, Initialise.frameHeight);
@@ -200,15 +206,4 @@ public class ButtonsController {
     updatePrevTurtle();
     painting.clear();
   }
-
-  /**
-   * Sets the value of centreTurtle to true or false to decide if the turtle should always be
-   * centred or should grow from its starting co-ordinates.
-   *
-   * @param centreTurtle is the boolean for centring the turtle
-   */
-  public void setCentreTurtle(boolean centreTurtle) {
-    this.centreTurtle = centreTurtle;
-  }
-
 }

@@ -151,13 +151,30 @@ public class ButtonsControllerTest {
     assertTrue(button.drawPrev);
   }
 
-  /**
-   * Tests that setCentreTurtle sets the centreTurtle to the correct value.
-   */
+
+
   @Test
-  public void setCentreTurtle() {
-    assertTrue(button.centreTurtle);
-    button.setCentreTurtle(false);
-    assertFalse(button.centreTurtle);
+  public void testExternalReset() {
+    turtle.setWord("FGF");
+    turtle.setLength(10);
+    turtle.setAngle(90);
+    turtle.setCoords(100, 100);
+    turtle.saveStartingTurtle();
+    String[] drawRules = {"FFF"};
+    String[] moveRules = {"GG"};
+    String[] rulesX = {"XFF"};
+    String[] rulesY = {"YFY"};
+    linSysDet.setDrawRules(drawRules);
+    linSysDet.setMoveRules(moveRules);
+    linSysDet.setRulesX(rulesX);
+    linSysDet.setRulesY(rulesY);
+    button.turtleInit(turtle, linSysDet);
+    button.buttonPressed(0, "gg");
+
+    assertEquals("FFFFFFFFFGGGGFFFFFFFFF", turtle.getWord());
+
+    button.externalReset();
+
+    assertEquals("FGF", turtle.getWord());
   }
 }

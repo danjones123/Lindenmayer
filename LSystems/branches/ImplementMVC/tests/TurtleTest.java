@@ -527,4 +527,15 @@ public class TurtleTest {
     assertEquals(30, turtle.highestCoordX, 1e-10);
     assertEquals(30, turtle.highestCoordY, 1e-10);
   }
+
+  @Test
+  public void testResetStack() {
+    turtle.setWord("FFF");
+    turtle.setLength(10);
+    turtle.setAngle(90);
+    turtle.pushTurtle();
+    assertFalse(turtle.turtleStack.isEmpty());
+    turtle.resetStack();
+    assertTrue(turtle.turtleStack.isEmpty());
+  }
 }

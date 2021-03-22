@@ -1,7 +1,10 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -86,7 +89,6 @@ public class SavedShapes {
       saver.close();
     } catch (FileNotFoundException c) {
       System.out.println("File not found");
-
     }
   }
 
@@ -128,7 +130,7 @@ public class SavedShapes {
     if (!testDuplicate(word, drawRules, moveRules, rulesX, rulesY)) {
       try {
         String newPreset = ("\n" + name + "/ " + word + ", " + length + ", " + angle + "/ "
-            + draw + "/ " + move + "/ " + presetX + "/ " + presetY + "/ ");
+            + draw + "/ " + move + "/ " + presetX + "/ " + presetY + "/");
         String filename = "src\\SavedPresets";
         FileWriter fw = new FileWriter(filename, true);
         fw.write(newPreset);
@@ -173,40 +175,75 @@ public class SavedShapes {
       String[] splitY =  tokens[5].split(",");
       if (word.equals(axiomSplit[0]) && Arrays.equals(splitF, draw) && Arrays.equals(splitG, move)
           && Arrays.equals(splitX, rulesX) && Arrays.equals(splitY, rulesY)) {
+        saver.close();
         return true;
       }
     }
+    saver.close();
     return false;
   }
 
-  /*public void deleteEntry(String name) {
+  /**
+   * Deletes the entry which has the name given.
+   *
+   * @param name is the name of the entry to be deleted.
+   */
+  public void deleteEntry(String name) {
     try {
-      File original = new File("src\\SavedShapes");
-      File tempFile = new File(original.getAbsolutePath() + ".tmp");
 
+      File original = new File("C:\\Users\\i_lik\\IdeaProjects\\MVCWork\\src\\SavedPresets");
+      File tempFile = new File(original.getAbsolutePath() + ".tmp");
+      Scanner findFile = new Scanner(original);
+      String deleting = null;
+      while (findFile.hasNextLine()) {
+
+        String data = findFile.nextLine();
+        String[] tokens = data.split("/");
+        String findLine = tokens[0];
+        if (findLine.equals(name)) {
+          deleting = data;
+        }
+      }
+      findFile.close();
+      
       BufferedReader reader = new BufferedReader(new FileReader(original));
       PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
 
       String line;
-
+      int newCounter = 0;
       while ((line = reader.readLine()) != null) {
-        if(!line.equals(name)) {
-          writer.println(line);
-          writer.flush();
-        }
-      }
-      reader.close();
-      writer.close();
+        String trimmedLine = line.trim();
 
-      //original.delete();
-      //tempFile.renameTo(original);
+        if (trimmedLine.equals(deleting)) {
+          continue;
+        }
+
+        if (newCounter == 0) {
+          writer.write(line);
+        } else {
+          writer.write("\n" + line);
+        }
+        newCounter++;
+      }
+
+
+      writer.close();
+      reader.close();
+
+      boolean deleted = original.delete();
+      boolean successful = tempFile.renameTo(original);
+
+      System.out.println("Deleted: " + deleted);
+      System.out.println("Renamed: " + successful);
     } catch (Exception c) {
       System.out.println("ERROR");
     }
-
+    shapes.clear();
+    presetsFromFile();
+    presetNo = 0;
+    update();
   }
 
-   */
 
   /**
    * Gets the word for the turtle.

@@ -1,8 +1,6 @@
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for the Lindenmayer class.
@@ -45,17 +43,23 @@ public class LindenmayerTest {
   }
 
   /**
-   * Test for setting and getting the generation and move rules.
+   * Test for setting and getting the generation, move, X and Y rules.
    */
   @Test
   public void testSetGetGenRules() {
     String[] drawRules = {"FFF"};
     String[] moveRules = {"GGG"};
+    String[] rulesX = {"XXX"};
+    String[] rulesY = {"YYY"};
     linSysDet.setDrawRules(drawRules);
     linSysDet.setMoveRules(moveRules);
+    linSysDet.setRulesX(rulesX);
+    linSysDet.setRulesY(rulesY);
+
     assertArrayEquals(linSysDet.getDrawRules(), drawRules);
     assertArrayEquals(linSysDet.getMoveRules(), moveRules);
-
+    assertArrayEquals(linSysDet.getRulesX(), rulesX);
+    assertArrayEquals(linSysDet.getRulesY(), rulesY);
   }
 
   /**
@@ -104,6 +108,23 @@ public class LindenmayerTest {
     linSysDet.setMoveRules(moveRules);
     linSysDet.generate(1);
     assertEquals("FFGGFF", turtle.getWord());
+  }
+
+  @Test
+  public void testAllRulesInGen() {
+    turtle.setWord("FGXYF");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] drawRules = {"FF"};
+    String[] moveRules = {"GG"};
+    String[] rulesX = {"XX"};
+    String[] rulesY = {"YY"};
+    linSysDet.setDrawRules(drawRules);
+    linSysDet.setMoveRules(moveRules);
+    linSysDet.setRulesX(rulesX);
+    linSysDet.setRulesY(rulesY);
+    linSysDet.generate(1);
+    assertEquals("FFGGXXYYFF", turtle.getWord());
   }
 
   /**
@@ -315,7 +336,139 @@ public class LindenmayerTest {
   public void testLengthChanger() {
     turtle.setLength(100);
     linSysStoch.setLengthRatio(0.5);
-    linSysStoch.changeRatio();
+    linSysStoch.changeLengthRatio();
     assertEquals(50, turtle.getLength(), 1e-10);
+  }
+
+  @Test
+  public void testSetCustomRulesBool() {
+    assertFalse(linSysStoch.customRulesBool);
+    linSysStoch.setCustomRulesBool(true);
+    assertTrue(linSysStoch.customRulesBool);
+  }
+
+  @Test
+  public void testRandRules() {
+    turtle.setWord("FGXY");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    turtle.saveStartingTurtle();
+    String[] drawRules = {"A", "B", "C"};
+    String[] moveRules = {"E", "H", "I"};
+    String[] rulesX = {"K", "L", "M"};
+    String[] rulesY = {"O", "P", "Q"};
+    linSysStoch.setDrawRules(drawRules);
+    linSysStoch.setMoveRules(moveRules);
+    linSysStoch.setRulesX(rulesX);
+    linSysStoch.setRulesY(rulesY);
+    linSysStoch.setCurrentClass(2);
+
+    linSysStoch.generate(1);
+
+    for (int i = 0; i < 1000; i++) {
+      turtle.reset();
+      linSysStoch.generate(1);
+      if (!turtle.getWord().equals("AEKO") && !turtle.getWord().equals("AEKP")
+          && !turtle.getWord().equals("AEKQ") && !turtle.getWord().equals("AELO")
+          && !turtle.getWord().equals("AELP") && !turtle.getWord().equals("AELQ")
+          && !turtle.getWord().equals("AEMO") && !turtle.getWord().equals("AEMP")
+          && !turtle.getWord().equals("AEMQ") && !turtle.getWord().equals("AHKO")
+          && !turtle.getWord().equals("AHKP") && !turtle.getWord().equals("AHKQ")
+          && !turtle.getWord().equals("AHLO") && !turtle.getWord().equals("AHLP")
+          && !turtle.getWord().equals("AHLQ") && !turtle.getWord().equals("AHMO")
+          && !turtle.getWord().equals("AHMP") && !turtle.getWord().equals("AHMQ")
+          && !turtle.getWord().equals("AIKO") && !turtle.getWord().equals("AIKP")
+          && !turtle.getWord().equals("AIKQ") && !turtle.getWord().equals("AILO")
+          && !turtle.getWord().equals("AILP") && !turtle.getWord().equals("AILQ")
+          && !turtle.getWord().equals("AIMO") && !turtle.getWord().equals("AIMP")
+          && !turtle.getWord().equals("AIMQ") && !turtle.getWord().equals("BEKO")
+          && !turtle.getWord().equals("BEKP") && !turtle.getWord().equals("BEKQ")
+          && !turtle.getWord().equals("BELO") && !turtle.getWord().equals("BELP")
+          && !turtle.getWord().equals("BELQ") && !turtle.getWord().equals("BEMO")
+          && !turtle.getWord().equals("BEMP") && !turtle.getWord().equals("BEMQ")
+          && !turtle.getWord().equals("BHKO") && !turtle.getWord().equals("BHKP")
+          && !turtle.getWord().equals("BHKQ") && !turtle.getWord().equals("BHLO")
+          && !turtle.getWord().equals("BHLP") && !turtle.getWord().equals("BHLQ")
+          && !turtle.getWord().equals("BHMO") && !turtle.getWord().equals("BHMP")
+          && !turtle.getWord().equals("BHMQ") && !turtle.getWord().equals("BIKO")
+          && !turtle.getWord().equals("BIKP") && !turtle.getWord().equals("BIKQ")
+          && !turtle.getWord().equals("BILO") && !turtle.getWord().equals("BILP")
+          && !turtle.getWord().equals("BILQ") && !turtle.getWord().equals("BIMO")
+          && !turtle.getWord().equals("BIMP") && !turtle.getWord().equals("BIMQ")
+          && !turtle.getWord().equals("CEKO") && !turtle.getWord().equals("CEKP")
+          && !turtle.getWord().equals("CEKQ") && !turtle.getWord().equals("CELO")
+          && !turtle.getWord().equals("CELP") && !turtle.getWord().equals("CELQ")
+          && !turtle.getWord().equals("CEMO") && !turtle.getWord().equals("CEMP")
+          && !turtle.getWord().equals("CEMQ") && !turtle.getWord().equals("CHKO")
+          && !turtle.getWord().equals("CHKP") && !turtle.getWord().equals("CHKQ")
+          && !turtle.getWord().equals("CHLO") && !turtle.getWord().equals("CHLP")
+          && !turtle.getWord().equals("CHLQ") && !turtle.getWord().equals("CHMO")
+          && !turtle.getWord().equals("CHMP") && !turtle.getWord().equals("CHMQ")
+          && !turtle.getWord().equals("CIKO") && !turtle.getWord().equals("CIKP")
+          && !turtle.getWord().equals("CIKQ") && !turtle.getWord().equals("CILO")
+          && !turtle.getWord().equals("CILP") && !turtle.getWord().equals("CILQ")
+          && !turtle.getWord().equals("CIMO") && !turtle.getWord().equals("CIMP")
+          && !turtle.getWord().equals("CIMQ")) {
+        fail();
+      }
+      System.out.println(i);
+    }
+  }
+
+  @Test
+  public void testCustomRules() {
+    turtle.setWord("FGXY");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    turtle.saveStartingTurtle();
+    String[] drawRules = {"A", "B", "C"};
+    String[] moveRules = {"E", "H", "I"};
+    String[] rulesX = {"K", "L", "M"};
+    String[] rulesY = {"O", "P", "Q"};
+    linSysStoch.setDrawRules(drawRules);
+    linSysStoch.setMoveRules(moveRules);
+    linSysStoch.setRulesX(rulesX);
+    linSysStoch.setRulesY(rulesY);
+    linSysStoch.setCurrentClass(2);
+
+    linSysStoch.setCustomRulesBool(true);
+    linSysStoch.customRuleProb("draw", new Double[]{0.0, 1.0, 0.0});
+
+    linSysStoch.generate(1);
+
+    for (int i = 0; i < 1000; i++) {
+      turtle.reset();
+      linSysStoch.generate(1);
+      if (turtle.getWord().equals("AEKO") || turtle.getWord().equals("AEKP")
+          || turtle.getWord().equals("AEKQ") || turtle.getWord().equals("AELO")
+          || turtle.getWord().equals("AELP") || turtle.getWord().equals("AELQ")
+          || turtle.getWord().equals("AEMO") || turtle.getWord().equals("AEMP")
+          || turtle.getWord().equals("AEMQ") || turtle.getWord().equals("AHKO")
+          || turtle.getWord().equals("AHKP") || turtle.getWord().equals("AHKQ")
+          || turtle.getWord().equals("AHLO") || turtle.getWord().equals("AHLP")
+          || turtle.getWord().equals("AHLQ") || turtle.getWord().equals("AHMO")
+          || turtle.getWord().equals("AHMP") || turtle.getWord().equals("AHMQ")
+          || turtle.getWord().equals("AIKO") || turtle.getWord().equals("AIKP")
+          || turtle.getWord().equals("AIKQ") || turtle.getWord().equals("AILO")
+          || turtle.getWord().equals("AILP") || turtle.getWord().equals("AILQ")
+          || turtle.getWord().equals("AIMO") || turtle.getWord().equals("AIMP")
+          || turtle.getWord().equals("AIMQ") || turtle.getWord().equals("CEKO")
+          || turtle.getWord().equals("CEKP") || turtle.getWord().equals("CEKQ")
+          || turtle.getWord().equals("CELO") || turtle.getWord().equals("CELP")
+          || turtle.getWord().equals("CELQ") || turtle.getWord().equals("CEMO")
+          || turtle.getWord().equals("CEMP") || turtle.getWord().equals("CEMQ")
+          || turtle.getWord().equals("CHKO") || turtle.getWord().equals("CHKP")
+          || turtle.getWord().equals("CHKQ") || turtle.getWord().equals("CHLO")
+          || turtle.getWord().equals("CHLP") || turtle.getWord().equals("CHLQ")
+          || turtle.getWord().equals("CHMO") || turtle.getWord().equals("CHMP")
+          || turtle.getWord().equals("CHMQ") || turtle.getWord().equals("CIKO")
+          || turtle.getWord().equals("CIKP") || turtle.getWord().equals("CIKQ")
+          || turtle.getWord().equals("CILO") || turtle.getWord().equals("CILP")
+          || turtle.getWord().equals("CILQ") || turtle.getWord().equals("CIMO")
+          || turtle.getWord().equals("CIMP") || turtle.getWord().equals("CIMQ")) {
+        fail();
+      }
+      System.out.println(i);
+    }
   }
 }
