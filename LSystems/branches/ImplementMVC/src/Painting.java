@@ -4,8 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 
 /**
@@ -17,7 +16,6 @@ public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
   boolean drawCentreLines;
   boolean centreSetTurtle = true;
-  //boolean play = false;
 
   /**
    * Constructor for display sets the background color to white.
@@ -27,7 +25,6 @@ public class Painting extends JPanel {
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
     drawCentreLines();
     centreTurtle();
-    //loadingGif();
   }
 
 
@@ -120,13 +117,5 @@ public class Painting extends JPanel {
     lines.clear();
     repaint();
   }
-
-  /*
-  public void loadingGif() {
-    ImageIcon loading = new ImageIcon("ajax-loader.gif");
-    add(new JLabel("loading... ", loading, JLabel.CENTER));
-  }
-
-   */
 }
 

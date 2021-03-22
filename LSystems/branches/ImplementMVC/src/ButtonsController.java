@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Controller for the buttons that can be pressed on the main drawing screen.
@@ -66,7 +67,6 @@ public class ButtonsController {
    */
   public void buttonPressed(int buttonKey, String lastTwo) {
     if (buttonKey == 0) { //Generate
-      //painting.loadingGif();
       switch (lastTwo) {
         case ("uu"), ("gu") -> {
           iterations++;
