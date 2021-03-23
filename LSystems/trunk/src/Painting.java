@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-
 /**
- * The Display class to create the display.
+ * The Painting class to create the display of the Drawing class.
  *
  * @author Daniel Jones.
  */
 public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
   boolean drawCentreLines;
+  boolean centreSetTurtle = true;
 
   /**
    * Constructor for display sets the background color to white.
@@ -23,8 +23,10 @@ public class Painting extends JPanel {
   public Painting() {
     setBackground(Color.WHITE);
     setPreferredSize(new Dimension(Initialise.frameWidth, Initialise.frameHeight));
-    drawCentre();
+    drawCentreLines();
+    centreTurtle();
   }
+
 
   /**
    * Overrides paintComponent and tells it to print the co-ordinates from lines when they are
@@ -37,15 +39,11 @@ public class Painting extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-
-
-
     if (drawCentreLines) {
       g.setColor(Color.RED);
       g.drawLine(0, Initialise.frameHeight / 2, Initialise.frameWidth, Initialise.frameHeight / 2);
       g.drawLine(Initialise.frameWidth / 2, 0, Initialise.frameWidth / 2, Initialise.frameHeight);
     }
-
 
     g.setColor(Color.BLACK);
 
@@ -73,7 +71,7 @@ public class Painting extends JPanel {
   /**
    * Method for checking if the user would like the centre lines drawn.
    */
-  public void drawCentre() {
+  public void drawCentreLines() {
     JCheckBox centreLineCheckBox = new JCheckBox();
     centreLineCheckBox.setText("Show centre lines");
     centreLineCheckBox.setFocusable(false);
@@ -85,6 +83,24 @@ public class Painting extends JPanel {
       }
     });
     add(centreLineCheckBox);
+  }
+
+  /**
+   * Method to toggle centring the turtle in the screen.
+   */
+  public void centreTurtle() {
+    JCheckBox centreTurtle = new JCheckBox();
+    centreTurtle.setText("Centre turtle");
+    centreTurtle.setFocusable(false);
+    centreTurtle.setBounds((Initialise.frameWidth / 2) + 200, 750, 150, 25);
+
+    centreTurtle.setSelected(true);
+    centreTurtle.addActionListener(e -> {
+      if (e.getSource() == centreTurtle) {
+        centreSetTurtle = centreTurtle.isSelected();
+      }
+    });
+    add(centreTurtle);
   }
 
   /**
@@ -102,4 +118,6 @@ public class Painting extends JPanel {
     repaint();
   }
 }
+
+
 
