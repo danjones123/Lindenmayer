@@ -11,7 +11,6 @@ public class SettingsController {
   SavedShapes shapes;
   ButtonsController butCont;
   ProductionsController prod;
-
   private String word;
   private double length;
   private double angle;

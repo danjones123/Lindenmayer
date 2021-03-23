@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.concurrent.ExecutorService;
 
 /**
  * Controller for the buttons that can be pressed on the main drawing screen.

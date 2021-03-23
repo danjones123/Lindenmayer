@@ -42,6 +42,7 @@ public class ProductionsController {
     movingPanel(shapes.getMoveRules(), shapes.getAngle());
     panelX(shapes.getRulesX(), shapes.getAngle());
     panelY(shapes.getRulesY(), shapes.getAngle());
+
     showProductions();
   }
 
@@ -161,6 +162,7 @@ public class ProductionsController {
     turtle.setAngle(angle);
     prodQueue(rules, queue);
     turtle.setWord(nextQueue(queue));
+
     turtle.setCoords(startX, startY);
 
     turtle.rules();
@@ -228,7 +230,6 @@ public class ProductionsController {
   public void prodQueue(String[] rules, Queue<String> queue) {
     int ruleNum = rules.length;
     queue.addAll(Arrays.asList(rules).subList(0, ruleNum));
-
   }
 
   /**
