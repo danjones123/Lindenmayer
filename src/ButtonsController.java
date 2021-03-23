@@ -17,7 +17,6 @@ public class ButtonsController {
   String[] rulesY;
   double prevStartingCoordX;
   double prevStartingCoordY;
-  boolean centreTurtle = true;
   private int iterations = 1;
   boolean drawPrev = false;
 
@@ -98,7 +97,6 @@ public class ButtonsController {
           linSys.generate(iterations);
         }
       }
-      //painting.loadingGif();
     } else if (buttonKey == 1) { //Undo
       if (iterations > 1) {
         switch (lastTwo) {

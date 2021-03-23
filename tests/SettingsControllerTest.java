@@ -58,7 +58,6 @@ public class SettingsControllerTest {
     assertEquals(1, linSys.currentClass);
     assertEquals(0.5, linSys.lengthScaler, 1e-10);
     assertEquals(5, shapes.getPresetNo());
-    assertFalse(butCont.centreTurtle);
 
   }
 

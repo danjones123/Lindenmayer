@@ -40,7 +40,6 @@ public class Initialise extends JFrame {
     Buttons buttonPanel = new Buttons(buttonsController);
     buttonsController.turtleInit(turtle, linSys);
 
-
     JPanel mainPanel = new JPanel(false);
     mainPanel.add(painting);
     mainPanel.add(buttonPanel, BorderLayout.SOUTH);
