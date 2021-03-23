@@ -31,7 +31,6 @@ public class SavedShapes {
   String[] shapeY;
   private int presetNo = 0;
 
-
   /**
    * Constructor for saved shapes which initialises the arrayList and sets the values in
    * SavedShapes to the current int.
@@ -46,24 +45,32 @@ public class SavedShapes {
    * Initialises and updates the rules and axioms with the current preset number.
    */
   public void update() {
-    shape = shapes.get(getPresetNo());
-    this.word = shape[0][0];
-    this.length = Double.parseDouble(shape[0][1]);
-    this.angle = Double.parseDouble(shape[0][2]);
-    shapeDraw = new String[shape[1].length];
-    shapeMove = new String[shape[2].length];
-    shapeX = new String[shape[3].length];
-    shapeY = new String[shape[4].length];
+    try {
+      shape = shapes.get(getPresetNo());
+      this.word = shape[0][0];
+      this.length = Double.parseDouble(shape[0][1]);
+      this.angle = Double.parseDouble(shape[0][2]);
+      shapeDraw = new String[shape[1].length];
+      shapeMove = new String[shape[2].length];
+      shapeX = new String[shape[3].length];
+      shapeY = new String[shape[4].length];
 
-    System.arraycopy(shape[1], 0, shapeDraw, 0, shape[1].length);
-    System.arraycopy(shape[2], 0, shapeMove, 0, shape[2].length);
-    System.arraycopy(shape[3], 0, shapeX, 0, shape[3].length);
-    System.arraycopy(shape[4], 0, shapeY, 0, shape[4].length);
+      System.arraycopy(shape[1], 0, shapeDraw, 0, shape[1].length);
+      System.arraycopy(shape[2], 0, shapeMove, 0, shape[2].length);
+      System.arraycopy(shape[3], 0, shapeX, 0, shape[3].length);
+      System.arraycopy(shape[4], 0, shapeY, 0, shape[4].length);
 
-    drawRules = shapeDraw;
-    moveRules = shapeMove;
-    rulesX = shapeX;
-    rulesY = shapeY;
+      drawRules = shapeDraw;
+      moveRules = shapeMove;
+      rulesX = shapeX;
+      rulesY = shapeY;
+    } catch (IndexOutOfBoundsException c) {
+      System.out.println("Index out of bounds");
+      if (shapes.size() == 0) {
+        remakeSavedShapes();
+      }
+      //JOptionPane.showMessageDialog(null, "NO MORE SHAPES");
+    }
   }
 
   /**
@@ -191,7 +198,7 @@ public class SavedShapes {
   public void deleteEntry(String name) {
     try {
 
-      File original = new File("C:\\Users\\i_lik\\IdeaProjects\\MVCWork\\src\\SavedPresets");
+      File original = new File("src\\SavedPresets");
       File tempFile = new File(original.getAbsolutePath() + ".tmp");
       Scanner findFile = new Scanner(original);
       String deleting = null;
@@ -242,6 +249,40 @@ public class SavedShapes {
     presetsFromFile();
     presetNo = 0;
     update();
+  }
+
+  /**
+   * If every single shape is deleted, this method remakes all of them from a copy file.
+   */
+  public void remakeSavedShapes() {
+    try {
+      File savedShapes = new File("src\\SavedPresets");
+      File copy = new File("src\\SavedPresetsCopy");
+
+      BufferedReader reader = new BufferedReader(new FileReader(copy));
+      PrintWriter writer = new PrintWriter(new FileWriter(savedShapes));
+
+      String line;
+      int newCounter = 0;
+      while ((line = reader.readLine()) != null) {
+        if (newCounter == 0) {
+          writer.write(line);
+        } else {
+          writer.write("\n" + line);
+        }
+        newCounter++;
+      }
+      writer.close();
+
+      shapes.clear();
+      presetsFromFile();
+      presetNo = 0;
+      update();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found! " + c);
+    } catch (IOException c) {
+      c.printStackTrace();
+    }
   }
 
 
