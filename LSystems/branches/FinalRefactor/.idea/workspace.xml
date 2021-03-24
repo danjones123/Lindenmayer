@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="FinalRefactor:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d73f54c1-4d7b-4bd4-830c-b46e2258f9a4" name="Default Changelist" comment="" />
+    <list default="true" id="d73f54c1-4d7b-4bd4-830c-b46e2258f9a4" name="Default Changelist" comment="Merged from Trunk into the FinalRefactor Branch.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Lindenmayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Lindenmayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresets" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SavedShapes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SavedShapes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Turtle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Turtle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lindenmayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lindenmayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedPresets" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedPresets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SettingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="UML Sequence" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1q8mi4eN0U3eCEEFmCdXzYlmU9f" />
   <component name="ProjectViewState">
@@ -13,13 +38,18 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultPlantUmlFileTemplate" value="UML Sequence" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Checkout" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Uni/Comp Sci/Third Year/LSystems/Final Report" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="org.infernus.idea.checkstyle.CheckStyleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -75,6 +105,22 @@
       <option name="presentableId" value="Default" />
       <updated>1616469714290</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merged from Trunk into the FinalRefactor Branch.">
+      <created>1616469936873</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616469936873</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merged from Trunk into the FinalRefactor Branch." />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged from Trunk into the FinalRefactor Branch." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

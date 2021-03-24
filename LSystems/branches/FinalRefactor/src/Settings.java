@@ -2,11 +2,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
-import java.util.Scanner;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,22 +28,22 @@ public class Settings extends JPanel {
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
-  JComboBox<String> presets;
-  boolean useStochAngles = false;
-  String word;
-  double length;
-  double angle;
-  double coordX;
-  double coordY;
-  String[] drawRules;
-  String[] moveRules;
-  String[] rulesX;
-  String[] rulesY;
-  String newWord;
-  double newLength;
-  double newAngle;
-  double newCoordX;
-  double newCoordY;
+  private JComboBox<String> presets;
+  private boolean useStochAngles = false;
+  private String word;
+  private double length;
+  private double angle;
+  private double coordX;
+  private double coordY;
+  private String[] drawRules;
+  private String[] moveRules;
+  private String[] rulesX;
+  private String[] rulesY;
+  private String newWord;
+  private double newLength;
+  private double newAngle;
+  private double newCoordX;
+  private double newCoordY;
   private String[] newDrawRules;
   private String[] newMoveRules;
   private String[] newRulesX;
@@ -62,12 +59,12 @@ public class Settings extends JPanel {
   private JTextField rulesTextY;
   private JTextField lengthRatio;
   private int presetArrLength = 0;
-  String[] presetNames;
-  JCheckBox stochAngle;
-  JTextField minAngle;
-  JTextField maxAngle;
-  double minStochAngle = newAngle;
-  double maxStochAngle = newAngle;
+  private String[] presetNames;
+  private JCheckBox stochAngle;
+  private JTextField minAngle;
+  private JTextField maxAngle;
+  private double minStochAngle = newAngle;
+  private double maxStochAngle = newAngle;
   JCheckBox changeDrawRulesProb = new JCheckBox();
   JCheckBox changeMoveRulesProb = new JCheckBox();
   JCheckBox changeEcksRulesProb = new JCheckBox();
@@ -179,9 +176,9 @@ public class Settings extends JPanel {
    * Method that creates a dropdown list of the possible presets for the user to choose from.
    */
   public void presetBox() {
-    presetArrLength = presetNumber();
+    presetArrLength = setCont.presetNumber();
     presetNames = new String[presetArrLength];
-    fillPresets(presetNames);
+    setCont.fillPresets(presetNames);
 
     JLabel presetLabel = new JLabel("Choose Preset");
     presets = new JComboBox<>(presetNames);
@@ -199,54 +196,6 @@ public class Settings extends JPanel {
     add(presetLabel);
   }
 
-  /**
-   * Fills the presets array with the presets from savedShapes.
-   *
-   * @param stringToBeFilled is the array of names for the presetNames.
-   */
-  public void fillPresets(String[] stringToBeFilled) {
-    Scanner savedNames;
-    try {
-      savedNames = new Scanner(new File("src\\SavedPresets"));
-      int i = 0;
-
-      savedNames.reset();
-      while (savedNames.hasNextLine()) {
-        String data = savedNames.nextLine();
-        String[] tokens = data.split("/");
-        stringToBeFilled[i] = tokens[0];
-        i++;
-      }
-      savedNames.close();
-    } catch (FileNotFoundException c) {
-      System.out.println("File not found");
-    }
-  }
-
-  /**
-   * Method that gives the number of presets that need to be displayed in the list to prevent lots
-   * of nulls from being displayed.
-   *
-   * @return returns the number of presets in the saved file.
-   */
-  public int presetNumber() {
-    Scanner savedCounter;
-    int presetCount = 0;
-    try {
-      savedCounter = new Scanner(new File("src\\SavedPresets"));
-      while (savedCounter.hasNextLine()) {
-        String data = savedCounter.nextLine();
-        String[] tokens = data.split("/");
-        if (tokens[0] != null) {
-          presetCount++;
-        }
-      }
-      savedCounter.close();
-    } catch (FileNotFoundException c) {
-      System.out.println("File not found");
-    }
-    return presetCount;
-  }
 
   /**
    * Method for creating the buttons for user input length ratio.
