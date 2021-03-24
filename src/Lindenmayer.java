@@ -67,7 +67,6 @@ public class Lindenmayer {
         }
       }
       nextWord = next.toString();
-      System.out.println(nextWord);
       next.setLength(0);
       changeLengthRatio();
     }

@@ -197,13 +197,11 @@ public class SavedShapes {
    */
   public void deleteEntry(String name) {
     try {
-
       File original = new File("src\\SavedPresets");
       File tempFile = new File(original.getAbsolutePath() + ".tmp");
       Scanner findFile = new Scanner(original);
       String deleting = null;
       while (findFile.hasNextLine()) {
-
         String data = findFile.nextLine();
         String[] tokens = data.split("/");
         String findLine = tokens[0];
@@ -212,15 +210,13 @@ public class SavedShapes {
         }
       }
       findFile.close();
-      
+
       BufferedReader reader = new BufferedReader(new FileReader(original));
       PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
-
       String line;
       int newCounter = 0;
       while ((line = reader.readLine()) != null) {
         String trimmedLine = line.trim();
-
         if (trimmedLine.equals(deleting)) {
           continue;
         }
@@ -232,14 +228,10 @@ public class SavedShapes {
         }
         newCounter++;
       }
-
-
       writer.close();
       reader.close();
-
       boolean deleted = original.delete();
       boolean successful = tempFile.renameTo(original);
-
       System.out.println("Deleted: " + deleted);
       System.out.println("Renamed: " + successful);
     } catch (Exception c) {

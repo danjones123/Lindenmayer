@@ -312,9 +312,8 @@ public class Turtle {
 
   /**
    * Class to centre the turtle drawing in the frame.
-   * It does this by adjusting the start of the turtle by the offset
-   * from the starting co-ordinate to the midpoint and the offset from
-   * the midpoint of the drawing to the midpoint of the frame.
+   * It does this by adjusting the start of the turtle by the offset from the starting co-ordinate
+   * to the midpoint and the offset from the midpoint of the drawing to the midpoint of the frame.
    */
   public void centre(double frameWidth, double frameHeight) {
     double middleX = (highestCoordX + lowestCoordX) / 2;
@@ -329,6 +328,7 @@ public class Turtle {
     double offsetFromMidFrameToMidCoordX = frameMidX - middleX;
     double offsetFromMidFrameToMidCoordY = frameMidY - middleY;
 
+    //Works out new X coordinate
     if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX > 0) {
       this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
     } else if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX < 0) {
@@ -339,6 +339,7 @@ public class Turtle {
       this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
     }
 
+    //Works out new Y coordinate
     if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY > 0) {
       this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
     } else if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY < 0) {

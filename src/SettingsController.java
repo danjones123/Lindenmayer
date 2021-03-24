@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Class for the SettingsController to call the Settings page.
@@ -154,6 +157,56 @@ public class SettingsController {
    */
   public void deletePreset(String name) {
     shapes.deleteEntry(name);
+  }
+
+
+  /**
+   * Fills the presets array with the presets from savedShapes.
+   *
+   * @param stringToBeFilled is the array of names for the presetNames.
+   */
+  public void fillPresets(String[] stringToBeFilled) {
+    Scanner savedNames;
+    try {
+      savedNames = new Scanner(new File("src\\SavedPresets"));
+      int i = 0;
+
+      savedNames.reset();
+      while (savedNames.hasNextLine()) {
+        String data = savedNames.nextLine();
+        String[] tokens = data.split("/");
+        stringToBeFilled[i] = tokens[0];
+        i++;
+      }
+      savedNames.close();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
+    }
+  }
+
+  /**
+   * Method that gives the number of presets that need to be displayed in the list to prevent lots
+   * of nulls from being displayed.
+   *
+   * @return returns the number of presets in the saved file.
+   */
+  public int presetNumber() {
+    Scanner savedCounter;
+    int presetCount = 0;
+    try {
+      savedCounter = new Scanner(new File("src\\SavedPresets"));
+      while (savedCounter.hasNextLine()) {
+        String data = savedCounter.nextLine();
+        String[] tokens = data.split("/");
+        if (tokens[0] != null) {
+          presetCount++;
+        }
+      }
+      savedCounter.close();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
+    }
+    return presetCount;
   }
 
 
