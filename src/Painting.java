@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  */
 public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
-  boolean drawCentreLines;
+  private boolean drawCentreLines;
   boolean centreSetTurtle = true;
 
   /**

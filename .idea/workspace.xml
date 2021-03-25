@@ -6,19 +6,37 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d73f54c1-4d7b-4bd4-830c-b46e2258f9a4" name="Default Changelist" comment="Merged from Trunk into the FinalRefactor Branch.">
+    <list default="true" id="d73f54c1-4d7b-4bd4-830c-b46e2258f9a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Buttons.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Buttons.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/ButtonsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/ButtonsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Initialise.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Initialise.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Lindenmayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Lindenmayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Painting.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Painting.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/ProductionsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/ProductionsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresets" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresetsCopy" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SavedPresetsCopy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SavedShapes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SavedShapes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Settings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Settings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/SettingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/SettingsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FinalRefactor/Turtle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FinalRefactor/Turtle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Initialise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initialise.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lindenmayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lindenmayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Painting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Painting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductionsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SavedPresets" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedPresets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedPresetsCopy" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedPresetsCopy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SavedShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SettingsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/ProductionsControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ProductionsControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +69,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in FinalRefactor">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="FinalRefactor" />
@@ -67,10 +85,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProductionsControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinalRefactor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductionsControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in FinalRefactor" />
+        <item itemvalue="JUnit.ProductionsControllerTest" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -112,12 +140,27 @@
       <option name="project" value="LOCAL" />
       <updated>1616469936873</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactored the fillPresets and presetNumber methods into the Controller rather than being in the View.">
+      <created>1616615660910</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616615660910</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merged from Trunk into the FinalRefactor Branch." />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged from Trunk into the FinalRefactor Branch." />
+    <MESSAGE value="Refactored the fillPresets and presetNumber methods into the Controller rather than being in the View." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored the fillPresets and presetNumber methods into the Controller rather than being in the View." />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Turtle" memberName="coordY" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

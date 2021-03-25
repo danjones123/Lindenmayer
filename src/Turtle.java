@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -375,12 +376,16 @@ public class Turtle {
    * Pops the top turtle off the stack and sets the main turtle to its parameters.
    */
   public void popTurtle() {
-    String[] popTurtle = turtleStack.pop();
-    word = popTurtle[0];
-    length = Double.parseDouble(popTurtle[1]);
-    angle = Double.parseDouble(popTurtle[2]);
-    coordX = Double.parseDouble(popTurtle[3]);
-    coordY = Double.parseDouble(popTurtle[4]);
+    try {
+      String[] popTurtle = turtleStack.pop();
+      word = popTurtle[0];
+      length = Double.parseDouble(popTurtle[1]);
+      angle = Double.parseDouble(popTurtle[2]);
+      coordX = Double.parseDouble(popTurtle[3]);
+      coordY = Double.parseDouble(popTurtle[4]);
+    } catch (NoSuchElementException c) {
+      System.out.println("No Element Found " + c);
+    }
   }
 
   /**

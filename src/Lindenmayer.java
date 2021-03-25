@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class Lindenmayer {
   int currentClass = 1;
-  int iterations;
+  private int iterations;
   private String[] drawRules;
   private String[] moveRules;
   private String[] rulesX;
@@ -16,9 +16,9 @@ public class Lindenmayer {
   private Double[] probMove;
   private Double[] probX;
   private Double[] probY;
-  boolean apply = false;
-  double minAngle;
-  double maxAngle;
+  private boolean apply = false;
+  private double minAngle;
+  private double maxAngle;
   double lengthScaler = 1;
   Turtle turtle;
   boolean customRulesBool = false;
@@ -112,7 +112,6 @@ public class Lindenmayer {
       next.setLength(0);
       changeLengthRatio();
     }
-    System.out.println(nextWord);
     turtle.setWord(nextWord);
   }
 
