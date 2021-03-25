@@ -64,7 +64,7 @@ public class SettingsController {
                           double newCoordY, boolean useStochAngle, double minAngle,
                           double maxAngle) {
     linSys.setCurrentClass(currentClass);
-    linSys.stochAngle(useStochAngle, minAngle, maxAngle);
+    turtle.stochAngleMethod(useStochAngle, minAngle, maxAngle);
     linSys.setLengthRatio(newRatio);
 
 

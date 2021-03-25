@@ -1,9 +1,6 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Test class for testing the Turtle class.
@@ -446,7 +443,7 @@ public class TurtleTest {
     turtle.resetHighLow();
     turtle.resetBearing();
     turtle.rules();
-    assertEquals((double) ((Initialise.frameHeight) / 2), turtle.startingCoordX, 1e-10);
+    assertEquals((double) (Initialise.frameHeight) / 2, turtle.startingCoordX, 1e-10);
     assertEquals((double) ((Initialise.frameHeight) / 2) + 5, turtle.startingCoordY, 1e-10);
     assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
     assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
@@ -537,5 +534,19 @@ public class TurtleTest {
     assertFalse(turtle.turtleStack.isEmpty());
     turtle.resetStack();
     assertTrue(turtle.turtleStack.isEmpty());
+  }
+
+  /**
+   * Tests that stochAngle sets angles within the correct range.
+   */
+  @Test
+  public void testAngleSetting() {
+    turtle.setAngle(100);
+    turtle.stochAngleMethod(true, 25, 45);
+    turtle.rotate(turtle.getAngle());
+    System.out.println(turtle.getAngle());
+    if (turtle.currAngle < Math.toRadians(25) || turtle.currAngle > Math.toRadians(46)) {
+      fail();
+    }
   }
 }

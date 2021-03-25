@@ -16,9 +16,6 @@ public class Lindenmayer {
   private Double[] probMove;
   private Double[] probX;
   private Double[] probY;
-  private boolean apply = false;
-  private double minAngle;
-  private double maxAngle;
   double lengthScaler = 1;
   Turtle turtle;
   boolean customRulesBool = false;
@@ -88,10 +85,6 @@ public class Lindenmayer {
             case 'G' -> next.append(customRandChar(moveRules, probMove));
             case 'X' -> next.append(customRandChar(rulesX, probX));
             case 'Y' -> next.append(customRandChar(rulesY, probY));
-            case '+', '-' -> {
-              angleVariance();
-              next.append(c);
-            }
             default -> next.append(c);
           }
         } else {
@@ -100,10 +93,6 @@ public class Lindenmayer {
             case 'G' -> next.append(randomChar(moveRules));
             case 'X' -> next.append(randomChar(rulesX));
             case 'Y' -> next.append(randomChar(rulesY));
-            case '+', '-' -> {
-              angleVariance();
-              next.append(c);
-            }
             default -> next.append(c);
           }
         }
@@ -115,29 +104,7 @@ public class Lindenmayer {
     turtle.setWord(nextWord);
   }
 
-  /**
-   * Class for taking a user-defined range of angles for the lines to be drawn at.
-   *
-   * @param apply boolean to check if the user wants to use stochastic angles.
-   * @param minAngle the minimum angle in the range.
-   * @param maxAngle the maximum angle in the range.
-   */
-  public void stochAngle(boolean apply, double minAngle, double maxAngle) {
-    this.apply = apply;
-    this.minAngle = minAngle;
-    this.maxAngle = maxAngle;
-  }
 
-  /**
-   * Checks whether apply is true or false, if it is true it creates a random angle between the
-   * limits and sets angle to that value.
-   */
-  public void angleVariance() {
-    if (apply) {
-      double randomAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
-      turtle.setAngle(randomAngle);
-    }
-  }
 
   /**
    * Sets the lengthScalar to the given amount.
