@@ -32,6 +32,9 @@ public class Turtle {
   double highestCoordY = 0;
   double startingCoordX;
   double startingCoordY;
+  private boolean stochAngle = false;
+  private double minAngle;
+  private double maxAngle;
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
@@ -264,8 +267,33 @@ public class Turtle {
    * @param angle is the angle to rotate the coordinates.
    */
   public void rotate(double angle) {
-    currAngle += Math.toRadians(angle);
+    if (!stochAngle) {
+      System.out.println(angle);
+      currAngle += Math.toRadians(angle);
+    } else {
+      if (angle >= 0) {
+        currAngle += Math.toRadians(Math.random() * (maxAngle - minAngle + 1) + minAngle);
+      } else {
+        currAngle += Math.toRadians(-(Math.random() * (maxAngle - minAngle + 1) + minAngle));
+      }
+    }
   }
+
+  /**
+   * Class for taking a user-defined range of angles for the lines to be drawn at.
+   *
+   * @param stochAngle boolean to check if the user wants to use stochastic angles.
+   * @param minAngle the minimum angle in the range.
+   * @param maxAngle the maximum angle in the range.
+   */
+  public void stochAngleMethod(boolean stochAngle, double minAngle, double maxAngle) {
+    this.stochAngle = stochAngle;
+    this.minAngle = minAngle;
+    this.maxAngle = maxAngle;
+  }
+
+
+
 
   /**
    * Creates a Point object with the coordinates taken at the time the [ is used and then pushes

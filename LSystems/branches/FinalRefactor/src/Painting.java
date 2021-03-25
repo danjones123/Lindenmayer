@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * The Painting class to create the display of the Drawing class.
@@ -16,7 +17,6 @@ public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
   private boolean drawCentreLines;
   boolean centreSetTurtle = true;
-
   /**
    * Constructor for display sets the background color to white.
    */
