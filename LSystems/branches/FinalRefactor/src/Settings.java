@@ -441,7 +441,7 @@ public class Settings extends JPanel {
               "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         } else {
           if (totalNum != 1) {
-            DecimalFormat df = new DecimalFormat("0.00");
+            DecimalFormat df = new DecimalFormat("0.000");
             df.format(totalNum);
             for (Double formatDouble : ruleProbabilitiesDub) {
               df.format(formatDouble);
@@ -453,12 +453,11 @@ public class Settings extends JPanel {
           setCont.linCustomRules(whichRule, rulesProbs.isEnabled(), ruleProbabilitiesDub);
         }
       } catch (NullPointerException c) {
-        System.out.println("NULL");
+        System.out.println("NULL Exception" + c);
       }
     } catch (NumberFormatException c) {
-      System.out.println("NUMBER FORMAT");
+      System.out.println("NUMBER FORMAT Exception " + c);
     }
-
   }
 
   /**
@@ -563,10 +562,8 @@ public class Settings extends JPanel {
       int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently "
           + "delete " + presetNames[presets.getSelectedIndex()] + "? \nThis action cannot be "
           + "undone.");
-      System.out.println(option);
       if (option == 0) {
         try {
-          System.out.println(presets.getSelectedIndex());
           String name = presetNames[presets.getSelectedIndex()];
           setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
           presets.removeItem(name);
@@ -644,10 +641,18 @@ public class Settings extends JPanel {
       System.out.println("Invalid Entry");
     }
 
-    pollCustomRules(drawRulesProbs, drawRulesText, "draw");
-    pollCustomRules(moveRulesProbs, moveRulesText, "move");
-    pollCustomRules(ecksRulesProbs, rulesTextX, "x");
-    pollCustomRules(whyRulesProbs, rulesTextY, "y");
+    if (drawRulesProbs.isEnabled()) {
+      pollCustomRules(drawRulesProbs, drawRulesText, "draw");
+    }
+    if (moveRulesProbs.isEnabled()) {
+      pollCustomRules(moveRulesProbs, moveRulesText, "move");
+    }
+    if (ecksRulesProbs.isEnabled()) {
+      pollCustomRules(ecksRulesProbs, rulesTextX, "x");
+    }
+    if (whyRulesProbs.isEnabled()) {
+      pollCustomRules(whyRulesProbs, rulesTextY, "y");
+    }
 
     setCont.saveChanges(currentClass, newRatio, presetNum, newCoordX, newCoordY,
         useStochAngles, minStochAngle, maxStochAngle);

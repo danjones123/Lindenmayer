@@ -59,9 +59,7 @@ public class Initialise extends JFrame {
     JPanel settingsTab = new JPanel(false);
     settingsTab.add(settings);
 
-
-
-
+    
     JTabbedPane tabs = new JTabbedPane();
     tabs.addTab("Drawing", mainPanel);
     tabs.addTab("Productions", productionsTab);

@@ -16,13 +16,13 @@ import java.util.Scanner;
  * @author Daniel Jones.
  */
 public class SavedShapes {
-  String word;
-  double length;
-  double angle;
-  String[] drawRules;
-  String[] moveRules;
-  String[] rulesX;
-  String[] rulesY;
+  private String word;
+  private double length;
+  private double angle;
+  private String[] drawRules;
+  private String[] moveRules;
+  private String[] rulesX;
+  private String[] rulesY;
   ArrayList<String[][]> shapes = new ArrayList<>();
   String[][] shape;
   String[] shapeDraw;
@@ -65,7 +65,7 @@ public class SavedShapes {
       rulesX = shapeX;
       rulesY = shapeY;
     } catch (IndexOutOfBoundsException c) {
-      System.out.println("Index out of bounds");
+      System.out.println("Index out of bounds Exception");
       if (shapes.size() == 0) {
         remakeSavedShapes();
       }
@@ -91,11 +91,10 @@ public class SavedShapes {
         String[] splitY = tokens[5].split(",");
         String[][] newPreset = {axiomSplit, splitF, splitG, splitX, splitY};
         shapes.add(newPreset);
-        System.out.println(tokens[0]);
       }
       saver.close();
     } catch (FileNotFoundException c) {
-      System.out.println("File not found");
+      System.out.println("File not found Exception");
     }
   }
 
@@ -235,7 +234,7 @@ public class SavedShapes {
       System.out.println("Deleted: " + deleted);
       System.out.println("Renamed: " + successful);
     } catch (Exception c) {
-      System.out.println("ERROR");
+      System.out.println("ERROR in Delete Entry");
     }
     shapes.clear();
     presetsFromFile();

@@ -180,7 +180,7 @@ public class SettingsController {
       }
       savedNames.close();
     } catch (FileNotFoundException c) {
-      System.out.println("File not found");
+      System.out.println("File not found Exception " + c);
     }
   }
 
@@ -204,7 +204,7 @@ public class SettingsController {
       }
       savedCounter.close();
     } catch (FileNotFoundException c) {
-      System.out.println("File not found");
+      System.out.println("File not found Exception " + c);
     }
     return presetCount;
   }
