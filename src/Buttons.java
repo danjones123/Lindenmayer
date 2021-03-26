@@ -5,35 +5,43 @@ import javax.swing.JPanel;
 
 
 /**
- * The Buttons class creates the button panel and calls the ButtonController when a given button
- * is pressed.
+ * The Buttons class creates the button panel and assigns the action to be performed when a
+ * given button is pressed.
  *
  * @author Daniel Jones
  */
 public class Buttons extends JPanel implements ActionListener {
-  ButtonsController butCont;
+  Turtle turtle;
+  String[] drawRules;
+  String[] moveRules;
+  private final Display display;
+  private int iterations = 1;
   TwoQueue tq = new TwoQueue();
 
 
   /**
-   * Constructor for Button which takes the ButtonController as a parameter.
+   * Initialises the local turtle as the turtle from main and the generation rules as those from
+   * main as well. Also initialises the queue.
+   *
+   * @param turtle is the turtle that is initialised in main.
+   */
+  public void turtleInit(Turtle turtle) {
+    this.turtle = turtle;
+    drawRules = turtle.getDrawRules();
+    moveRules = turtle.getMoveRules();
+    tq.resetQueue();
+  }
+
+  /**
+   * Constructor for Button which takes the display as a parameter.
    * Calls createButton to create buttons.
    */
-  public Buttons(ButtonsController butCont) {
-    this.butCont = butCont;
-    tq.resetQueue();
+  public Buttons(Display display) {
+    this.display = display;
 
     add(createButton("Generate"));
     add(createButton("Undo"));
     add(createButton("Clear Drawing"));
-    add(createButton("Toggle Show Previous"));
-  }
-
-  /**
-   * Resets the TwoQueue.
-   */
-  public void resetQueue() {
-    tq.resetQueue();
   }
 
   /**
@@ -50,20 +58,83 @@ public class Buttons extends JPanel implements ActionListener {
   }
 
   /**
-   * Checks which button was pressed and calls the ButtonController for that button.
+   * Checks which button was pressed and calls the correct methods for that button.
+   * "Generate" generates through the L-System.
+   * "Undo" undoes the previous generation.
+   * "Clear Drawing" removes the drawing from the screen.
+   *
+   * <p>
+   * Generate and undo check what to do using a queue that always holds two values of the last
+   * two buttons that were pressed.
+   * </p>
    *
    * @param e is the ActionEvent, meaning the button was pressed.
    */
   public void actionPerformed(ActionEvent e) {
     if ("Generate".equals((e.getActionCommand()))) {
-      butCont.buttonPressed(0, tq.lastTwo("g"));
+      switch (tq.lastTwo("g")) {
+        case ("uu"), ("gu") -> {
+          iterations++;
+          turtle.pushTurtle();
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+        }
+        default -> {
+          turtle.pushTurtle();
+          draw();
+          iterations++;
+          turtle.reset();
+          turtle.generate(iterations, drawRules, moveRules);
+        }
+      }
     } else if ("Undo".equals(e.getActionCommand())) {
-      butCont.buttonPressed(1, tq.lastTwo("u"));
+      if (iterations > 1) {
+        switch (tq.lastTwo("u")) {
+          case ("gg"), ("ug") -> {
+            turtle.popTurtle();
+            iterations--;
+            turtle.popTurtle();
+            iterations--;
+            draw();
+          }
+          default -> {
+            turtle.popTurtle();
+            iterations--;
+            draw();
+          }
+        }
+      } else {
+        turtle.reset();
+        display.clear();
+      }
     } else if ("Clear Drawing".equals(e.getActionCommand())) {
-      butCont.buttonPressed(2, "");
-      resetQueue();
-    } else if ("Toggle Show Previous".equals(e.getActionCommand())) {
-      butCont.buttonPressed(3, "");
+      iterations = 1;
+      turtle.reset();
+      display.clear();
     }
   }
+
+  /**
+   * Method for drawing the turtle. Ensures that it is always drawn in the same direction
+   * and that it is centred.
+   */
+  public void draw() {
+    turtle.resetHighLow();
+    turtle.resetBearing();
+    display.clear();
+    turtle.rules();
+    turtle.resetBearing();
+    turtle.centre();
+    display.clear();
+    turtle.rules();
+
+    display.callPaint();
+  }
+
+
 }

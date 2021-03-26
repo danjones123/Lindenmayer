@@ -1,9 +1,9 @@
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
- * Test class for SavedShapes.
+ * Test class for SavedShapes
  */
 public class SavedShapesTest {
 
@@ -12,9 +12,7 @@ public class SavedShapesTest {
    */
   @Test
   public void initialise() {
-    SavedShapes shape = new SavedShapes();
-    shape.setPresetNo(12);
-    shape.update();
+    SavedShapes shape = new SavedShapes(3);
 
     assertEquals("F", shape.getWord());
     assertEquals(5, shape.getLength(), 1e-10);
@@ -23,9 +21,5 @@ public class SavedShapesTest {
     assertEquals("FF+[+F-F-F]-[-F+F+F]", draw[0]);
     String[] move = shape.getMoveRules();
     assertEquals("G", move[0]);
-    String[] rulesX = shape.getRulesX();
-    assertEquals("", rulesX[0]);
-    String[] rulesY = shape.getRulesY();
-    assertEquals("", rulesY[0]);
   }
 }
