@@ -11,6 +11,8 @@ public class Line {
   double x2;
   double y2;
   Color color;
+
+
   Painting painting = new Painting();
   ProdPainter prod = new ProdPainter();
 

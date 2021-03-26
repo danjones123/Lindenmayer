@@ -40,39 +40,17 @@ public class ProdPainter extends JPanel {
     add(labelY);
   }
 
-  /**
-   * Creates a Line of the given type and adds it to the Line arrayList.
-   *
-   * @param x1 the start x co-ordinate.
-   * @param y1 the start y co-ordinate.
-   * @param x2 the end x co-ordinate.
-   * @param y2 the end y co-ordinate.
-   * @param color the colour of the line.
-   */
+
   public void addLine(double x1, double y1, double x2, double y2, Color color) {
     Line line = new Line(x1, y1, x2, y2, color);
     lines.add(line);
   }
 
-  /**
-   * Creates a dashed Line of the given type and adds it to the dashLine arrayList.
-   *
-   * @param x1 the start x co-ordinate.
-   * @param y1 the start y co-ordinate.
-   * @param x2 the end x co-ordinate.
-   * @param y2 the end y co-ordinate.
-   * @param color the colour of the line.
-   */
   public void addDashedLine(double x1, double y1, double x2, double y2, Color color) {
     Line dashLine = new Line(x1, y1, x2, y2, color);
     dashLines.add(dashLine);
   }
 
-  /**
-   * Overrides paintComponent to display the given Lines from the arrayLists.
-   *
-   * @param g is the graphics component.
-   */
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -91,6 +69,8 @@ public class ProdPainter extends JPanel {
       }
     }
 
+
+
     for (Line line : dashLines) {
       Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
           new float[]{3}, 0);
@@ -102,9 +82,6 @@ public class ProdPainter extends JPanel {
     }
   }
 
-  /**
-   * Calls repaint to redraw images.
-   */
   public void callPaint() {
     repaint();
   }
@@ -117,4 +94,6 @@ public class ProdPainter extends JPanel {
     dashLines.clear();
     repaint();
   }
+
+
 }

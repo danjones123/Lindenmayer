@@ -3,16 +3,16 @@ import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.NoSuchElementException;
 
 
 /**
- * Class for the Turtle which follow the Turtle rules to draw the L-Systems.
+ * Abstract class for the Turtle which draws the L-Systems.
  *
  * @author Daniel Jones
  */
 public class Turtle {
-  private final DecimalFormat df = new DecimalFormat("0.000000");
+
+  private final DecimalFormat df = new DecimalFormat("0.00000");
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -32,47 +32,25 @@ public class Turtle {
   double highestCoordY = 0;
   double startingCoordX;
   double startingCoordY;
-  private boolean stochAngle = false;
-  private double minAngle;
-  private double maxAngle;
   Deque<Point> pointStack = new ArrayDeque<>();
   Deque<Double> angleStack = new ArrayDeque<>();
   Deque<String[]> turtleStack = new ArrayDeque<>();
   Color turtleColor;
   private int screen = 0;
 
-  /**
-   * Constructor for Turtle which sets the turtleColor to black by default.
-   */
   public Turtle() {
     turtleColor = Color.BLACK;
   }
 
-  /**
-   * Constructor for Turtle which sets the turtleColor to the given colour.
-   *
-   * @param turtleColor is the colour for turtleColor to be set to.
-   */
   public Turtle(Color turtleColor) {
     this.turtleColor = turtleColor;
   }
 
-  /**
-   * Constructor for Turtle which specifies which "screen" to use.
-   *
-   * @param screen is the int corresponding to the screen number.
-   */
   public Turtle(int screen) {
     this.screen = screen;
     turtleColor = Color.BLACK;
   }
 
-  /**
-   * Constructor for Turtle which species screen number and colour.
-   *
-   * @param screen int corresponding to screen number.
-   * @param color the colour for the lines to be drawn.
-   */
   public Turtle(int screen, Color color) {
     this.screen = screen;
     turtleColor = color;
@@ -116,6 +94,7 @@ public class Turtle {
     this.coordX = x;
     this.coordY = y;
   }
+
 
   /**
    * Saves the starting point of the turtle to allow the turtle to be reset.
@@ -203,13 +182,14 @@ public class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
+        case 'X', 'Y' -> { }
         case 'F' -> draw(length, turtleColor);
         case 'G' -> move(length, turtleColor);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
         case '[' -> pushCoords();
         case ']' -> popCoords();
-        default -> { }
+        default -> System.out.println("Unused character");
       }
     }
   }
@@ -235,8 +215,11 @@ public class Turtle {
       l.prodLine();
     }
 
+
     calcHighLowCoord();
+
   }
+
 
   /**
    * Moves the coordinates by the given length multiplied by the given angle but does not draw
@@ -260,38 +243,15 @@ public class Turtle {
     calcHighLowCoord();
   }
 
+
   /**
    * Changes the current angle of the line by adding the radian version of the given angle.
    *
    * @param angle is the angle to rotate the coordinates.
    */
   public void rotate(double angle) {
-    if (!stochAngle) {
-      currAngle += Math.toRadians(angle);
-    } else {
-      if (angle >= 0) {
-        currAngle += Math.toRadians(Math.random() * (maxAngle - minAngle + 1) + minAngle);
-      } else {
-        currAngle += Math.toRadians(-(Math.random() * (maxAngle - minAngle + 1) + minAngle));
-      }
-    }
+    currAngle += Math.toRadians(angle);
   }
-
-  /**
-   * Class for taking a user-defined range of angles for the lines to be drawn at.
-   *
-   * @param stochAngle boolean to check if the user wants to use stochastic angles.
-   * @param minAngle the minimum angle in the range.
-   * @param maxAngle the maximum angle in the range.
-   */
-  public void stochAngleMethod(boolean stochAngle, double minAngle, double maxAngle) {
-    this.stochAngle = stochAngle;
-    this.minAngle = minAngle;
-    this.maxAngle = maxAngle;
-  }
-
-
-
 
   /**
    * Creates a Point object with the coordinates taken at the time the [ is used and then pushes
@@ -339,8 +299,9 @@ public class Turtle {
 
   /**
    * Class to centre the turtle drawing in the frame.
-   * It does this by adjusting the start of the turtle by the offset from the starting co-ordinate
-   * to the midpoint and the offset from the midpoint of the drawing to the midpoint of the frame.
+   * It does this by adjusting the start of the turtle by the offset
+   * from the starting co-ordinate to the midpoint and the offset from
+   * the midpoint of the drawing to the midpoint of the frame.
    */
   public void centre(double frameWidth, double frameHeight) {
     double middleX = (highestCoordX + lowestCoordX) / 2;
@@ -355,7 +316,6 @@ public class Turtle {
     double offsetFromMidFrameToMidCoordX = frameMidX - middleX;
     double offsetFromMidFrameToMidCoordY = frameMidY - middleY;
 
-    //Works out new X coordinate
     if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX > 0) {
       this.coordX = frameMidX + Math.abs(offsetFromMidFrameToMidCoordX);
     } else if (offsetFromStartToMidX > 0 && offsetFromMidFrameToMidCoordX < 0) {
@@ -366,7 +326,6 @@ public class Turtle {
       this.coordX = frameMidX - Math.abs(offsetFromMidFrameToMidCoordX);
     }
 
-    //Works out new Y coordinate
     if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY > 0) {
       this.coordY = frameMidY + Math.abs(offsetFromMidFrameToMidCoordY);
     } else if (offsetFromStartToMidY > 0 && offsetFromMidFrameToMidCoordY < 0) {
@@ -402,21 +361,14 @@ public class Turtle {
    * Pops the top turtle off the stack and sets the main turtle to its parameters.
    */
   public void popTurtle() {
-    try {
-      String[] popTurtle = turtleStack.pop();
-      word = popTurtle[0];
-      length = Double.parseDouble(popTurtle[1]);
-      angle = Double.parseDouble(popTurtle[2]);
-      coordX = Double.parseDouble(popTurtle[3]);
-      coordY = Double.parseDouble(popTurtle[4]);
-    } catch (NoSuchElementException c) {
-      System.out.println("No Element Found " + c);
-    }
+    String[] popTurtle = turtleStack.pop();
+    word = popTurtle[0];
+    length = Double.parseDouble(popTurtle[1]);
+    angle = Double.parseDouble(popTurtle[2]);
+    coordX = Double.parseDouble(popTurtle[3]);
+    coordY = Double.parseDouble(popTurtle[4]);
   }
 
-  /**
-   * Resets the turtle stack.
-   */
   public void resetStack() {
     turtleStack.clear();
   }
@@ -438,4 +390,6 @@ public class Turtle {
       lowestCoordY = coordY;
     }
   }
+
+
 }
