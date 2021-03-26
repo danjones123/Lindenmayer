@@ -43,7 +43,6 @@ public class ButtonsController {
     moveRules = linSys.getMoveRules();
     rulesX = linSys.getRulesX();
     rulesY = linSys.getRulesY();
-
   }
 
   /**

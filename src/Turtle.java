@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * @author Daniel Jones
  */
 public class Turtle {
-  private final DecimalFormat df = new DecimalFormat("0.00000");
+  private final DecimalFormat df = new DecimalFormat("0.000000");
   private String initialWord;
   private double initialLength;
   private double initialAngle;
@@ -203,14 +203,13 @@ public class Turtle {
     for (int i = 0; i < word.length(); i++) {
       char current = word.charAt(i);
       switch (current) {
-        case 'X', 'Y' -> { }
         case 'F' -> draw(length, turtleColor);
         case 'G' -> move(length, turtleColor);
         case '+' -> rotate(angle);
         case '-' -> rotate(-angle);
         case '[' -> pushCoords();
         case ']' -> popCoords();
-        default -> System.out.println("Unused character");
+        default -> { }
       }
     }
   }
@@ -268,7 +267,6 @@ public class Turtle {
    */
   public void rotate(double angle) {
     if (!stochAngle) {
-      System.out.println(angle);
       currAngle += Math.toRadians(angle);
     } else {
       if (angle >= 0) {

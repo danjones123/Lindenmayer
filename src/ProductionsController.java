@@ -39,7 +39,6 @@ public class ProductionsController {
     this.prodPaint = prodPaint;
 
     prodPaint.clear();
-
     showProductions();
   }
 
@@ -220,8 +219,7 @@ public class ProductionsController {
    * @param queue the queue for the rules to be added to.
    */
   public void prodQueue(String[] rules, Queue<String> queue) {
-    int ruleNum = rules.length;
-    queue.addAll(Arrays.asList(rules).subList(0, ruleNum));
+    queue.addAll(Arrays.asList(rules).subList(0, rules.length));
   }
 
   /**

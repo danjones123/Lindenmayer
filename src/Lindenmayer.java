@@ -71,7 +71,8 @@ public class Lindenmayer {
   }
 
   /**
-   * Generate method for a stochastic turtle, can have different sets of drawing rules.
+   * Generate method for a stochastic turtle, can have different array of rules with multiple
+   * values.
    */
   public void stochGenerate() {
     String nextWord = turtle.getWord();
@@ -104,8 +105,6 @@ public class Lindenmayer {
     turtle.setWord(nextWord);
   }
 
-
-
   /**
    * Sets the lengthScalar to the given amount.
    *
@@ -122,7 +121,6 @@ public class Lindenmayer {
     turtle.setLength(turtle.getLength() * lengthScaler);
   }
 
-
   /**
    * Class for returning random char from a given array.
    *
@@ -130,8 +128,7 @@ public class Lindenmayer {
    * @return returns a random element from the array.
    */
   public String randomChar(String[] rules) {
-    int randomPosition = new Random().nextInt(rules.length);
-    return rules[randomPosition];
+    return rules[new Random().nextInt(rules.length)];
   }
 
   /**
@@ -272,6 +269,4 @@ public class Lindenmayer {
   public String[] getRulesY() {
     return rulesY;
   }
-
-
 }
