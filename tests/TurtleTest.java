@@ -1,9 +1,14 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
- * Test class for testing the Turtle class.
+ * Testing class for the Turtle class.
+ *
+ * @author Daniel Jones.
  */
 public class TurtleTest {
 
@@ -64,18 +69,15 @@ public class TurtleTest {
   }
 
   /**
-   * Tests that getMiddleX and Y both return the midpoint.
+   * Tests that setGenRules works.
    */
   @Test
-  public void testGetMiddle() {
-    turtle.setWord("F+F+F+F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(20, 20);
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    assertEquals(25, turtle.getMiddleX(), 1e-10);
-    assertEquals(25, turtle.getMiddleY(), 1e-10);
+  public void testSetGenRules() {
+    String[] genRules = {"FF"};
+    turtle.setWord("F");
+    turtle.setGenRules(genRules);
+    turtle.generate(1, genRules);
+    assertEquals("FF", turtle.getWord());
   }
 
   /**
@@ -92,7 +94,7 @@ public class TurtleTest {
   }
 
   /**
-   * Tests that the coordinates of the turtle are changed multiple times when multiple F's are
+   * Tests that the coordiantes of the turtle are changed multiple times when multiple F's are
    * given.
    */
   @Test
@@ -136,7 +138,7 @@ public class TurtleTest {
   }
 
   /**
-   * Tests that the turtle coordinates are what they should be when draw and move are both called.
+   * Tests that the turtle coordinates are what they shoudl be when draw and move are both called.
    */
   @Test
   public void testDrawMoveDraw() {
@@ -233,7 +235,7 @@ public class TurtleTest {
    * Tests that if a square is given that the starting and ending co-ordinates are the same.
    */
   @Test
-  public void squareCoords() {
+  public void sqaureCoords() {
     turtle.setWord("F+F+F+F");
     turtle.setLength(10);
     turtle.setAngle(90);
@@ -363,6 +365,148 @@ public class TurtleTest {
   }
 
 
+  /**
+   * Tests that the generate method works for turning a character into a given string.
+   */
+  @Test
+  public void testSimpleDrawGenerate() {
+    turtle.setWord("F");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"FFF"};
+    turtle.generate(1, genRules);
+    assertEquals("FFF", turtle.getWord());
+  }
+
+  /**
+   * Tests that generate works with more complicated rules.
+   */
+  @Test
+  public void testMoreComplexDrawGenerate() {
+    turtle.setWord("F");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"F[F+F+F]F"};
+    turtle.generate(1, genRules);
+    assertEquals("F[F+F+F]F", turtle.getWord());
+  }
+
+  /**
+   * Tests that generate works when there are multiple rules in the rule-set.
+   */
+  @Test
+  public void testTwoRulesInGenRules() {
+    turtle.setWord("FGF");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"FF", "GG"};
+    turtle.generate(1, genRules);
+    assertEquals("FFGGFF", turtle.getWord());
+  }
+
+  /**
+   * Tests that generate can use complex strings and rules to give the correct output.
+   */
+  @Test
+  public void testComplexMultipleRules() {
+    turtle.setWord("FF+[F+F+FGGF]");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"F+G+F", "GGGGGGGG"};
+    turtle.generate(1, genRules);
+    assertEquals("F+G+FF+G+F+[F+G+F+F+G+F+F+G+FGGGGGGGGGGGGGGGGF+G+F]",
+        turtle.getWord());
+  }
+
+  /**
+   * Tests that generate works with multiple iterations.
+   */
+  @Test
+  public void testMoreIterations() {
+    turtle.setWord("F");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"FF", "GG"};
+    turtle.generate(2, genRules);
+    assertEquals("FFFF", turtle.getWord());
+  }
+
+  /**
+   * Tests that generate works with multiple iterations and more complex strings/rules.
+   */
+  @Test
+  public void testMoreComplextIterations() {
+    turtle.setWord("FGF");
+    turtle.setLength(0);
+    turtle.setAngle(0);
+    String[] genRules = {"FF", "GG"};
+    turtle.generate(2, genRules);
+    assertEquals("FFFFGGGGFFFF", turtle.getWord());
+  }
+
+  /**
+   * Tests that given the rules for a Sierpinski triangle the generate method returns what it
+   * should.
+   */
+  @Test
+  public void testSierpinskiTriangle() {
+    turtle.setWord("F--F--F");
+    turtle.setLength(5);
+    turtle.setAngle(60);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.generate(3, genRules);
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F"
+            + "--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F"
+            + "--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F"
+            + "--F--F--G--F--F--F--G--GG--GGGG--F--F--F--G--F--F--F--G--F--F--F--G--GG--F--F"
+            + "--F--G--F--F--F--G--F--F--F--G--GG--F--F--F--G--F--F--F--G--F--F--F--G--GG--GGGG",
+        turtle.getWord());
+  }
+
+  /**
+   * Tests that the reset method sets the parameters in a turtle back to the initially given turtle
+   * with 3 parameters.
+   */
+  @Test
+  public void testResetThreeParam() {
+    turtle.setWord("F--F--F");
+    turtle.setLength(5);
+    turtle.setAngle(60);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.generate(1, genRules);
+
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.getWord());
+
+    turtle.reset();
+
+    assertEquals("F--F--F", turtle.getWord());
+    assertEquals(5, turtle.getLength(), 1e-10);
+    assertEquals(60, turtle.getAngle(), 1e-10);
+  }
+
+  /**
+   * Tests that the reset method sets the parameters in a turtle back to the initially given turtle
+   * with 5 parameters.
+   */
+  @Test
+  public void testResetFiveParam() {
+    turtle.setWord("F--F--F");
+    turtle.setLength(5);
+    turtle.setAngle(60);
+    turtle.setCoords(250, 300);
+    String[] genRules = {"F--F--F--G", "GG"};
+    turtle.generate(1, genRules);
+
+    assertEquals("F--F--F--G--F--F--F--G--F--F--F--G", turtle.getWord());
+
+    turtle.reset();
+
+    assertEquals("F--F--F", turtle.getWord());
+    assertEquals(5, turtle.getLength(), 1e-10);
+    assertEquals(60, turtle.getAngle(), 1e-10);
+    assertEquals(250, turtle.getCoordX(), 1e-10);
+    assertEquals(300, turtle.getCoordY(), 1e-10);
+  }
 
   /**
    * Tests that the resetBearing method resets the current angle of the turtle back to 0.
@@ -379,174 +523,5 @@ public class TurtleTest {
 
     turtle.resetBearing();
     assertEquals(0, turtle.currAngle, 1e-10);
-  }
-
-  /**
-   * Tests that the push and pop function of the Turtle works as intended and overwrites the
-   * current turtle.
-   */
-  @Test
-  public void pushPopTurtle() {
-    turtle.setWord("FFF");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.pushTurtle();
-    turtle.setWord("ABCD");
-    turtle.setLength(90);
-    turtle.setAngle(180);
-    assertEquals("ABCD", turtle.getWord());
-    assertEquals(90, turtle.getLength(), 1e-10);
-    assertEquals(180, turtle.getAngle(), 1e-10);
-    turtle.popTurtle();
-    assertEquals("FFF", turtle.getWord());
-    assertEquals(10, turtle.getLength(), 1e-10);
-    assertEquals(90, turtle.getAngle(), 1e-10);
-  }
-
-  /**
-   * Tests to see that moving one space in any direction the turtle goes to the centre.
-   */
-  @Test
-  public void testSimpleCentre() {
-    turtle.setWord("F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(400, 400);
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.rules();
-    assertEquals((double) ((Initialise.frameWidth) / 2) - 5, turtle.startingCoordX, 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("+F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) Initialise.frameWidth / 2, turtle.startingCoordX, 1e-10);
-    assertEquals((double) ((Initialise.frameHeight) / 2) - 5, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("-F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) (Initialise.frameHeight) / 2, turtle.startingCoordX, 1e-10);
-    assertEquals((double) ((Initialise.frameHeight) / 2) + 5, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("--F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) ((Initialise.frameHeight) / 2) + 5, turtle.startingCoordX, 1e-10);
-    assertEquals((double) (Initialise.frameHeight) / 2, turtle.startingCoordY, 1e-10);
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("+F");
-    turtle.setLength(10);
-    turtle.setAngle(45);
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("-F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("---F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-
-    turtle.reset();
-    turtle.setWord("+++F");
-    turtle.saveStartingTurtle();
-    turtle.rules();
-    turtle.centre(Initialise.frameWidth, Initialise.frameHeight);
-    turtle.resetHighLow();
-    turtle.resetBearing();
-    turtle.rules();
-    assertEquals((double) (Initialise.frameWidth) / 2, turtle.getMiddleX(), 1e-10);
-    assertEquals((double) Initialise.frameHeight / 2, turtle.getMiddleY(), 1e-10);
-  }
-
-  /**
-   * Tests that the calcHighLow class works.
-   */
-  @Test
-  public void testCalculateHighLow() {
-    turtle.setWord("F+F+F+F");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.setCoords(20, 20);
-    turtle.rules();
-    turtle.calcHighLowCoord();
-    assertEquals(20, turtle.lowestCoordX, 1e-10);
-    assertEquals(20, turtle.lowestCoordY, 1e-10);
-    assertEquals(30, turtle.highestCoordX, 1e-10);
-    assertEquals(30, turtle.highestCoordY, 1e-10);
-  }
-
-  @Test
-  public void testResetStack() {
-    turtle.setWord("FFF");
-    turtle.setLength(10);
-    turtle.setAngle(90);
-    turtle.pushTurtle();
-    assertFalse(turtle.turtleStack.isEmpty());
-    turtle.resetStack();
-    assertTrue(turtle.turtleStack.isEmpty());
-  }
-
-  /**
-   * Tests that stochAngle sets angles within the correct range.
-   */
-  @Test
-  public void testAngleSetting() {
-    turtle.setAngle(100);
-    turtle.stochAngleMethod(true, 25, 45);
-    turtle.rotate(turtle.getAngle());
-    System.out.println(turtle.getAngle());
-    if (turtle.currAngle < Math.toRadians(25) || turtle.currAngle > Math.toRadians(46)) {
-      fail();
-    }
   }
 }

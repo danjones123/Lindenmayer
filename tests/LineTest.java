@@ -1,9 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Color;
 import org.junit.Test;
-
-
 
 /**
  * Testing class for the Line class.
@@ -19,7 +16,7 @@ public class LineTest {
    */
   @Test
   public void constructLine() {
-    Line line = new Line(3, 5, 10, 10, Color.BLACK);
+    Line line = new Line(3, 5, 10, 10);
     assertEquals(3, line.x1, 1e-10);
     assertEquals(5, line.y1, 1e-10);
     assertEquals(10, line.x2, 1e-10);
