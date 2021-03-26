@@ -14,8 +14,8 @@ public class ButtonsController {
   String[] moveRules;
   String[] rulesX;
   String[] rulesY;
-  double prevStartingCoordX;
-  double prevStartingCoordY;
+  private double prevStartingCoordX;
+  private double prevStartingCoordY;
   private int iterations = 1;
   boolean drawPrev = false;
 
@@ -43,7 +43,6 @@ public class ButtonsController {
     moveRules = linSys.getMoveRules();
     rulesX = linSys.getRulesX();
     rulesY = linSys.getRulesY();
-
   }
 
   /**
@@ -176,7 +175,7 @@ public class ButtonsController {
     previousTurtle.resetBearing();
     painting.clear();
     thisTurtle.rules();
-    previousTurtle.rules();
+    rulesIfNotNull(previousTurtle);
     if (painting.centreSetTurtle) {
       thisTurtle.resetBearing();
       previousTurtle.resetBearing();
@@ -186,9 +185,20 @@ public class ButtonsController {
       prevStartingCoordY = thisTurtle.getCoordY();
       painting.clear();
       thisTurtle.rules();
-      previousTurtle.rules();
+      rulesIfNotNull(previousTurtle);
     }
     painting.callPaint();
+  }
+
+  /**
+   * Method to check if the current turtle is null and only to call rules if it is not.
+   *
+   * @param turtle is the turtle being checked.
+   */
+  public void rulesIfNotNull(Turtle turtle) {
+    if (turtle.getWord() != null) {
+      turtle.rules();
+    }
   }
 
   /**
