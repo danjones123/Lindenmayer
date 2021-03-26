@@ -1,9 +1,9 @@
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
- * Test class for SavedShapes
+ * Test class for SavedShapes.
  */
 public class SavedShapesTest {
 
@@ -13,7 +13,7 @@ public class SavedShapesTest {
   @Test
   public void initialise() {
     SavedShapes shape = new SavedShapes();
-    shape.setPresetNo(3);
+    shape.setPresetNo(12);
     shape.update();
 
     assertEquals("F", shape.getWord());

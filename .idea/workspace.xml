@@ -2,25 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="487feec3-7dc1-43db-a0d3-73462d62cc46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Initialise.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Lindenmayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ProdPainter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Productions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SavedPresets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Trunk/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Trunk/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Buttons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buttons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DeterministicTurtle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Painting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Initialise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Initialise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lindenmayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lindenmayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Painting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Painting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedPresets" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedPresets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SavedPresetsCopy" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedPresetsCopy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SavedShapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SavedShapes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StochasticTurtle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SettingsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Turtle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Turtle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ButtonsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ButtonsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/DeterministicTurtleTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/StochasticTurtleTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +42,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -55,10 +51,10 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateTestDialog.RecentsKey">
+    <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
-    <key name="CreateTestDialog.Recents.Supers">
+    <key name="CreateTestDialog.RecentsKey">
       <recent name="" />
     </key>
   </component>
@@ -124,16 +120,16 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2303" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2303" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
-          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkChechout1602" />
+          <option name="myVcsRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2303" />
+          <option name="myCopyRoot" value="C:\Users\i_lik\IdeaProjects\trunkCheckout2303" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -153,67 +149,28 @@
       <option name="project" value="LOCAL" />
       <updated>1613483025468</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Merged MVCWork into Trunk.">
+      <created>1616469538173</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616469538173</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merged MVCWork into Trunk.">
+      <created>1616469617983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1616469617983</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merged the LSystemClasses branch into the trunk" />
     <MESSAGE value="Created new branch for decoupling the turtle code from  the LSystem code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created new branch for decoupling the turtle code from  the LSystem code" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="601" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615392599179">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="601" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1615392599179" />
-    <state x="690" y="293" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1615392765760">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1230" y="202" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482815772" />
-    <state x="690" y="293" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1615392765760" />
-    <state x="614" y="107" width="1082" height="826" key="CommitChangelistDialog2" timestamp="1613483021412">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="614" y="107" width="1082" height="826" key="CommitChangelistDialog2/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483021412" />
-    <state x="666" y="288" key="FileChooserDialogImpl" timestamp="1613483212828">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="666" y="288" key="FileChooserDialogImpl/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483212828" />
-    <state width="1877" height="327" key="GridCell.Tab.0.bottom" timestamp="1613484801190">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1892" height="327" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
-    <state width="1877" height="327" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
-    <state width="1877" height="327" key="GridCell.Tab.0.center" timestamp="1613484801190">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1892" height="327" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
-    <state width="1877" height="327" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
-    <state width="1877" height="327" key="GridCell.Tab.0.left" timestamp="1613484801190">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1892" height="327" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
-    <state width="1877" height="327" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
-    <state width="1877" height="327" key="GridCell.Tab.0.right" timestamp="1613484801190">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1892" height="327" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482913977" />
-    <state width="1877" height="327" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613484801190" />
-    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1613482614688">
-      <screen x="-1920" y="-125" width="1920" height="1160" />
-    </state>
-    <state x="-1189" y="189" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040/-1920.-125.1920.1160@-1920.-125.1920.1160" timestamp="1613482614688" />
-    <state x="783" y="423" key="svn.upgradeDialog" timestamp="1613483214788">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="783" y="423" key="svn.upgradeDialog/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483214788" />
-    <state x="670" y="374" key="svn4idea.checkout.options" timestamp="1613483213900">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="670" y="374" key="svn4idea.checkout.options/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483213900" />
-    <state x="672" y="333" width="626" height="374" key="svn4idea.mkdir.options" timestamp="1613483150986">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="672" y="333" width="626" height="374" key="svn4idea.mkdir.options/0.0.1920.1040/-1920.-125.1920.1160@0.0.1920.1040" timestamp="1613483150986" />
+    <MESSAGE value="Merged MVCWork into Trunk." />
+    <MESSAGE value="Created new branch for final refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created new branch for final refactoring" />
   </component>
 </project>
