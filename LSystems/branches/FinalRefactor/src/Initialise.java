@@ -16,13 +16,6 @@ public class Initialise extends JFrame {
   static SavedShapes shape;
 
   /**
-   * Simple constructor for Initialise.
-   */
-  public Initialise() {
-
-  }
-
-  /**
    * Updates savedShapes.
    */
   public static void updateShapes() {
@@ -116,6 +109,4 @@ public class Initialise extends JFrame {
     turtle.setCoords(startX, startY);
     turtle.saveStartingTurtle();
   }
-
-
 }

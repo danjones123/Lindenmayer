@@ -209,6 +209,10 @@ public class SettingsController {
     return presetCount;
   }
 
+  public void updateShapes() {
+    shapes.update();
+  }
+
 
   /**
    * Returns the word variable.

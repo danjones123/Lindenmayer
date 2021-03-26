@@ -36,7 +36,6 @@ public class SavedShapes {
    * SavedShapes to the current int.
    */
   public SavedShapes() {
-
     presetsFromFile();
     update();
   }
@@ -69,7 +68,6 @@ public class SavedShapes {
       if (shapes.size() == 0) {
         remakeSavedShapes();
       }
-      //JOptionPane.showMessageDialog(null, "NO MORE SHAPES");
     }
   }
 
