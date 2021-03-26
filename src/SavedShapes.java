@@ -16,13 +16,13 @@ import java.util.Scanner;
  * @author Daniel Jones.
  */
 public class SavedShapes {
-  private String word;
-  private double length;
-  private double angle;
-  private String[] drawRules;
-  private String[] moveRules;
-  private String[] rulesX;
-  private String[] rulesY;
+  String word;
+  double length;
+  double angle;
+  String[] drawRules;
+  String[] moveRules;
+  String[] rulesX;
+  String[] rulesY;
   ArrayList<String[][]> shapes = new ArrayList<>();
   String[][] shape;
   String[] shapeDraw;
@@ -36,6 +36,7 @@ public class SavedShapes {
    * SavedShapes to the current int.
    */
   public SavedShapes() {
+
     presetsFromFile();
     update();
   }
@@ -64,10 +65,11 @@ public class SavedShapes {
       rulesX = shapeX;
       rulesY = shapeY;
     } catch (IndexOutOfBoundsException c) {
-      System.out.println("Index out of bounds Exception");
+      System.out.println("Index out of bounds");
       if (shapes.size() == 0) {
         remakeSavedShapes();
       }
+      //JOptionPane.showMessageDialog(null, "NO MORE SHAPES");
     }
   }
 
@@ -89,10 +91,11 @@ public class SavedShapes {
         String[] splitY = tokens[5].split(",");
         String[][] newPreset = {axiomSplit, splitF, splitG, splitX, splitY};
         shapes.add(newPreset);
+        System.out.println(tokens[0]);
       }
       saver.close();
     } catch (FileNotFoundException c) {
-      System.out.println("File not found Exception");
+      System.out.println("File not found");
     }
   }
 
@@ -121,7 +124,7 @@ public class SavedShapes {
    * @param rulesY is the array of rules for Y
    */
   public boolean addPreset(String name, String word,  double length, double angle,
-                           String[] drawRules, String[] moveRules, String[] rulesX, String[] rulesY) {
+                        String[] drawRules, String[] moveRules, String[] rulesX, String[] rulesY) {
     String draw = Arrays.toString(drawRules);
     draw = draw.substring(1, draw.length() - 1);
     String move = Arrays.toString(moveRules);
@@ -194,11 +197,13 @@ public class SavedShapes {
    */
   public void deleteEntry(String name) {
     try {
+
       File original = new File("src\\SavedPresets");
       File tempFile = new File(original.getAbsolutePath() + ".tmp");
       Scanner findFile = new Scanner(original);
       String deleting = null;
       while (findFile.hasNextLine()) {
+
         String data = findFile.nextLine();
         String[] tokens = data.split("/");
         String findLine = tokens[0];
@@ -207,13 +212,15 @@ public class SavedShapes {
         }
       }
       findFile.close();
-
+      
       BufferedReader reader = new BufferedReader(new FileReader(original));
       PrintWriter writer = new PrintWriter(new FileWriter(tempFile));
+
       String line;
       int newCounter = 0;
       while ((line = reader.readLine()) != null) {
         String trimmedLine = line.trim();
+
         if (trimmedLine.equals(deleting)) {
           continue;
         }
@@ -225,14 +232,18 @@ public class SavedShapes {
         }
         newCounter++;
       }
+
+
       writer.close();
       reader.close();
+
       boolean deleted = original.delete();
       boolean successful = tempFile.renameTo(original);
+
       System.out.println("Deleted: " + deleted);
       System.out.println("Renamed: " + successful);
     } catch (Exception c) {
-      System.out.println("ERROR in Delete Entry");
+      System.out.println("ERROR");
     }
     shapes.clear();
     presetsFromFile();

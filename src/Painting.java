@@ -14,11 +14,11 @@ import javax.swing.JPanel;
  */
 public class Painting extends JPanel {
   private static final ArrayList<Line> lines = new ArrayList<>();
-  private boolean drawCentreLines;
+  boolean drawCentreLines;
   boolean centreSetTurtle = true;
 
   /**
-   * Constructor for display sets the background color to white and gives the size of the panel.
+   * Constructor for display sets the background color to white.
    */
   public Painting() {
     setBackground(Color.WHITE);

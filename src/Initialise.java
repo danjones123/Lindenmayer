@@ -16,6 +16,13 @@ public class Initialise extends JFrame {
   static SavedShapes shape;
 
   /**
+   * Simple constructor for Initialise.
+   */
+  public Initialise() {
+
+  }
+
+  /**
    * Updates savedShapes.
    */
   public static void updateShapes() {
@@ -51,6 +58,8 @@ public class Initialise extends JFrame {
     Settings settings = new Settings(settingsController);
     JPanel settingsTab = new JPanel(false);
     settingsTab.add(settings);
+
+
 
 
     JTabbedPane tabs = new JTabbedPane();
@@ -109,4 +118,6 @@ public class Initialise extends JFrame {
     turtle.setCoords(startX, startY);
     turtle.saveStartingTurtle();
   }
+
+
 }

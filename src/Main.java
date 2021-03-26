@@ -8,8 +8,7 @@ import javax.swing.SwingUtilities;
 public class Main {
 
   /**
-   * The main method calls the CreateAndShowGUI() method inside the Initialise class using
-   * SwingUtilities.
+   * The main method calls the CreateAndShowGUI() method inside the run() method from Swing.
    *
    * @param args takes the argument for the method.
    */

@@ -2,8 +2,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Scanner;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+
+
+
 /**
  * Class for creating the settings window and controlling what the buttons do.
  *
@@ -25,24 +31,22 @@ public class Settings extends JPanel {
   private double newRatio = 1;
   private int currentClass = 1;
   private int presetNum = 0;
-  private JComboBox<String> presets;
-  JRadioButton deterministic;
-  JRadioButton stochastic;
-  private boolean useStochAngles = false;
-  private String word;
-  private double length;
-  private double angle;
-  private double coordX;
-  private double coordY;
-  private String[] drawRules;
-  private String[] moveRules;
-  private String[] rulesX;
-  private String[] rulesY;
-  private String newWord;
-  private double newLength;
-  private double newAngle;
-  private double newCoordX;
-  private double newCoordY;
+  JComboBox<String> presets;
+  boolean useStochAngles = false;
+  String word;
+  double length;
+  double angle;
+  double coordX;
+  double coordY;
+  String[] drawRules;
+  String[] moveRules;
+  String[] rulesX;
+  String[] rulesY;
+  String newWord;
+  double newLength;
+  double newAngle;
+  double newCoordX;
+  double newCoordY;
   private String[] newDrawRules;
   private String[] newMoveRules;
   private String[] newRulesX;
@@ -58,12 +62,12 @@ public class Settings extends JPanel {
   private JTextField rulesTextY;
   private JTextField lengthRatio;
   private int presetArrLength = 0;
-  private String[] presetNames;
-  private JCheckBox stochAngle;
-  private JTextField minAngle;
-  private JTextField maxAngle;
-  private double minStochAngle = newAngle;
-  private double maxStochAngle = newAngle;
+  String[] presetNames;
+  JCheckBox stochAngle;
+  JTextField minAngle;
+  JTextField maxAngle;
+  double minStochAngle = newAngle;
+  double maxStochAngle = newAngle;
   JCheckBox changeDrawRulesProb = new JCheckBox();
   JCheckBox changeMoveRulesProb = new JCheckBox();
   JCheckBox changeEcksRulesProb = new JCheckBox();
@@ -134,8 +138,8 @@ public class Settings extends JPanel {
    * like to use.
    */
   public void linClassButtons() {
-    deterministic = new JRadioButton("Deterministic");
-    stochastic = new JRadioButton("Stochastic");
+    JRadioButton deterministic = new JRadioButton("Deterministic");
+    JRadioButton stochastic = new JRadioButton("Stochastic");
     deterministic.setSelected(true);
     deterministic.setBounds((Initialise.frameWidth / 2) - 150, 50, 150, 30);
     stochastic.setBounds((Initialise.frameWidth / 2), 50, 150, 30);
@@ -163,7 +167,7 @@ public class Settings extends JPanel {
     });
 
     createInfoBox("Choose whether the current L-system will be deterministic or stochatic "
-            + "\n A deterministic class will always output the same end result"
+        + "\n A deterministic class will always output the same end result"
             + "\n A stochastic class can have randomness in the production rules or between the "
             + "lines",
         (Initialise.frameWidth / 2) + 150, 65);
@@ -175,9 +179,9 @@ public class Settings extends JPanel {
    * Method that creates a dropdown list of the possible presets for the user to choose from.
    */
   public void presetBox() {
-    presetArrLength = setCont.presetNumber();
+    presetArrLength = presetNumber();
     presetNames = new String[presetArrLength];
-    setCont.fillPresets(presetNames);
+    fillPresets(presetNames);
 
     JLabel presetLabel = new JLabel("Choose Preset");
     presets = new JComboBox<>(presetNames);
@@ -195,6 +199,54 @@ public class Settings extends JPanel {
     add(presetLabel);
   }
 
+  /**
+   * Fills the presets array with the presets from savedShapes.
+   *
+   * @param stringToBeFilled is the array of names for the presetNames.
+   */
+  public void fillPresets(String[] stringToBeFilled) {
+    Scanner savedNames;
+    try {
+      savedNames = new Scanner(new File("src\\SavedPresets"));
+      int i = 0;
+
+      savedNames.reset();
+      while (savedNames.hasNextLine()) {
+        String data = savedNames.nextLine();
+        String[] tokens = data.split("/");
+        stringToBeFilled[i] = tokens[0];
+        i++;
+      }
+      savedNames.close();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
+    }
+  }
+
+  /**
+   * Method that gives the number of presets that need to be displayed in the list to prevent lots
+   * of nulls from being displayed.
+   *
+   * @return returns the number of presets in the saved file.
+   */
+  public int presetNumber() {
+    Scanner savedCounter;
+    int presetCount = 0;
+    try {
+      savedCounter = new Scanner(new File("src\\SavedPresets"));
+      while (savedCounter.hasNextLine()) {
+        String data = savedCounter.nextLine();
+        String[] tokens = data.split("/");
+        if (tokens[0] != null) {
+          presetCount++;
+        }
+      }
+      savedCounter.close();
+    } catch (FileNotFoundException c) {
+      System.out.println("File not found");
+    }
+    return presetCount;
+  }
 
   /**
    * Method for creating the buttons for user input length ratio.
@@ -202,7 +254,14 @@ public class Settings extends JPanel {
   public void lengthRatioButtons() {
     lengthRatio = new JTextField("Input length ratio", 10);
     lengthRatio.setBounds((Initialise.frameWidth / 2) + 100, 210, 150, 25);
-    clearTextWhenClicked(lengthRatio);
+    lengthRatio.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
     createInfoBox("Multiplies the length of the lines by the scalar so that the L-systems do not "
         + "get too big for the screen.", (Initialise.frameWidth / 2) + 250, 219);
     add(lengthRatio);
@@ -238,8 +297,23 @@ public class Settings extends JPanel {
     minAngle.setEnabled(false);
     maxAngle.setEnabled(false);
 
-    clearTextWhenClicked(minAngle);
-    clearTextWhenClicked(maxAngle);
+    maxAngle.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
+
+    minAngle.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
 
     createInfoBox("Input a minimum and maximum value for the angle that will be randomly chosen "
         + "from between the min and max.", (Initialise.frameWidth / 2) + 325, 255);
@@ -299,7 +373,7 @@ public class Settings extends JPanel {
         + "node rewriting.  \nThe starting axiom is the initial word and the rules rewrite the "
         + "current words. \nLength is the length of the lines the program will draw. \nAngle "
         + "is the angle between the lines being created.\n '+' and '-' correspond to a clockwise "
-        + "or anticlockwise application of the angle.\nDrawing rules replace the F character"
+            + "or anticlockwise application of the angle.\nDrawing rules replace the F character"
         + " with the string they hold, as does moving rules with G, and x and y rules with X "
         + "and Y.", boundX + 300, boundY + 9);
 
@@ -379,7 +453,14 @@ public class Settings extends JPanel {
     rulesProbs.setText("Input rule probabilities");
     rulesProbs.setBounds((Initialise.frameWidth / 2) + 120, valY, 200, 25);
     rulesProbs.setEnabled(false);
-    clearTextWhenClicked(rulesProbs);
+    rulesProbs.addFocusListener(new FocusAdapter() {
+      @Override
+      public void focusGained(FocusEvent e) {
+        JTextField source = (JTextField) e.getComponent();
+        source.setText("");
+        source.removeFocusListener(this);
+      }
+    });
 
     rulesProbs.addActionListener(e -> pollCustomRules(rulesProbs, rulesText, whichRule));
 
@@ -411,7 +492,7 @@ public class Settings extends JPanel {
               "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         } else {
           if (totalNum != 1) {
-            DecimalFormat df = new DecimalFormat("0.000");
+            DecimalFormat df = new DecimalFormat("0.00");
             df.format(totalNum);
             for (Double formatDouble : ruleProbabilitiesDub) {
               df.format(formatDouble);
@@ -423,11 +504,12 @@ public class Settings extends JPanel {
           setCont.linCustomRules(whichRule, rulesProbs.isEnabled(), ruleProbabilitiesDub);
         }
       } catch (NullPointerException c) {
-        System.out.println("NULL Exception" + c);
+        System.out.println("NULL");
       }
     } catch (NumberFormatException c) {
-      System.out.println("NUMBER FORMAT Exception " + c);
+      System.out.println("NUMBER FORMAT");
     }
+
   }
 
   /**
@@ -493,7 +575,7 @@ public class Settings extends JPanel {
     saveNew.addActionListener(e -> {
       saveChanges();
       String name = JOptionPane.showInputDialog("Input preset name", null);
-      if (name != null && !name.replaceAll("\\s", "").equals("")) {
+      if (name != null) {
         if (setCont.newPreset(name)) {
           presets.addItem(name);
           presets.setSelectedIndex(presetArrLength);
@@ -504,9 +586,6 @@ public class Settings extends JPanel {
           JOptionPane.showConfirmDialog(null, "This preset already exists",
               "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
-      } else {
-        JOptionPane.showConfirmDialog(null, "You did not input a valid name",
-            "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
       }
     });
     createInfoBox("Saves a new preset with the current parameters for future use.", 490, 500);
@@ -532,35 +611,25 @@ public class Settings extends JPanel {
     deletePreset.setBounds(310, 515, 180, 25);
     deletePreset.addActionListener(e -> {
       saveChanges();
-      try {
-        int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently "
-            + "delete " + presetNames[presets.getSelectedIndex()] + "? \nThis action cannot be "
-            + "undone.");
-
-        if (option == 0) {
-          try {
-            String name = presetNames[presets.getSelectedIndex()];
-            setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
-            presets.removeItem(name);
-            removePresetName(name);
-            presets.setSelectedIndex(0);
-            presetArrLength--;
-            restoreDefault();
-            saveChanges();
-          } catch (IndexOutOfBoundsException c) {
-            JOptionPane.showConfirmDialog(null, "There was an error finding this preset.",
-                "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-          } catch (IllegalArgumentException c) {
-            System.out.println("IllegalArgument: " + c);
-          }
+      int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to permanently "
+          + "delete " + presetNames[presets.getSelectedIndex()] + "? \nThis action cannot be "
+          + "undone.");
+      System.out.println(option);
+      if (option == 0) {
+        try {
+          System.out.println(presets.getSelectedIndex());
+          String name = presetNames[presets.getSelectedIndex()];
+          setCont.deletePreset(presetNames[presets.getSelectedIndex()]);
+          presets.removeItem(name);
+          removePresetName(name);
+          presets.setSelectedIndex(0);
+          presetArrLength--;
+          restoreDefault();
+          saveChanges();
+        } catch (IndexOutOfBoundsException c) {
+          JOptionPane.showConfirmDialog(null, "There was an error finding this preset.",
+              "ERROR", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
-      } catch (ArrayIndexOutOfBoundsException c) {
-        System.out.println("Index out of bounds: " + c);
-        setCont.updateShapes();
-        renewPresetBox();
-        saveChanges();
-        JOptionPane.showMessageDialog(null, "The preset list was emptied and so it has been reset "
-            + "to the default list.");
       }
     });
     createInfoBox("Permanently deletes the selected preset from the preset list", 490, 525);
@@ -580,21 +649,6 @@ public class Settings extends JPanel {
       }
     }
     presetNames = Arrays.copyOf(removeName, removeName.length);
-  }
-
-  /**
-   * Resets the preset variables back to the original preset list.
-   */
-  public void renewPresetBox() {
-    presetArrLength = setCont.presetNumber();
-    presetNames = new String[presetArrLength];
-    setCont.fillPresets(presetNames);
-
-    for (String presetName : presetNames) {
-      presets.addItem(presetName);
-    }
-
-    presets.setSelectedIndex(0);
   }
 
   /**
@@ -641,18 +695,10 @@ public class Settings extends JPanel {
       System.out.println("Invalid Entry");
     }
 
-    if (drawRulesProbs.isEnabled()) {
-      pollCustomRules(drawRulesProbs, drawRulesText, "draw");
-    }
-    if (moveRulesProbs.isEnabled()) {
-      pollCustomRules(moveRulesProbs, moveRulesText, "move");
-    }
-    if (ecksRulesProbs.isEnabled()) {
-      pollCustomRules(ecksRulesProbs, rulesTextX, "x");
-    }
-    if (whyRulesProbs.isEnabled()) {
-      pollCustomRules(whyRulesProbs, rulesTextY, "y");
-    }
+    pollCustomRules(drawRulesProbs, drawRulesText, "draw");
+    pollCustomRules(moveRulesProbs, moveRulesText, "move");
+    pollCustomRules(ecksRulesProbs, rulesTextX, "x");
+    pollCustomRules(whyRulesProbs, rulesTextY, "y");
 
     setCont.saveChanges(currentClass, newRatio, presetNum, newCoordX, newCoordY,
         useStochAngles, minStochAngle, maxStochAngle);
@@ -681,7 +727,6 @@ public class Settings extends JPanel {
       newRatio = 1;
       lengthRatio.setText("Input length ratio");
       currentClass = 1;
-      deterministic.setSelected(true);
       presetNum = 0;
       useStochAngles = false;
       presets.setSelectedIndex(0);
@@ -692,7 +737,6 @@ public class Settings extends JPanel {
       maxAngle.setEnabled(false);
       minAngle.setText("Min angle");
       maxAngle.setText("Max angle");
-
 
       changeDrawRulesProb.setEnabled(false);
       changeDrawRulesProb.setSelected(false);
@@ -711,15 +755,6 @@ public class Settings extends JPanel {
       whyRulesProbs.setText("Input rule probabilities");
       whyRulesProbs.setEnabled(false);
 
-      clearTextWhenClicked(lengthRatio);
-      clearTextWhenClicked(minAngle);
-      clearTextWhenClicked(maxAngle);
-      clearTextWhenClicked(drawRulesProbs);
-      clearTextWhenClicked(moveRulesProbs);
-      clearTextWhenClicked(ecksRulesProbs);
-      clearTextWhenClicked(whyRulesProbs);
-
-
       initialiseParams();
       updateAxioms();
 
@@ -733,21 +768,5 @@ public class Settings extends JPanel {
 
     });
     add(restoreDefault);
-  }
-
-  /**
-   * Method to remove the text when a textfield that contains text is clicked.
-   *
-   * @param field The JTextField that should have its text removed
-   */
-  public void clearTextWhenClicked(JTextField field) {
-    field.addFocusListener(new FocusAdapter() {
-      @Override
-      public void focusGained(FocusEvent e) {
-        JTextField source = (JTextField) e.getComponent();
-        source.setText("");
-        source.removeFocusListener(this);
-      }
-    });
   }
 }

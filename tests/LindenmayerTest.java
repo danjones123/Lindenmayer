@@ -316,6 +316,20 @@ public class LindenmayerTest {
   }
 
   /**
+   * Tests that stochAngle sets angles within the correct range.
+   */
+  @Test
+  public void testAngleSetting() {
+    turtle.setAngle(100);
+    linSysStoch.stochAngle(true, 25, 45);
+    linSysStoch.angleVariance();
+    System.out.println(turtle.getAngle());
+    if (turtle.getAngle() < 25 || turtle.getAngle() > 46) {
+      fail();
+    }
+  }
+
+  /**
    * Tests that changeRatio() scales down the length by the correct amount.
    */
   @Test

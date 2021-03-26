@@ -20,7 +20,7 @@ public class ProductionsControllerTest {
     shapes.setPresetNo(0);
     shapes.update();
     prodTest.update();
-    prodTest.drawingPanel(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     assertEquals("F--F--F--G", prodTest.prodTurtleF.getWord());
   }
 
@@ -32,7 +32,7 @@ public class ProductionsControllerTest {
     shapes.setPresetNo(0);
     shapes.update();
     prodTest.update();
-    prodTest.movingPanel(shapes.getAngle());
+    prodTest.movingPanel(shapes.getMoveRules(), shapes.getAngle());
     assertEquals("GG", prodTest.prodTurtleG.getWord());
   }
 
@@ -41,10 +41,10 @@ public class ProductionsControllerTest {
    */
   @Test
   public void panelX() {
-    shapes.setPresetNo(15);
+    shapes.setPresetNo(13);
     shapes.update();
     prodTest.update();
-    prodTest.panelX(shapes.getAngle());
+    prodTest.panelX(shapes.getRulesX(), shapes.getAngle());
     assertEquals("X[-FFF][+FFF]FX", prodTest.prodTurtleX.getWord());
   }
 
@@ -53,10 +53,10 @@ public class ProductionsControllerTest {
    */
   @Test
   public void panelY() {
-    shapes.setPresetNo(15);
+    shapes.setPresetNo(13);
     shapes.update();
     prodTest.update();
-    prodTest.panelY(shapes.getAngle());
+    prodTest.panelY(shapes.getRulesY(), shapes.getAngle());
     assertEquals("YFX[+Y][-Y]", prodTest.prodTurtleY.getWord());
   }
 
@@ -68,12 +68,26 @@ public class ProductionsControllerTest {
     shapes.setPresetNo(0);
     shapes.update();
     prodTest.update();
-    prodTest.drawingPanel(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     assertEquals("F--F--F--G", prodTest.prodTurtleF.getWord());
-    shapes.setPresetNo(12);
+    shapes.setPresetNo(3);
     prodTest.update();
-    prodTest.drawingPanel(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     assertEquals("FF+[+F-F-F]-[-F+F+F]", prodTest.prodTurtleF.getWord());
+  }
+
+  /**
+   * Tests that smallupdate updates the correct parameters.
+   */
+  @Test
+  public void smallUpdate() {
+    shapes.setPresetNo(0);
+    shapes.update();
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
+    assertEquals("F--F--F--G", prodTest.prodTurtleF.getWord());
+    assertEquals("F--F--F--G", prodTest.drawQueue.poll());
+    prodTest.showProductions();
+    assertEquals("F--F--F--G", prodTest.drawQueue.element());
   }
 
   /**
@@ -81,11 +95,12 @@ public class ProductionsControllerTest {
    */
   @Test
   public void prodQueue() {
-    shapes.setPresetNo(23);
+    shapes.setPresetNo(19);
     shapes.update();
     prodTest.update();
-    prodTest.drawingPanel(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     assertEquals("F[-F]F", prodTest.drawQueue.poll());
+    assertEquals("F[+F]F[-F]F", prodTest.drawQueue.poll());
     assertEquals("F[+F]F[-F]F", prodTest.drawQueue.poll());
     assertEquals("F[+F]F", prodTest.drawQueue.poll());
   }
@@ -98,10 +113,10 @@ public class ProductionsControllerTest {
     shapes.setPresetNo(0);
     shapes.update();
 
-    prodTest.drawingPanel(shapes.getAngle());
-    prodTest.movingPanel(shapes.getAngle());
-    prodTest.panelX(shapes.getAngle());
-    prodTest.panelY(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
+    prodTest.movingPanel(shapes.getMoveRules(), shapes.getAngle());
+    prodTest.panelX(shapes.getRulesX(), shapes.getAngle());
+    prodTest.panelY(shapes.getRulesY(), shapes.getAngle());
 
     assertEquals("F--F--F--G", prodTest.drawQueue.element());
     assertEquals("GG", prodTest.moveQueue.element());
@@ -143,8 +158,8 @@ public class ProductionsControllerTest {
     shapes.update();
     prodTest.update();
     prodTest.prodTurtleF = new Turtle(1, Color.RED);
-    prodTest.setProdTurtle(prodTest.prodTurtleF, 30, shapes.getAngle(), 100, 100,
-        prodTest.drawQueue, 1, 1);
+    prodTest.setProdTurtle(prodTest.prodTurtleF, "F", 30, shapes.getAngle(), 100, 100,
+        shapes.getDrawRules(), prodTest.drawQueue, 1);
 
     assertEquals("F--F--F--G", prodTest.prodTurtleF.getWord());
     assertEquals(30, prodTest.prodTurtleF.getLength(), 1e-10);
@@ -156,10 +171,10 @@ public class ProductionsControllerTest {
    */
   @Test
   public void nextQueue() {
-    shapes.setPresetNo(23);
+    shapes.setPresetNo(19);
     shapes.update();
     prodTest.update();
-    prodTest.drawingPanel(shapes.getAngle());
+    prodTest.drawingPanel(shapes.getDrawRules(), shapes.getAngle());
     assertEquals("F[-F]F", prodTest.nextQueue(prodTest.drawQueue));
     assertEquals("F[+F]F[-F]F", prodTest.nextQueue(prodTest.drawQueue));
     assertEquals("F[+F]F", prodTest.nextQueue(prodTest.drawQueue));

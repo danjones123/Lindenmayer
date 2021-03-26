@@ -35,19 +35,24 @@ public class ProductionsController {
   public ProductionsController(SavedShapes shapes, ProdPainter prodPaint) {
     shapes.update();
     this.shapes = shapes;
-    initialiseQueues();
     this.prodPaint = prodPaint;
 
     prodPaint.clear();
+    drawingPanel(shapes.getDrawRules(), shapes.getAngle());
+    movingPanel(shapes.getMoveRules(), shapes.getAngle());
+    panelX(shapes.getRulesX(), shapes.getAngle());
+    panelY(shapes.getRulesY(), shapes.getAngle());
+
     showProductions();
   }
 
   /**
    * The code to draw a single F and then the production rules for drawing.
    *
+   * @param drawRules the array of drawingRules
    * @param angle the angle for the rules to rotate
    */
-  public void drawingPanel(double angle) {
+  public void drawingPanel(String[] drawRules, double angle) {
     startTurtleF = new Turtle(1, Color.RED);
     double startFirstX = ((double) Initialise.frameWidth / 4) - 15;
     double startFirstY = ((double) Initialise.frameHeight / 4) - 150;
@@ -57,15 +62,16 @@ public class ProductionsController {
     prodTurtleF = new Turtle(1);
     double startLastX = ((double) Initialise.frameWidth / 4);
     double startLastY = ((double) Initialise.frameHeight / 4);
-    setProdTurtle(prodTurtleF, 30, angle, startLastX, startLastY, drawQueue, 1, 1);
+    setProdTurtle(prodTurtleF, "F", 30, angle, startLastX, startLastY, drawRules, drawQueue, 1);
   }
 
   /**
    * The code to draw a single G and then the production rules for moving without drawing.
    *
+   * @param moveRules the array of movingRules
    * @param angle the angle for the rules to rotate
    */
-  public void movingPanel(double angle) {
+  public void movingPanel(String[] moveRules, double angle) {
     startTurtleG = new Turtle(2, Color.RED);
     double startX = ((double) 3 * Initialise.frameWidth / 4) - 15;
     double startY = ((double) Initialise.frameHeight / 4) - 150;
@@ -75,15 +81,16 @@ public class ProductionsController {
     prodTurtleG = new Turtle(2);
     double startLastX = ((double) 3 * Initialise.frameWidth / 4);
     double startLastY = ((double) Initialise.frameHeight / 4);
-    setProdTurtle(prodTurtleG, 30, angle, startLastX, startLastY, moveQueue, 3, 1);
+    setProdTurtle(prodTurtleG, "G", 30, angle, startLastX, startLastY, moveRules, moveQueue, 3);
   }
 
   /**
    * The code to draw a single X and then the production rules for X.
    *
+   * @param rulesX the array of X rules
    * @param angle the angle for the rules to rotate
    */
-  public void panelX(double angle) {
+  public void panelX(String[] rulesX, double angle) {
     startTurtleX = new Turtle(1, Color.RED);
     double startX = (double) Initialise.frameWidth / 4;
     double startY = ((double) 3 * Initialise.frameHeight / 4) - 150;
@@ -93,15 +100,16 @@ public class ProductionsController {
     prodTurtleX = new Turtle(1);
     double startLastX = ((double) Initialise.frameWidth / 4);
     double startLastY = ((double) 3 * Initialise.frameHeight / 4);
-    setProdTurtle(prodTurtleX, 30, angle, startLastX, startLastY, queueX, 1, 3);
+    setProdTurtle(prodTurtleX, "X", 30, angle, startLastX, startLastY, rulesX, queueX, 1);
   }
 
   /**
    * The code to draw a single Y and then the production rules for Y.
    *
+   * @param rulesY the array of Y rules
    * @param angle the angle for the rules to rotate
    */
-  public void panelY(double angle) {
+  public void panelY(String[] rulesY, double angle) {
     startTurtleY = new Turtle(1, Color.RED);
     double startX = ((double) 3 * Initialise.frameWidth / 4);
     double startY = ((double) 3 * Initialise.frameHeight / 4) - 150;
@@ -111,7 +119,7 @@ public class ProductionsController {
     prodTurtleY = new Turtle(1);
     double startLastX = ((double) 3 * Initialise.frameWidth / 4);
     double startLastY = ((double) 3 * Initialise.frameHeight / 4);
-    setProdTurtle(prodTurtleY, 30, angle, startLastX, startLastY, queueY, 3, 3);
+    setProdTurtle(prodTurtleY, "Y", 30, angle, startLastX, startLastY, rulesY, queueY, 3);
   }
 
 
@@ -137,26 +145,29 @@ public class ProductionsController {
    * Initialises the production turtle which shows the result of applying one production rule.
    *
    * @param turtle is the turtle to be initialised.
+   * @param word is the word which the production character is being applied to.
    * @param length is the length of the lines.
    * @param angle is the angle between the lines.
    * @param startX is the starting X co-ordinate (this will be overwritten by centre)
    * @param startY is the starting Y co-ordinate (this will be overwritten by centre)
+   * @param rules is the array of production rules to be applied.
    * @param queue is the queue that will hold and cycle through the production rules.
-   * @param sideX set to 1 if on the left of centre and 3 if on the right.
-   * @param sideY set to 1 if above centre and 3 if below.
+   * @param side set to 1 if on the left of centre and 3 if on the right.
    */
-  public void setProdTurtle(Turtle turtle, double length, double angle,
-                            double startX, double startY, Queue<String> queue,
-                            int sideX, int sideY) {
+  public void setProdTurtle(Turtle turtle, String word, double length, double angle,
+                            double startX, double startY, String[] rules, Queue<String> queue,
+                            int side) {
+    turtle.setWord(word);
     turtle.setLength(length);
     turtle.setAngle(angle);
+    prodQueue(rules, queue);
     turtle.setWord(nextQueue(queue));
 
     turtle.setCoords(startX, startY);
 
     turtle.rules();
-    turtle.centre(((double) sideX * Initialise.frameWidth / 2),
-        ((double) sideY * Initialise.frameHeight / 2));
+    turtle.centre(((double) side * Initialise.frameWidth / 2),
+        ((double) Initialise.frameHeight / 2));
     prodPaint.clear();
   }
 
@@ -169,7 +180,6 @@ public class ProductionsController {
   public void update() {
     shapes.update();
     resetQueue();
-    initialiseQueues();
     showProductions();
   }
 
@@ -181,7 +191,6 @@ public class ProductionsController {
   public void customUpdate(SavedShapes shapes) {
     this.shapes = shapes;
     resetQueue();
-    initialiseQueues();
     showProductions();
   }
 
@@ -193,10 +202,10 @@ public class ProductionsController {
   public void showProductions() {
     prodPaint.clear();
 
-    drawingPanel(shapes.getAngle());
-    movingPanel(shapes.getAngle());
-    panelX(shapes.getAngle());
-    panelY(shapes.getAngle());
+    drawingPanel(shapes.getDrawRules(), shapes.getAngle());
+    movingPanel(shapes.getMoveRules(), shapes.getAngle());
+    panelX(shapes.getRulesX(), shapes.getAngle());
+    panelY(shapes.getRulesY(), shapes.getAngle());
 
     startTurtleF.rules();
     prodTurtleF.rules();
@@ -219,7 +228,8 @@ public class ProductionsController {
    * @param queue the queue for the rules to be added to.
    */
   public void prodQueue(String[] rules, Queue<String> queue) {
-    queue.addAll(Arrays.asList(rules).subList(0, rules.length));
+    int ruleNum = rules.length;
+    queue.addAll(Arrays.asList(rules).subList(0, ruleNum));
   }
 
   /**
@@ -232,18 +242,11 @@ public class ProductionsController {
   public String nextQueue(Queue<String> queue) {
     String currentProd = queue.poll();
     queue.add(currentProd);
+    assert currentProd != null;
+    if (currentProd.equals(queue.element()) && queue.size() > 1) {
+      currentProd = queue.poll();
+    }
     return currentProd;
-  }
-
-  /**
-   * Calls prodQueue for each of the rule arrays and queues to fill the queues with the correct
-   * values.
-   */
-  public void initialiseQueues() {
-    prodQueue(shapes.getDrawRules(), drawQueue);
-    prodQueue(shapes.getMoveRules(), moveQueue);
-    prodQueue(shapes.getRulesX(), queueX);
-    prodQueue(shapes.getRulesY(), queueY);
   }
 
   /**

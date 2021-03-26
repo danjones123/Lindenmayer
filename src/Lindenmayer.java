@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class Lindenmayer {
   int currentClass = 1;
-  private int iterations;
+  int iterations;
   private String[] drawRules;
   private String[] moveRules;
   private String[] rulesX;
@@ -16,6 +16,9 @@ public class Lindenmayer {
   private Double[] probMove;
   private Double[] probX;
   private Double[] probY;
+  boolean apply = false;
+  double minAngle;
+  double maxAngle;
   double lengthScaler = 1;
   Turtle turtle;
   boolean customRulesBool = false;
@@ -64,6 +67,7 @@ public class Lindenmayer {
         }
       }
       nextWord = next.toString();
+      System.out.println(nextWord);
       next.setLength(0);
       changeLengthRatio();
     }
@@ -71,8 +75,7 @@ public class Lindenmayer {
   }
 
   /**
-   * Generate method for a stochastic turtle, can have different array of rules with multiple
-   * values.
+   * Generate method for a stochastic turtle, can have different sets of drawing rules.
    */
   public void stochGenerate() {
     String nextWord = turtle.getWord();
@@ -86,6 +89,10 @@ public class Lindenmayer {
             case 'G' -> next.append(customRandChar(moveRules, probMove));
             case 'X' -> next.append(customRandChar(rulesX, probX));
             case 'Y' -> next.append(customRandChar(rulesY, probY));
+            case '+', '-' -> {
+              angleVariance();
+              next.append(c);
+            }
             default -> next.append(c);
           }
         } else {
@@ -94,6 +101,10 @@ public class Lindenmayer {
             case 'G' -> next.append(randomChar(moveRules));
             case 'X' -> next.append(randomChar(rulesX));
             case 'Y' -> next.append(randomChar(rulesY));
+            case '+', '-' -> {
+              angleVariance();
+              next.append(c);
+            }
             default -> next.append(c);
           }
         }
@@ -102,7 +113,32 @@ public class Lindenmayer {
       next.setLength(0);
       changeLengthRatio();
     }
+    System.out.println(nextWord);
     turtle.setWord(nextWord);
+  }
+
+  /**
+   * Class for taking a user-defined range of angles for the lines to be drawn at.
+   *
+   * @param apply boolean to check if the user wants to use stochastic angles.
+   * @param minAngle the minimum angle in the range.
+   * @param maxAngle the maximum angle in the range.
+   */
+  public void stochAngle(boolean apply, double minAngle, double maxAngle) {
+    this.apply = apply;
+    this.minAngle = minAngle;
+    this.maxAngle = maxAngle;
+  }
+
+  /**
+   * Checks whether apply is true or false, if it is true it creates a random angle between the
+   * limits and sets angle to that value.
+   */
+  public void angleVariance() {
+    if (apply) {
+      double randomAngle = Math.random() * (maxAngle - minAngle + 1) + minAngle;
+      turtle.setAngle(randomAngle);
+    }
   }
 
   /**
@@ -121,6 +157,7 @@ public class Lindenmayer {
     turtle.setLength(turtle.getLength() * lengthScaler);
   }
 
+
   /**
    * Class for returning random char from a given array.
    *
@@ -128,7 +165,8 @@ public class Lindenmayer {
    * @return returns a random element from the array.
    */
   public String randomChar(String[] rules) {
-    return rules[new Random().nextInt(rules.length)];
+    int randomPosition = new Random().nextInt(rules.length);
+    return rules[randomPosition];
   }
 
   /**
@@ -269,4 +307,6 @@ public class Lindenmayer {
   public String[] getRulesY() {
     return rulesY;
   }
+
+
 }
